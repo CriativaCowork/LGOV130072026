@@ -1,0 +1,1754 @@
+
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#FF9100">
+    <title>Prep Ministério da Saúde - 300 Questões</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            background: linear-gradient(180deg, #FFDC61 0%, #FF9100 50%, #BFC5CB 100%);
+            background-attachment: fixed;
+            overflow-x: hidden;
+            touch-action: manipulation;
+            min-height: 100vh;
+        }
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px) saturate(180%);
+            -webkit-backdrop-filter: blur(12px) saturate(180%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px) saturate(180%);
+            -webkit-backdrop-filter: blur(12px) saturate(180%);
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .card-gradient {
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+        }
+
+        .btn-press {
+            transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.15s;
+        }
+        .btn-press:active {
+            transform: scale(0.92);
+            box-shadow: 0 0 0 0 rgba(0,0,0,0.2);
+        }
+        .btn-press:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .card-hover {
+            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s;
+        }
+        .card-hover:hover {
+            transform: translateY(-4px) scale(1.01);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.2);
+        }
+        .card-hover:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        .pulse-ring {
+            animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 145, 0, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 20px rgba(255, 145, 0, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 145, 0, 0); }
+        }
+
+        .toast {
+            animation: toastSlide 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes toastSlide {
+            from { transform: translateY(100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .badge {
+            transition: all 0.3s ease;
+        }
+
+        .badge:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .badge.locked {
+            filter: grayscale(100%);
+            opacity: 0.5;
+        }
+
+        .hidden-section {
+            display: none;
+        }
+
+        .active-section {
+            display: block;
+            animation: fadeIn 0.35s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .quiz-option {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .quiz-option:active {
+            transform: scale(0.96);
+        }
+
+        .quiz-option.correct {
+            background: linear-gradient(135deg, #10b981, #059669) !important;
+            color: white !important;
+            animation: correctPulse 0.6s ease;
+            border-color: #059669 !important;
+        }
+
+        .quiz-option.wrong {
+            background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+            color: white !important;
+            animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+            border-color: #dc2626 !important;
+        }
+
+        @keyframes correctPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(16, 185, 129, 0.3); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); }
+            20%, 40%, 60%, 80% { transform: translateX(8px); }
+        }
+
+        .timer-bar {
+            transition: width 1s linear;
+        }
+
+        .flashcard {
+            perspective: 1000px;
+            height: 320px;
+        }
+
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .flashcard.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .flashcard-back {
+            transform: rotateY(180deg);
+        }
+
+        .streak-fire {
+            animation: flicker 1s infinite;
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.85; transform: scale(1.05); }
+        }
+
+        .ripple {
+            position: relative;
+            overflow: hidden;
+        }
+        .ripple::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        .ripple:active::after {
+            width: 300px;
+            height: 300px;
+        }
+
+        .wrong-reaction {
+            animation: wrongShake 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+        }
+
+        @keyframes wrongShake {
+            0%, 100% { transform: translateX(0) rotate(0); }
+            20% { transform: translateX(-10px) rotate(-3deg); }
+            40% { transform: translateX(10px) rotate(3deg); }
+            60% { transform: translateX(-8px) rotate(-2deg); }
+            80% { transform: translateX(8px) rotate(2deg); }
+        }
+
+        .wrong-flash {
+            animation: wrongFlash 0.5s ease;
+        }
+
+        @keyframes wrongFlash {
+            0%, 100% { background-color: inherit; }
+            50% { background-color: #fee2e2; }
+        }
+
+        .nav-btn {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .nav-btn:active {
+            transform: scale(0.9);
+        }
+        .nav-btn.active {
+            background: linear-gradient(135deg, #FFDC61, #FF9100);
+            color: white !important;
+            transform: scale(1.05);
+        }
+        .nav-btn.active .menu-icon {
+            color: white !important;
+        }
+
+        .menu-icon {
+            color: #FF9100;
+            transition: all 0.3s ease;
+        }
+        .nav-btn:hover .menu-icon {
+            color: white;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 26px;
+            background: #d1d5db;
+            border-radius: 20px;
+            transition: background 0.3s;
+        }
+        .toggle-switch.active {
+            background: #10b981;
+        }
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .toggle-switch.active::after {
+            transform: translateX(24px);
+        }
+
+        .editable-name {
+            cursor: pointer;
+            border-bottom: 2px dashed transparent;
+            transition: border-color 0.3s;
+        }
+        .editable-name:hover {
+            border-bottom-color: #FF9100;
+        }
+        .editable-name.editing {
+            border-bottom-color: #FF9100;
+        }
+
+        .expand-btn {
+            transition: transform 0.3s;
+        }
+        .expand-btn.expanded {
+            transform: rotate(180deg);
+        }
+
+        .answer-scroll {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+        .answer-scroll.expanded {
+            max-height: 500px;
+        }
+
+        .countdown {
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .option-letter {
+            background: linear-gradient(135deg, #FFDC61 0%, #FF9100 100%);
+            color: white;
+            box-shadow: 0 4px 8px rgba(255, 145, 0, 0.35);
+            transition: all 0.25s ease;
+        }
+
+        .external-menu-btn {
+            background: linear-gradient(135deg, #FFDC61 0%, #FF9100 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(255, 145, 0, 0.4);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .external-menu-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 16px rgba(255, 145, 0, 0.5);
+        }
+        .external-menu-btn:active {
+            transform: scale(0.95);
+        }
+
+        .nav-arrow-gradient {
+            background: linear-gradient(135deg, #FFDC61 0%, #FF9100 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .elite-badge {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #1e293b;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-20">
+
+    <header class="fixed top-0 w-full z-50 glass-effect shadow-lg">
+        <div class="flex justify-between items-center p-4">
+            <div class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-full flex items-center justify-center text-white font-bold pulse-ring">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold text-gray-800">Prep Ministério da Saúde</h1>
+                    <p class="text-xs text-gray-600">300 Questões • <span class="elite-badge">Concurso de Ingresso</span></p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <a href="https://criativacowork.github.io/LGOV130072026/assets/1111.html" class="external-menu-btn w-10 h-10 rounded-full flex items-center justify-center btn-press" title="Outros Temas">
+                    <i class="fas fa-th-large text-sm"></i>
+                </a>
+                <div class="text-right hidden sm:block">
+                    <div class="text-sm font-bold text-gray-800" id="userName">Candidato</div>
+                    <div class="text-xs text-gray-600" id="userLevel">Nível 1</div>
+                </div>
+                <button onclick="app.showProfile()" class="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full text-white flex items-center justify-center shadow-lg btn-press">
+                    <i class="fas fa-user"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="pt-20 px-4 max-w-md mx-auto">
+        
+        <section id="dashboard" class="active-section space-y-4">
+            <div class="card-gradient rounded-2xl p-6 text-white shadow-xl card-hover">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <h2 class="text-2xl font-bold mb-1">Bem-vindo! 👋</h2>
+                        <p class="text-white/90 text-sm">Concurso de Ingresso - Ministério da Saúde</p>
+                    </div>
+                    <div class="bg-white/20 rounded-full p-2 streak-fire">
+                        <i class="fas fa-fire text-yellow-300 text-xl"></i>
+                    </div>
+                </div>
+                <div class="flex gap-4 mt-4">
+                    <div class="bg-white/20 rounded-xl p-3 flex-1 text-center btn-press">
+                        <div class="text-2xl font-bold" id="totalStreak">0</div>
+                        <div class="text-xs">Dias seguidos</div>
+                    </div>
+                    <div class="bg-white/20 rounded-xl p-3 flex-1 text-center btn-press">
+                        <div class="text-2xl font-bold" id="totalPoints">0</div>
+                        <div class="text-xs">Pontos XP</div>
+                    </div>
+                    <div class="bg-white/20 rounded-xl p-3 flex-1 text-center btn-press">
+                        <div class="text-2xl font-bold" id="totalBadges">0</div>
+                        <div class="text-xs">Medalhas</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div class="bg-white rounded-2xl p-4 shadow-lg card-hover cursor-pointer" onclick="app.navigateTo('learning')">
+                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-2">
+                        <i class="fas fa-book menu-icon text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-800">Aprender</h3>
+                    <p class="text-xs text-gray-500">Conteúdo teórico</p>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-4 shadow-lg card-hover cursor-pointer" onclick="app.navigateTo('questions')">
+                    <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mb-2">
+                        <i class="fas fa-question-circle menu-icon text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-800">Questões</h3>
+                    <p class="text-xs text-gray-500" id="questionsProgress">0/300</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 shadow-lg">
+                <h3 class="font-bold text-gray-800 mb-3">Modo de Estudo</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <button onclick="app.setStudyMode('flashcard')" class="study-mode-btn active bg-gradient-to-r from-orange-400 to-orange-600 text-white py-3 rounded-xl text-sm font-semibold btn-press ripple">
+                        <i class="fas fa-clone block mb-1"></i>
+                        Flashcards
+                    </button>
+                    <button onclick="app.setStudyMode('quiz')" class="study-mode-btn bg-gray-100 text-gray-600 py-3 rounded-xl text-sm font-semibold btn-press ripple">
+                        <i class="fas fa-check-circle block mb-1"></i>
+                        Quiz
+                    </button>
+                    <button onclick="app.setStudyMode('multiple')" class="study-mode-btn bg-gray-100 text-gray-600 py-3 rounded-xl text-sm font-semibold btn-press ripple">
+                        <i class="fas fa-list-ul block mb-1"></i>
+                        Múltipla Escolha
+                    </button>
+                    <button onclick="app.setStudyMode('timer')" class="study-mode-btn bg-gray-100 text-gray-600 py-3 rounded-xl text-sm font-semibold btn-press ripple">
+                        <i class="fas fa-stopwatch block mb-1"></i>
+                        Cronómetro
+                    </button>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 shadow-lg">
+                <h3 class="font-bold text-gray-800 mb-3 flex items-center gap-2">
+                    <i class="fas fa-tasks text-purple-600"></i>
+                    Objetivos de Hoje
+                </h3>
+                <div id="dailyGoals" class="space-y-2"></div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 shadow-lg">
+                <h3 class="font-bold text-gray-800 mb-3">Atividade Recente</h3>
+                <div id="recentActivity" class="space-y-2 text-sm text-gray-600">
+                    <p class="text-center py-4">Sem atividade recente</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="learning" class="hidden-section space-y-4">
+            <div class="flex items-center gap-3 mb-4">
+                <button onclick="app.navigateTo('dashboard')" class="w-10 h-10 bg-white rounded-full shadow flex items-center justify-center btn-press">
+                    <i class="fas fa-arrow-left nav-arrow-gradient text-xl"></i>
+                </button>
+                <h2 class="text-2xl font-bold text-white">Conteúdo Teórico</h2>
+            </div>
+            <div class="space-y-3" id="learningTopics"></div>
+        </section>
+
+        <section id="learningContent" class="hidden-section">
+            <div class="bg-white rounded-2xl shadow-xl p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <button onclick="app.navigateTo('learning')" class="w-10 h-10 bg-white rounded-full shadow flex items-center justify-center btn-press">
+                        <i class="fas fa-arrow-left nav-arrow-gradient text-xl"></i>
+                    </button>
+                    <h3 class="text-lg font-bold text-gray-800" id="learningTitle">Título</h3>
+                </div>
+                <div id="learningText" class="prose prose-sm max-w-none text-gray-700 space-y-4"></div>
+            </div>
+        </section>
+
+        <section id="questions" class="hidden-section space-y-4">
+            <div class="flex items-center gap-3 mb-4">
+                <button onclick="app.navigateTo('dashboard')" class="w-10 h-10 bg-white rounded-full shadow flex items-center justify-center btn-press">
+                    <i class="fas fa-arrow-left nav-arrow-gradient text-xl"></i>
+                </button>
+                <h2 class="text-2xl font-bold text-white">Questões</h2>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 shadow-lg">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-sm font-semibold text-gray-700">Progresso Geral</span>
+                    <span class="text-sm font-bold text-blue-600" id="totalProgress">0/300</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-3">
+                    <div class="bg-gradient-to-r from-blue-500 to-purple-500 h-3 rounded-full transition-all" id="totalProgressBar" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <div class="space-y-3" id="questionBlocks"></div>
+        </section>
+
+        <section id="flashcardInterface" class="hidden-section">
+            <div class="bg-white rounded-2xl shadow-xl p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <button onclick="app.navigateTo('questions')" class="w-10 h-10 bg-white rounded-full shadow flex items-center justify-center btn-press">
+                        <i class="fas fa-arrow-left nav-arrow-gradient text-xl"></i>
+                    </button>
+                    <span class="text-sm font-bold text-gray-600" id="flashcardCounter">1/20</span>
+                </div>
+
+                <div class="flashcard mb-6 cursor-pointer" onclick="this.classList.toggle('flipped')">
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front bg-gradient-to-br from-blue-500 to-purple-600 text-white shadow-lg">
+                            <div>
+                                <div class="text-xs uppercase tracking-wide mb-2 opacity-75">Pergunta</div>
+                                <div class="text-lg font-semibold" id="flashcardQuestion">Pergunta aqui...</div>
+                            </div>
+                        </div>
+                        <div class="flashcard-back bg-gradient-to-br from-green-500 to-teal-600 text-white shadow-lg">
+                            <div>
+                                <div class="text-xs uppercase tracking-wide mb-2 opacity-75">Resposta</div>
+                                <div class="text-sm" id="flashcardAnswer">Resposta aqui...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex gap-3">
+                    <button onclick="app.markFlashcard('difficult')" class="flex-1 bg-red-500 text-white py-3 rounded-xl font-bold btn-press ripple">
+                        <i class="fas fa-times mr-2"></i>Difícil
+                    </button>
+                    <button onclick="app.markFlashcard('easy')" class="flex-1 bg-green-500 text-white py-3 rounded-xl font-bold btn-press ripple">
+                        <i class="fas fa-check mr-2"></i>Fácil
+                    </button>
+                </div>
+
+                <button onclick="app.nextFlashcard()" class="w-full mt-3 bg-gradient-to-r from-orange-400 to-orange-600 text-white py-3 rounded-xl font-bold btn-press ripple">
+                    Próxima <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </section>
+
+        <section id="quizInterface" class="hidden-section">
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                <div class="w-full bg-gray-200 h-2">
+                    <div id="quizTimerBar" class="bg-red-500 h-2 timer-bar" style="width: 100%"></div>
+                </div>
+                
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-sm text-gray-500" id="quizCounter">1/10</span>
+                        <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm font-bold" id="quizScore">0 pts</span>
+                    </div>
+
+                    <div class="mb-4">
+                        <span class="text-xs font-bold text-purple-600 uppercase tracking-wide" id="quizCategory">Categoria</span>
+                        <h3 class="text-lg font-bold text-gray-800 mt-2" id="quizQuestion">Pergunta aqui...</h3>
+                    </div>
+
+                    <div class="flex items-center justify-between bg-gray-50 p-3 rounded-xl mb-4">
+                        <span class="text-sm font-semibold text-gray-700"><i class="fas fa-eye mr-2"></i>Mostrar resposta</span>
+                        <div id="answerToggle" class="toggle-switch active" onclick="app.toggleAnswerVisibility()"></div>
+                    </div>
+
+                    <div id="answerContainer" class="bg-gray-50 p-4 rounded-xl mb-4 transition-all">
+                        <p class="text-sm text-gray-700" id="quizAnswer">Resposta aqui...</p>
+                    </div>
+
+                    <div class="flex gap-3">
+                        <button onclick="app.markQuizAnswer('correct')" class="flex-1 bg-green-500 text-white py-3 rounded-xl font-bold btn-press ripple">
+                            <i class="fas fa-check mr-2"></i>Correto
+                        </button>
+                        <button onclick="app.markQuizAnswer('wrong')" class="flex-1 bg-red-500 text-white py-3 rounded-xl font-bold btn-press ripple">
+                            <i class="fas fa-times mr-2"></i>Errado
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="multipleInterface" class="hidden-section">
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                <div class="w-full bg-gray-200 h-2">
+                    <div id="multipleTimerBar" class="bg-red-500 h-2 timer-bar" style="width: 100%"></div>
+                </div>
+                
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <button onclick="app.navigateTo('questions')" class="w-10 h-10 bg-white rounded-full shadow flex items-center justify-center btn-press">
+                            <i class="fas fa-arrow-left nav-arrow-gradient text-xl"></i>
+                        </button>
+                        <div class="flex items-center gap-2">
+                            <span class="text-sm text-gray-500 font-semibold" id="multipleCounter">1/10</span>
+                            <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm font-bold" id="multipleScore">0 pts</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <span class="text-xs font-bold text-purple-600 uppercase tracking-wide" id="multipleCategory">Categoria</span>
+                        <h3 class="text-lg font-bold text-gray-800 mt-2" id="multipleQuestion">Pergunta aqui...</h3>
+                    </div>
+
+                    <div id="multipleOptions" class="space-y-3"></div>
+
+                    <div id="multipleFeedback" class="hidden mt-4">
+                        <div class="p-4 rounded-xl mb-3" id="feedbackBox">
+                            <p class="font-semibold mb-2" id="feedbackText"></p>
+                            <div class="flex items-start gap-2 mb-2">
+                                <button onclick="app.toggleAnswerExpand()" class="expand-btn text-blue-600 mt-1">
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                                <div class="flex-1">
+                                    <p class="text-xs font-bold text-gray-700 mb-1">Resposta Correta:</p>
+                                    <div id="correctAnswerBox" class="answer-scroll">
+                                        <p class="text-sm text-gray-700 bg-white p-3 rounded-lg" id="feedbackExplanation"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="wrongActionButtons" class="hidden">
+                            <div class="flex items-center justify-between bg-orange-50 p-3 rounded-xl mb-3">
+                                <div class="flex items-center gap-2">
+                                    <i class="fas fa-clock text-orange-600 countdown" id="countdownIcon"></i>
+                                    <span class="text-sm font-semibold text-orange-800">Próxima em: <span id="countdownTimer" class="font-bold">60</span>s</span>
+                                </div>
+                            </div>
+                            <button onclick="app.nextMultipleQuestion()" class="w-full bg-gradient-to-r from-orange-400 to-orange-600 text-white py-3 rounded-xl font-bold btn-press ripple">
+                                <i class="fas fa-arrow-right mr-2"></i>Próxima Pergunta
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="profile" class="hidden-section space-y-4">
+            <div class="flex items-center gap-3 mb-4">
+                <button onclick="app.navigateTo('dashboard')" class="w-10 h-10 bg-white rounded-full shadow flex items-center justify-center btn-press">
+                    <i class="fas fa-arrow-left nav-arrow-gradient text-xl"></i>
+                </button>
+                <h2 class="text-2xl font-bold text-white">Perfil & Progresso</h2>
+            </div>
+
+            <div class="bg-white rounded-2xl p-6 shadow-lg text-center">
+                <div class="w-24 h-24 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-3xl font-bold">
+                    <span id="profileInitial">U</span>
+                </div>
+                
+                <div class="mb-2">
+                    <h3 class="text-xl font-bold text-gray-800 editable-name" id="profileName" onclick="app.editName()">
+                        Utilizador
+                        <i class="fas fa-pen text-xs text-gray-400 ml-2"></i>
+                    </h3>
+                    <input type="text" id="nameInput" class="hidden text-center text-xl font-bold border-b-2 border-orange-500 focus:outline-none bg-transparent" onblur="app.saveName()" onkeypress="if(event.key==='Enter')app.saveName()">
+                </div>
+                
+                <p class="text-gray-500 text-sm">Membro desde <span id="memberSince">--</span></p>
+                
+                <div class="flex justify-center gap-4 mt-4">
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-blue-600" id="profileCorrect">0</div>
+                        <div class="text-xs text-gray-500">Corretas</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-red-600" id="profileWrong">0</div>
+                        <div class="text-xs text-gray-500">Erradas</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-purple-600" id="profileTotal">0%</div>
+                        <div class="text-xs text-gray-500">Taxa Acerto</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 shadow-lg">
+                <h3 class="font-bold text-gray-800 mb-3">Medalhas Conquistadas</h3>
+                <div id="badgesGrid" class="grid grid-cols-4 gap-3"></div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 shadow-lg space-y-3">
+                <h3 class="font-bold text-gray-800">Dados & Backup</h3>
+                <button onclick="app.exportData()" class="w-full bg-gradient-to-r from-orange-400 to-orange-600 text-white py-3 rounded-xl font-semibold btn-press ripple">
+                    <i class="fas fa-download mr-2"></i>Exportar Progresso (JSON)
+                </button>
+                <label class="w-full bg-gray-600 text-white py-3 rounded-xl font-semibold text-center cursor-pointer block btn-press">
+                    <i class="fas fa-upload mr-2"></i>Importar Progresso
+                    <input type="file" accept=".json" onchange="app.importData(this)" class="hidden">
+                </label>
+                <button onclick="app.resetProgress()" class="w-full bg-red-500 text-white py-3 rounded-xl font-semibold btn-press ripple">
+                    <i class="fas fa-trash mr-2"></i>Reiniciar Progresso
+                </button>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 shadow-lg">
+                <h3 class="font-bold text-gray-800 mb-3">Histórico de Sessões</h3>
+                <div id="sessionHistory" class="space-y-2 max-h-64 overflow-y-auto">
+                    <p class="text-center text-gray-400 py-4">Sem sessões realizadas</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <nav class="fixed bottom-0 w-full glass-nav shadow-lg z-50">
+        <div class="flex justify-around items-center p-2 max-w-md mx-auto">
+            <button onclick="app.navigateTo('dashboard')" class="nav-btn active flex-1 py-3 px-2 rounded-xl text-center" data-target="dashboard">
+                <i class="fas fa-home menu-icon text-xl mb-1 block"></i>
+                <span class="text-xs">Início</span>
+            </button>
+            <button onclick="app.navigateTo('learning')" class="nav-btn flex-1 py-3 px-2 rounded-xl text-center" data-target="learning">
+                <i class="fas fa-book menu-icon text-xl mb-1 block"></i>
+                <span class="text-xs">Aprender</span>
+            </button>
+            <button onclick="app.navigateTo('questions')" class="nav-btn flex-1 py-3 px-2 rounded-xl text-center" data-target="questions">
+                <i class="fas fa-question-circle menu-icon text-xl mb-1 block"></i>
+                <span class="text-xs">Questões</span>
+            </button>
+            <button onclick="app.navigateTo('profile')" class="nav-btn flex-1 py-3 px-2 rounded-xl text-center" data-target="profile">
+                <i class="fas fa-user menu-icon text-xl mb-1 block"></i>
+                <span class="text-xs">Perfil</span>
+            </button>
+        </div>
+    </nav>
+
+    <div id="toastContainer" class="fixed bottom-20 left-0 right-0 z-50 pointer-events-none px-4"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script>
+        const appData = {
+            learning: {
+                topics: [
+                    {
+                        id: 'legislacao_etica',
+                        title: 'Legislação da Saúde e Ética Profissional',
+                        icon: 'fa-balance-scale',
+                        color: 'bg-blue-500',
+                        content: `<h4 class="font-bold text-lg mb-2">Sistema Nacional de Saúde</h4><p class="mb-3">Regido pela <strong>Lei n.º 21-B/92</strong> e Lei n.º 7/04, organiza-se em níveis de cuidados: primário, secundário e terciário.</p><h4 class="font-bold text-lg mb-2">Princípios Éticos</h4><ul class="list-disc pl-5 mb-3 space-y-1"><li><strong>Beneficência:</strong> Agir em benefício do paciente</li><li><strong>Não-maleficência:</strong> Não causar dano</li><li><strong>Autonomia:</strong> Respeitar decisões do paciente</li><li><strong>Justiça:</strong> Distribuição equitativa de recursos</li></ul><h4 class="font-bold text-lg mb-2">Consentimento Informado</h4><p class="mb-3">Autorização livre e esclarecida do paciente após informação adequada sobre diagnóstico, tratamento e riscos.</p><h4 class="font-bold text-lg mb-2">Segredo Profissional</h4><p class="mb-3">Dever de confidencialidade sobre informações dos pacientes, exceto em situações legais específicas.</p><h4 class="font-bold text-lg mb-2">Direitos dos Doentes</h4><ul class="list-disc pl-5 space-y-1"><li>Direito à informação</li><li>Direito à privacidade</li><li>Direito à segunda opinião</li><li>Direito ao consentimento informado</li><li>Direito à confidencialidade</li></ul>`
+                    },
+                    {
+                        id: 'carreira_medica',
+                        title: 'Carreira Médica',
+                        icon: 'fa-user-md',
+                        color: 'bg-red-500',
+                        content: `<h4 class="font-bold text-lg mb-2">Categorias</h4><ul class="list-disc pl-5 mb-3 space-y-1"><li><strong>Médico Assistente:</strong> Diagnóstico, tratamento e acompanhamento</li><li><strong>Médico Geral / Interno de Especialidade:</strong> Formação especializada</li></ul><h4 class="font-bold text-lg mb-2">Competências Essenciais</h4><ul class="list-disc pl-5 mb-3 space-y-1"><li>Anamnese e exame físico</li><li>Diagnóstico diferencial</li><li>Prescrição médica</li><li>Abordagem de emergências (ABCDE)</li><li>Procedimentos clínicos</li></ul><h4 class="font-bold text-lg mb-2">Patologias Frequentes</h4><div class="bg-red-50 p-3 rounded-xl mb-3"><p class="font-semibold mb-2">Doenças Crónicas:</p><ul class="list-disc pl-5 text-sm space-y-1"><li>Hipertensão arterial (PA ≥ 140/90)</li><li>Diabetes mellitus (Glicemia ≥ 126 mg/dL)</li><li>Asma e DPOC</li><li>Insuficiência cardíaca</li></ul></div><div class="bg-orange-50 p-3 rounded-xl mb-3"><p class="font-semibold mb-2">Doenças Infecciosas:</p><ul class="list-disc pl-5 text-sm space-y-1"><li>Tuberculose (esquema RHZE)</li><li>Malária (antimaláricos)</li><li>HIV/SIDA</li><li>Hepatites virais</li></ul></div><h4 class="font-bold text-lg mb-2">Emergências</h4><ul class="list-disc pl-5 space-y-1"><li>IAM: ECG, troponinas</li><li>AVC: TC craniana</li><li>Sepse: antibióticos, hidratação</li><li>Choque: suporte circulatório</li></ul>`
+                    },
+                    {
+                        id: 'enfermagem',
+                        title: 'Enfermagem',
+                        icon: 'fa-stethoscope',
+                        color: 'bg-green-500',
+                        content: `<h4 class="font-bold text-lg mb-2">Categorias</h4><ul class="list-disc pl-5 mb-3 space-y-1"><li><strong>Enfermeiro de 3ª Classe</strong></li><li><strong>Técnico Médio de Enfermagem de 3ª Classe</strong></li></ul><h4 class="font-bold text-lg mb-2">Processo de Enfermagem (ADPIE)</h4><ol class="list-decimal pl-5 mb-3 space-y-1"><li>Avaliação</li><li>Diagnóstico de enfermagem</li><li>Planeamento</li><li>Implementação</li><li>Avaliação</li></ol><h4 class="font-bold text-lg mb-2">Sinais Vitais</h4><div class="bg-green-50 p-3 rounded-xl mb-3"><ul class="list-disc pl-5 text-sm space-y-1"><li>Temperatura: 36,5-37,5°C</li><li>Pulso: 60-100 bpm</li><li>Respiração: 12-20 rpm</li><li>PA: < 120/80 mmHg</li></ul></div><h4 class="font-bold text-lg mb-2">Procedimentos</h4><ul class="list-disc pl-5 mb-3 space-y-1"><li>Punção venosa</li><li>Administração de medicamentos (5 certos)</li><li>Curativos e feridas</li><li>Sondagens (nasogástrica, vesical)</li><li>RCP (C-A-B, 100-120/min)</li></ul><h4 class="font-bold text-lg mb-2">Higiene e Prevenção</h4><ul class="list-disc pl-5 space-y-1"><li>Higiene das mãos</li><li>EPIs (luvas, máscara, óculos, avental)</li><li>Precauções padrão, contacto, respiratória</li><li>Gestão de resíduos hospitalares</li></ul>`
+                    },
+                    {
+                        id: 'diagnostico_terapeutica',
+                        title: 'Diagnóstico e Terapêutica',
+                        icon: 'fa-microscope',
+                        color: 'bg-purple-500',
+                        content: `<h4 class="font-bold text-lg mb-2">Categorias</h4><ul class="list-disc pl-5 mb-3 space-y-1"><li><strong>Técnico Superior de Diagnóstico Terapêutica de 2ª Classe</strong></li><li><strong>Técnico Médio de Diagnóstico Terapêutica de 2ª Classe</strong></li></ul><h4 class="font-bold text-lg mb-2">Exames Laboratoriais</h4><div class="bg-purple-50 p-3 rounded-xl mb-3"><p class="font-semibold mb-2">Hemograma:</p><ul class="list-disc pl-5 text-sm space-y-1"><li>Hemácias, leucócitos, plaquetas</li><li>Anemia: Hb < 13 g/dL (H), < 12 g/dL (M)</li></ul></div><div class="bg-blue-50 p-3 rounded-xl mb-3"><p class="font-semibold mb-2">Bioquímica:</p><ul class="list-disc pl-5 text-sm space-y-1"><li>Glicemia: 70-100 mg/dL (jejum)</li><li>Colesterol total: < 200 mg/dL</li><li>Ureia, creatinina (função renal)</li><li>TGO, TGP, bilirrubina (função hepática)</li></ul></div><h4 class="font-bold text-lg mb-2">Exames de Imagem</h4><ul class="list-disc pl-5 mb-3 space-y-1"><li>Raio-X: radiação ionizante</li><li>Ecografia: ultrassons</li><li>TAC: raios-X + computador</li><li>Ressonância: campo magnético</li></ul><h4 class="font-bold text-lg mb-2">Exames Especiais</h4><ul class="list-disc pl-5 space-y-1"><li>Urocultura e antibiograma</li><li>Hemocultura</li><li>Serologia (HIV, hepatites)</li><li>LCR (punção lombar)</li><li>Tipagem sanguínea e prova cruzada</li></ul>`
+                    },
+                    {
+                        id: 'apoio_hospitalar',
+                        title: 'Apoio Hospitalar',
+                        icon: 'fa-hospital',
+                        color: 'bg-orange-500',
+                        content: `<h4 class="font-bold text-lg mb-2">Categorias</h4><ul class="list-disc pl-5 mb-3 space-y-1"><li><strong>Condutor de Ambulância de 3ª Classe</strong></li><li><strong>Vigilante de 3ª Classe</strong></li><li><strong>Secretário Clínico de 3ª Classe</strong></li><li><strong>Maqueiro de 3ª Classe</strong></li></ul><h4 class="font-bold text-lg mb-2">Condutor de Ambulância</h4><ul class="list-disc pl-5 mb-3 space-y-1"><li>Condução segura em emergência</li><li>Triagem (START): Vermelho, Amarelo, Verde, Preto</li><li>Transporte de pacientes</li></ul><h4 class="font-bold text-lg mb-2">Vigilante</h4><ul class="list-disc pl-5 mb-3 space-y-1"><li>Controlo de acesso</li><li>Vigilância e segurança</li><li>Prevenção de incidentes</li></ul><h4 class="font-bold text-lg mb-2">Secretário Clínico</h4><ul class="list-disc pl-5 mb-3 space-y-1"><li>Gestão administrativa</li><li>Arquivo clínico (10-20 anos)</li><li>Marcação de consultas</li><li>Confidencialidade de dados</li></ul><h4 class="font-bold text-lg mb-2">Maqueiro</h4><ul class="list-disc pl-5 mb-3 space-y-1"><li>Transporte de pacientes (maca, cadeira de rodas)</li><li>Apoio em procedimentos</li><li>Manutenção de material</li></ul><h4 class="font-bold text-lg mb-2">Higiene e Segurança</h4><ul class="list-disc pl-5 space-y-1"><li>Limpeza concorrente e terminal</li><li>Desinfecção e esterilização</li><li>Resíduos hospitalares (5 grupos)</li><li>EPIs e precauções</li></ul>`
+                    }
+                ]
+            },
+            questions: [
+                { id: 1, block: 1, q: 'Qual é a lei que estabelece o Sistema Nacional de Saúde em Angola?', a: 'Lei n.º 21-B/92, complementada pela Lei n.º 7/04, que organiza o SNS em níveis de cuidados primário, secundário e terciário.' },
+                { id: 2, block: 1, q: 'O que estabelece o princípio da universalidade no acesso aos cuidados de saúde?', a: 'Todos os cidadãos têm direito a cuidados de saúde independentemente da sua condição socioeconómica, étnica ou geográfica.' },
+                { id: 3, block: 1, q: 'Qual é a idade mínima para consentimento informado em Angola?', a: '18 anos (maioridade civil), salvo emancipação ou situações específicas previstas em lei.' },
+                { id: 4, block: 1, q: 'O que é o segredo profissional na área da saúde?', a: 'Dever de confidencialidade sobre informações dos pacientes, exceto em situações legais específicas (notificação obrigatória, ordem judicial).' },
+                { id: 5, block: 1, q: 'Qual órgão tutela o Ministério da Saúde em Angola?', a: 'O Ministério da Saúde está integrado na Administração Central do Estado, sob tutela do Presidente da República e do Governo.' },
+                { id: 6, block: 1, q: 'O que estabelece a Lei de Bases da Saúde sobre a participação comunitária?', a: 'As comunidades devem participar na planificação, gestão e avaliação dos serviços de saúde, através de estruturas representativas.' },
+                { id: 7, block: 1, q: 'Qual é a duração do período de experiência para funcionários públicos na saúde?', a: '1 ano (12 meses), conforme o Estatuto Geral dos Funcionários e Agentes da Administração Pública.' },
+                { id: 8, block: 1, q: 'O que é a ética biomédica?', a: 'Estudo dos princípios morais aplicados à medicina e biologia, incluindo beneficência, não-maleficência, autonomia e justiça.' },
+                { id: 9, block: 1, q: 'Qual princípio ético defende "não causar dano" ao paciente?', a: 'Princípio da Não-maleficência (primum non nocere).' },
+                { id: 10, block: 1, q: 'O que estabelece o princípio da beneficência?', a: 'Agir sempre em benefício do paciente, promovendo o seu bem-estar e saúde.' },
+                { id: 11, block: 1, q: 'Qual é o documento que regula os direitos e deveres dos doentes em Angola?', a: 'Carta dos Direitos dos Doentes, que consagra direitos como informação, privacidade, consentimento e qualidade dos cuidados.' },
+                { id: 12, block: 1, q: 'O que é o consentimento informado?', a: 'Autorização livre e esclarecida do paciente após informação adequada sobre diagnóstico, tratamento, riscos e alternativas.' },
+                { id: 13, block: 1, q: 'Qual a idade legal para maioridade em Angola?', a: '18 anos, conforme o Código Civil angolano.' },
+                { id: 14, block: 1, q: 'O que é a eutanásia e qual o seu estatuto legal em Angola?', a: 'Prática ilegal e punível por lei em Angola. Consiste em provocar intencionalmente a morte de um paciente.' },
+                { id: 15, block: 1, q: 'Qual princípio ético garante a distribuição justa de recursos de saúde?', a: 'Princípio da Justiça, que defende equidade na alocação de recursos e acesso aos cuidados.' },
+                { id: 16, block: 1, q: 'O que estabelece a Lei n.º 7/04 sobre a organização do Sistema Nacional de Saúde?', a: 'Organização em níveis de cuidados (primário, secundário, terciário) e princípios de universalidade, equidade e qualidade.' },
+                { id: 17, block: 1, q: 'Qual é a função do Conselho de Ética em saúde?', a: 'Apreciar questões éticas e deontológicas, aconselhar profissionais e instituições sobre dilemas morais na prática clínica.' },
+                { id: 18, block: 1, q: 'O que é a negligência médica?', a: 'Falha em prestar cuidados adequados por descuido, imperícia ou imprudência, causando dano ao paciente.' },
+                { id: 19, block: 1, q: 'Qual documento internacional influencia a ética médica em Angola?', a: 'Declaração de Helsínquia (1964), que estabelece princípios éticos para investigação em seres humanos.' },
+                { id: 20, block: 1, q: 'O que é o prontuário médico?', a: 'Conjunto de registos clínicos do paciente, incluindo anamnese, exames, diagnósticos, tratamentos e evolução.' },
+                { id: 21, block: 1, q: 'Qual é o prazo de conservação dos processos clínicos?', a: 'Mínimo de 10-20 anos, conforme legislação específica de arquivo e proteção de dados.' },
+                { id: 22, block: 1, q: 'O que estabelece a lei sobre a doação de órgãos em Angola?', a: 'Permitida com consentimento expresso do dador em vida ou da família após morte, respeitando critérios médicos e éticos.' },
+                { id: 23, block: 1, q: 'Qual é o dever do profissional de saúde perante um paciente em risco de vida?', a: 'Prestar socorro imediato, independentemente de autorização familiar ou administrativa.' },
+                { id: 24, block: 1, q: 'O que é a responsabilidade civil profissional?', a: 'Obrigação de indemnizar por danos causados a terceiros no exercício da profissão, por ação ou omissão.' },
+                { id: 25, block: 1, q: 'Qual princípio defende o respeito pela autonomia do paciente?', a: 'Princípio da Autonomia, que garante ao paciente o direito de decidir sobre o seu tratamento, incluindo recusá-lo.' },
+                { id: 26, block: 1, q: 'O que é o código deontológico?', a: 'Conjunto de normas éticas e profissionais que regulam a conduta dos profissionais de saúde.' },
+                { id: 27, block: 1, q: 'Qual é a sanção máxima por violação ética grave?', a: 'Expulsão da ordem/profissão, além de possíveis sanções civis e criminais.' },
+                { id: 28, block: 1, q: 'O que estabelece a lei sobre a saúde ocupacional?', a: 'Proteção da saúde e segurança dos trabalhadores, com medidas de prevenção de riscos profissionais.' },
+                { id: 29, block: 1, q: 'Qual é o direito do paciente à segunda opinião médica?', a: 'Direito reconhecido de consultar outro profissional para confirmar ou questionar diagnóstico e tratamento.' },
+                { id: 30, block: 1, q: 'O que é o erro médico?', a: 'Ação ou omissão que causa dano ao paciente, por imperícia, imprudência ou negligência.' },
+                { id: 31, block: 1, q: 'Qual a diferença entre erro médico e complicação?', a: 'Erro é evitável e resulta de falha profissional; complicação pode ser inevitável, mesmo com cuidados adequados.' },
+                { id: 32, block: 1, q: 'O que estabelece a lei sobre a saúde reprodutiva?', a: 'Direitos reprodutivos, planeamento familiar, acesso a métodos contraceptivos e saúde materna.' },
+                { id: 33, block: 1, q: 'Qual é o dever de notificação de doenças?', a: 'Notificar doenças transmissíveis às autoridades de saúde pública, conforme lista de notificação obrigatória.' },
+                { id: 34, block: 1, q: 'O que é a saúde pública?', a: 'Ciência de proteger e melhorar a saúde das comunidades através de prevenção, educação e políticas de saúde.' },
+                { id: 35, block: 1, q: 'Qual princípio orienta a priorização de recursos escassos?', a: 'Critérios de gravidade e necessidade clínica, com equidade e transparência.' },
+                { id: 36, block: 1, q: 'O que é a triagem em emergências?', a: 'Classificação de pacientes por prioridade clínica, usando sistema de cores (vermelho, amarelo, verde, preto).' },
+                { id: 37, block: 1, q: 'Qual é o direito à privacidade do paciente?', a: 'Direito à confidencialidade das informações clínicas e respeito pela intimidade durante exames e tratamentos.' },
+                { id: 38, block: 1, q: 'O que estabelece a lei sobre a saúde mental?', a: 'Proteção dos direitos dos doentes mentais, com tratamento digno e integração comunitária.' },
+                { id: 39, block: 1, q: 'Qual é a responsabilidade do profissional perante maus-tratos?', a: 'Notificar às autoridades competentes (Ministério Público, serviços de proteção), especialmente em casos de menores e vulneráveis.' },
+                { id: 40, block: 1, q: 'O que é a objecção de consciência na saúde?', a: 'Direito de recusar participar em certos procedimentos por convicção moral/religiosa, garantindo encaminhamento do paciente.' },
+                { id: 41, block: 1, q: 'Qual o dever do profissional em caso de epidemia?', a: 'Colaborar com medidas de saúde pública, respeitando protocolos de prevenção e tratamento.' },
+                { id: 42, block: 1, q: 'O que é o assédio moral no ambiente de trabalho em saúde?', a: 'Conduta abusiva, repetitiva, que ofende a dignidade do trabalhador, criando ambiente hostil.' },
+                { id: 43, block: 1, q: 'Qual é o direito à informação do paciente?', a: 'Receber informações claras, completas e compreensíveis sobre diagnóstico, tratamento, riscos e prognóstico.' },
+                { id: 44, block: 1, q: 'O que estabelece a lei sobre a experimentação em seres humanos?', a: 'Consentimento informado obrigatório, aprovação de comités de ética, e respeito pela dignidade e segurança dos participantes.' },
+                { id: 45, block: 1, q: 'Qual é o dever de formação contínua dos profissionais de saúde?', a: 'Obrigação de atualização de conhecimentos e competências ao longo da carreira profissional.' },
+                { id: 46, block: 1, q: 'O que é a discriminação no acesso à saúde?', a: 'Tratamento desigual baseado em características pessoais (raça, género, religião, etc.), proibido por lei.' },
+                { id: 47, block: 1, q: 'Qual princípio garante o acesso equitativo à saúde?', a: 'Justiça e equidade, assegurando que todos tenham acesso aos cuidados necessários.' },
+                { id: 48, block: 1, q: 'O que é o conflito de interesses na prática clínica?', a: 'Situação onde interesses pessoais (financeiros, profissionais) podem influenciar decisões clínicas.' },
+                { id: 49, block: 1, q: 'Qual é o dever de registo das atividades profissionais?', a: 'Registo adequado, completo e atempado das intervenções, para continuidade de cuidados e responsabilidade profissional.' },
+                { id: 50, block: 1, q: 'O que estabelece a lei sobre a morte encefálica?', a: 'Critérios clínicos e complementares para diagnóstico de morte cerebral, base para colheita de órgãos.' },
+                { id: 51, block: 2, q: 'Qual é a principal função do médico assistente?', a: 'Diagnóstico, tratamento e acompanhamento de pacientes, incluindo prevenção e reabilitação.' },
+                { id: 52, block: 2, q: 'O que é a anamnese?', a: 'História clínica completa do paciente, incluindo queixa principal, história da doença, antecedentes pessoais e familiares.' },
+                { id: 53, block: 2, q: 'Qual a importância do exame físico?', a: 'Complementar a anamnese e orientar diagnóstico, através de inspeção, palpação, percussão e auscultação.' },
+                { id: 54, block: 2, q: 'O que é o diagnóstico diferencial?', a: 'Lista de possíveis diagnósticos a considerar, ordenados por probabilidade e gravidade.' },
+                { id: 55, block: 2, q: 'Qual é o primeiro passo na abordagem de uma emergência?', a: 'Avaliação ABCDE: Via Aérea (Airway), Respiração (Breathing), Circulação (Circulation), Défice neurológico (Disability), Exposição (Exposure).' },
+                { id: 56, block: 2, q: 'O que é a prescrição médica?', a: 'Documento legal que orienta o tratamento, incluindo medicamento, dose, via, frequência e duração.' },
+                { id: 57, block: 2, q: 'Qual a dose máxima diária de paracetamol para adulto?', a: '4g (4000 mg) em 24 horas, para evitar hepatotoxicidade.' },
+                { id: 58, block: 2, q: 'O que é a hipertensão arterial?', a: 'PA ≥ 140/90 mmHg, medida em condições adequadas, em pelo menos duas consultas.' },
+                { id: 59, block: 2, q: 'Qual é o tratamento inicial da hipertensão não complicada?', a: 'Modificações do estilo de vida (dieta, exercício, redução de sal) e, se necessário, medicação anti-hipertensora.' },
+                { id: 60, block: 2, q: 'O que é a diabetes mellitus tipo 2?', a: 'Resistência à insulina com deficiência relativa de secreção, associada a obesidade e sedentarismo.' },
+                { id: 61, block: 2, q: 'Qual o valor de glicemia em jejum para diagnóstico de diabetes?', a: '≥ 126 mg/dL (7,0 mmol/L), confirmado em duas medições.' },
+                { id: 62, block: 2, q: 'O que é a tuberculose pulmonar?', a: 'Doença infecciosa causada por Mycobacterium tuberculosis, transmitida por via aérea.' },
+                { id: 63, block: 2, q: 'Qual o esquema básico de tratamento da TB?', a: 'RHZE: Rifampicina, Isoniazida, Pirazinamida, Etambutol, durante 2 meses, seguido de RH por 4 meses.' },
+                { id: 64, block: 2, q: 'O que é a malária?', a: 'Doença parasitária transmitida por mosquito Anopheles, causada por Plasmodium spp.' },
+                { id: 65, block: 2, q: 'Qual o tratamento da malária não complicada?', a: 'Terapia combinada com artemisinina (ACT), como artemeter-lumefantrina.' },
+                { id: 66, block: 2, q: 'O que é a pneumonia?', a: 'Inflamação do parênquima pulmonar, geralmente por infeção bacteriana, viral ou fúngica.' },
+                { id: 67, block: 2, q: 'Qual o antibiótico de primeira linha para pneumonia comunitária?', a: 'Amoxicilina (ou macrólidos em caso de alergia), conforme guidelines locais.' },
+                { id: 68, block: 2, q: 'O que é a insuficiência cardíaca?', a: 'Incapacidade do coração bombear sangue adequadamente para satisfazer as necessidades metabólicas.' },
+                { id: 69, block: 2, q: 'Qual o sinal clássico de IC direita?', a: 'Edema de membros inferiores, hepatomegalia, ingurgitamento jugular.' },
+                { id: 70, block: 2, q: 'O que é o IAM (Infarto Agudo do Miocárdio)?', a: 'Necrose do músculo cardíaco por isquemia prolongada, geralmente por oclusão coronária.' },
+                { id: 71, block: 2, q: 'Qual o primeiro exame no IAM?', a: 'ECG (eletrocardiograma), para identificar alterações de ST e ritmo.' },
+                { id: 72, block: 2, q: 'O que é a apendicite aguda?', a: 'Inflamação do apêndice cecal, com dor abdominal右下, náuseas e febre.' },
+                { id: 73, block: 2, q: 'Qual o tratamento da apendicite?', a: 'Apendicectomia cirúrgica (aberta ou laparoscópica), com antibioticoterapia.' },
+                { id: 74, block: 2, q: 'O que é a anemia?', a: 'Diminuição da hemoglobina abaixo dos valores normais para idade e sexo.' },
+                { id: 75, block: 2, q: 'Qual o valor de Hb para anemia em adulto?', a: '< 13 g/dL (homens), < 12 g/dL (mulheres).' },
+                { id: 76, block: 2, q: 'O que é a anemia ferropriva?', a: 'Anemia por deficiência de ferro, a causa mais comum de anemia no mundo.' },
+                { id: 77, block: 2, q: 'Qual o tratamento da anemia ferropriva?', a: 'Suplementação de ferro oral (sulfato ferroso) e tratamento da causa subjacente.' },
+                { id: 78, block: 2, q: 'O que é a desidratação?', a: 'Perda excessiva de água e eletrólitos, com sinais como sede, pele seca, oligúria.' },
+                { id: 79, block: 2, q: 'Qual o sinal de desidratação grave?', a: 'Prega cutânea persistente, olhos encovados, taquicardia, hipotensão, oligúria/anúria.' },
+                { id: 80, block: 2, q: 'O que é a sepse?', a: 'Resposta inflamatória sistêmica desregulada à infeção, com disfunção orgânica potencialmente fatal.' },
+                { id: 81, block: 2, q: 'Qual o tratamento inicial da sepse?', a: 'Antibióticos de amplo espectro (1ª hora), hidratação EV, suporte hemodinâmico, controlo da fonte.' },
+                { id: 82, block: 2, q: 'O que é a meningite?', a: 'Inflamação das meninges, geralmente por infeção bacteriana ou viral.' },
+                { id: 83, block: 2, q: 'Qual o sinal de meningite?', a: 'Rigidez de nuca, febre, cefaleia, fotofobia, sinal de Kernig e Brudzinski positivos.' },
+                { id: 84, block: 2, q: 'O que é a asma?', a: 'Doença inflamatória crónica das vias aéreas, com broncoespasmo reversível.' },
+                { id: 85, block: 2, q: 'Qual o tratamento de crise de asma?', a: 'Broncodilatadores de ação rápida (salbutamol), corticoides sistémicos, oxigénio se necessário.' },
+                { id: 86, block: 2, q: 'O que é a DPOC?', a: 'Doença Pulmonar Obstrutiva Crónica, caracterizada por limitação persistente do fluxo aéreo.' },
+                { id: 87, block: 2, q: 'Qual o principal fator de risco para DPOC?', a: 'Tabagismo (80-90% dos casos), seguido de exposição a poluentes.' },
+                { id: 88, block: 2, q: 'O que é a úlcera péptica?', a: 'Lesão da mucosa gástrica ou duodenal, associada a H. pylori e AINEs.' },
+                { id: 89, block: 2, q: 'Qual a principal causa de úlcera péptica?', a: 'Infeção por Helicobacter pylori e uso de AINEs (anti-inflamatórios não esteroides).' },
+                { id: 90, block: 2, q: 'O que é a hepatite viral?', a: 'Inflamação do fígado causada por vírus (A, B, C, D, E).' },
+                { id: 91, block: 2, q: 'Quais os tipos de hepatite viral?', a: 'A, B, C, D, E, com diferentes vias de transmissão e evolução clínica.' },
+                { id: 92, block: 2, q: 'O que é a insuficiência renal aguda?', a: 'Perda súbita da função renal, com aumento de creatinina e ureia, oligúria.' },
+                { id: 93, block: 2, q: 'Qual o sinal de IRA?', a: 'Oligúria/anúria (< 0,5 ml/kg/h), aumento de creatinina, edema, hipertensão.' },
+                { id: 94, block: 2, q: 'O que é o AVC (Acidente Vascular Cerebral)?', a: 'Interrupção do fluxo sanguíneo cerebral (isquémico) ou hemorragia intracraniana.' },
+                { id: 95, block: 2, q: 'Qual o sinal de AVC?', a: 'Déficit neurológico súbito: hemiparesia, afasia, desvio do olhar, alteração de consciência.' },
+                { id: 96, block: 2, q: 'O que é a epilepsia?', a: 'Doença neurológica caracterizada por crises convulsivas recorrentes.' },
+                { id: 97, block: 2, q: 'Qual o tratamento de crise epiléptica?', a: 'Benzodiazepínicos (diazepam EV/retal), seguido de antiepiléticos de manutenção.' },
+                { id: 98, block: 2, q: 'O que é a fratura?', a: 'Solução de continuidade óssea, por trauma direto ou indireto.' },
+                { id: 99, block: 2, q: 'Qual o tratamento inicial de fratura?', a: 'Imobilização, analgesia, avaliação neurovascular, redução e fixação definitiva.' },
+                { id: 100, block: 2, q: 'O que é o choque?', a: 'Insuficiência circulatória com hipoperfusão tecidual, podendo ser hipovolémico, cardiogénico, séptico ou anafilático.' },
+                { id: 101, block: 2, q: 'Qual o tratamento do choque?', a: 'Hidratação EV, vasopressores (se necessário), tratar causa subjacente, suporte orgânico.' },
+                { id: 102, block: 2, q: 'O que é a queimadura?', a: 'Lesão térmica, química, elétrica ou por radiação da pele e tecidos.' },
+                { id: 103, block: 2, q: 'Como calcular a superfície queimada?', a: 'Regra dos 9 de Wallace: cabeça 9%, cada membro superior 9%, tronco 36%, cada membro inferior 18%, genitais 1%.' },
+                { id: 104, block: 2, q: 'O que é a intoxicação?', a: 'Exposição a substância tóxica em quantidade suficiente para causar efeitos adversos.' },
+                { id: 105, block: 2, q: 'Qual o tratamento de intoxicação?', a: 'Suporte vital, descontaminação (carvão ativado), antídoto específico se disponível, eliminação do tóxico.' },
+                { id: 106, block: 2, q: 'O que é a gravidez ectópica?', a: 'Gravidez implantada fora da cavidade uterina, mais comum na trompa de Falópio.' },
+                { id: 107, block: 2, q: 'Qual o local mais comum de gravidez ectópica?', a: 'Trompa de Falópio (95% dos casos).' },
+                { id: 108, block: 2, q: 'O que é a pré-eclâmpsia?', a: 'Hipertensão (≥ 140/90) e proteinúria após 20 semanas de gestação, em mulher previamente normotensa.' },
+                { id: 109, block: 2, q: 'Qual o tratamento da pré-eclâmpsia?', a: 'Controlo da PA (metildopa, nifedipina), sulfato de magnésio (prevenção de eclâmpsia), parto definitivo.' },
+                { id: 110, block: 2, q: 'O que é o parto prematuro?', a: 'Parto antes de 37 semanas completas de gestação.' },
+                { id: 111, block: 2, q: 'O que é a hemorragia pós-parto?', a: 'Sangramento > 500 ml após parto vaginal ou > 1000 ml após cesariana.' },
+                { id: 112, block: 2, q: 'Qual a causa mais comum de HPP?', a: 'Atonia uterina (70-80% dos casos), seguida de trauma, retenção de placenta e coagulopatia.' },
+                { id: 113, block: 2, q: 'O que é a contracepção?', a: 'Métodos para prevenir a gravidez, incluindo hormonais, DIU, barreira, naturais e cirúrgicos.' },
+                { id: 114, block: 2, q: 'Quais os métodos contraceptivos?', a: 'Hormonais (pílula, injetável, implante), DIU, preservativo, diafragma, métodos naturais, esterilização.' },
+                { id: 115, block: 2, q: 'O que é o planeamento familiar?', a: 'Direito de decidir livremente o número e espaçamento de filhos, com acesso a informação e métodos.' },
+                { id: 116, block: 2, q: 'O que é a desnutrição?', a: 'Deficiência de nutrientes (proteínas, calorias, vitaminas, minerais), com impacto no crescimento e saúde.' },
+                { id: 117, block: 2, q: 'Qual o sinal de desnutrição grave?', a: 'Edema (kwashiorkor), emagrecimento severo (marasmo), atraso de crescimento, apatia.' },
+                { id: 118, block: 2, q: 'O que é a vacina?', a: 'Preparação biológica que confere imunidade específica contra doenças infeciosas.' },
+                { id: 119, block: 2, q: 'Qual o objetivo do PNV (Programa Nacional de Vacinação)?', a: 'Prevenir doenças imunopreveníveis, reduzir morbidade e mortalidade, alcançar imunidade de grupo.' },
+                { id: 120, block: 2, q: 'Quais as vacinas do PNV em Angola?', a: 'BCG, Pentavalente (DTP-Hib-HepB), VAP (polio oral), VAS (rotavírus), Sarampo, Febre Amarela, Tétano.' },
+                { id: 121, block: 3, q: 'Qual é a definição de enfermagem segundo o Conselho Internacional de Enfermeiros?', a: 'Cuidados autónomos e colaborativos a indivíduos, famílias e comunidades, em todos os contextos de saúde.' },
+                { id: 122, block: 3, q: 'O que é o Processo de Enfermagem?', a: 'Método sistemático de prestação de cuidados: Avaliação, Diagnóstico, Planeamento, Implementação, Avaliação (ADPIE).' },
+                { id: 123, block: 3, q: 'O que significa ADPIE?', a: 'Avaliação, Diagnóstico de enfermagem, Planeamento, Implementação, Avaliação.' },
+                { id: 124, block: 3, q: 'Qual a importância da anamnese de enfermagem?', a: 'Recolher dados subjetivos e objetivos para elaborar plano de cuidados individualizado.' },
+                { id: 125, block: 3, q: 'O que são os sinais vitais?', a: 'Temperatura, pulso (frequência cardíaca), respiração (frequência respiratória), pressão arterial.' },
+                { id: 126, block: 3, q: 'Qual o valor normal de temperatura corporal?', a: '36,5-37,5°C (axilar), 37-38°C (retal).' },
+                { id: 127, block: 3, q: 'Qual o valor normal de frequência cardíaca em adulto?', a: '60-100 batimentos por minuto (bpm).' },
+                { id: 128, block: 3, q: 'Qual o valor normal de frequência respiratória?', a: '12-20 respirações por minuto (rpm).' },
+                { id: 129, block: 3, q: 'Qual o valor normal de PA em adulto?', a: '< 120/80 mmHg (normal), 120-139/80-89 (pré-hipertensão).' },
+                { id: 130, block: 3, q: 'O que é a via aérea?', a: 'Conjunto de estruturas que permitem a passagem de ar: nariz, boca, faringe, laringe, traqueia, brônquios.' },
+                { id: 131, block: 3, q: 'Como manter a via aérea permeável?', a: 'Hiperextensão da cabeça e elevação do queixo (head-tilt/chin-lift), ou subluxação da mandíbula em trauma.' },
+                { id: 132, block: 3, q: 'O que é a oxigenoterapia?', a: 'Administração de oxigénio suplementar para corrigir hipoxemia.' },
+                { id: 133, block: 3, q: 'Quando indicar oxigénio?', a: 'SatO2 < 90-92%, dispneia, cianose, emergências, pós-operatório.' },
+                { id: 134, block: 3, q: 'O que é a aspiração de secreções?', a: 'Remoção de secreções das vias aéreas usando sonda e aspirador, para manter permeabilidade.' },
+                { id: 135, block: 3, q: 'Qual a via de administração mais rápida?', a: 'Endovenosa (IV), com início de ação imediato.' },
+                { id: 136, block: 3, q: 'O que é a via endovenosa?', a: 'Administração de medicamentos ou fluidos diretamente na veia.' },
+                { id: 137, block: 3, q: 'Quais os cuidados na punção venosa?', a: 'Higiene das mãos, garrote, antissepsia, ângulo 15-30°, fixação, monitorização.' },
+                { id: 138, block: 3, q: 'O que é o soro fisiológico?', a: 'Solução de NaCl 0,9%, isotónica, usada para hidratação e diluição de medicamentos.' },
+                { id: 139, block: 3, q: 'Qual a função do soro fisiológico?', a: 'Hidratação, reposição de eletrólitos, diluição de medicamentos, lavagem.' },
+                { id: 140, block: 3, q: 'O que é a glicose 5%?', a: 'Solução de glicose 5% em água, para hidratação e fornecimento de energia.' },
+                { id: 141, block: 3, q: 'O que é a diurese?', a: 'Eliminação de urina, normalmente 0,5-1 ml/kg/hora em adulto.' },
+                { id: 142, block: 3, q: 'Qual o valor normal de diurese em adulto?', a: '0,5-1 ml/kg/hora (aproximadamente 800-2000 ml/dia).' },
+                { id: 143, block: 3, q: 'O que é a sonda nasogástrica?', a: 'Tubo introduzido pelo nariz até ao estômago, para alimentação, descompressão ou lavagem.' },
+                { id: 144, block: 3, q: 'Qual a indicação da SNG?', a: 'Alimentação entérica, descompressão gástrica, lavagem gástrica, administração de medicamentos.' },
+                { id: 145, block: 3, q: 'O que é a sonda vesical?', a: 'Cateter introduzido na bexiga via uretra, para drenagem urinária.' },
+                { id: 146, block: 3, q: 'Quais os cuidados com a sonda vesical?', a: 'Higiene do meato urinário, fixação adequada, saco coletor abaixo da bexiga, sistema fechado.' },
+                { id: 147, block: 3, q: 'O que é a ferida?', a: 'Solução de continuidade da pele ou mucosa, por trauma, cirurgia ou patologia.' },
+                { id: 148, block: 3, q: 'Quais os tipos de ferida?', a: 'Aguda/crónica, limpa/contaminada/infetada, aberta/fechada, superficial/profunda.' },
+                { id: 149, block: 3, q: 'O que é o curativo?', a: 'Tratamento de feridas com limpeza, desbridamento se necessário, e cobertura adequada.' },
+                { id: 150, block: 3, q: 'Quais os princípios do curativo?', a: 'Assepsia, limpeza (soro fisiológico), cobertura adequada, fixação, avaliação da evolução.' },
+                { id: 151, block: 3, q: 'O que é a úlcera de pressão?', a: 'Lesão localizada da pele e/ou tecidos subjacentes, por pressão prolongada.' },
+                { id: 152, block: 3, q: 'Como prevenir úlcera de pressão?', a: 'Mudança de decúbito 2/2h, higiene, hidratação da pele, superfícies de alívio, nutrição adequada.' },
+                { id: 153, block: 3, q: 'O que é a imobilização?', a: 'Fixação de segmento corporal lesionado, para aliviar dor e promover cicatrização.' },
+                { id: 154, block: 3, q: 'Qual o objetivo da imobilização?', a: 'Prevenir movimento, aliviar dor, promover cicatrização, prevenir complicações.' },
+                { id: 155, block: 3, q: 'O que é o penso compressivo?', a: 'Curativo com pressão para controlar hemorragia ou edema.' },
+                { id: 156, block: 3, q: 'O que é a hemorragia?', a: 'Sangramento, perda de sangue dos vasos, interna ou externa.' },
+                { id: 157, block: 3, q: 'Como controlar hemorragia externa?', a: 'Compressão direta, elevação do membro, garrote se necessário (último recurso).' },
+                { id: 158, block: 3, q: 'O que é o garrote?', a: 'Dispositivo para ocluir fluxo sanguíneo arterial em emergências, quando compressão falha.' },
+                { id: 159, block: 3, q: 'Quando usar garrote?', a: 'Hemorragia grave não controlada por compressão direta, amputações traumáticas.' },
+                { id: 160, block: 3, q: 'O que é o choque hipovolémico?', a: 'Choque por perda de volume sanguíneo (hemorragia, desidratação).' },
+                { id: 161, block: 3, q: 'Qual o tratamento de choque hipovolémico?', a: 'Hidratação EV rápida (cristaloides), controlo de hemorragia, transfusão se necessário.' },
+                { id: 162, block: 3, q: 'O que é a RCP (Reanimação Cardiopulmonar)?', a: 'Manobras para restabelecer circulação e respiração em paragem cardiorrespiratória.' },
+                { id: 163, block: 3, q: 'Qual a sequência da RCP?', a: 'C-A-B: Compressões torácicas, Via aérea, Respiração (ventilações).' },
+                { id: 164, block: 3, q: 'Qual a frequência de compressões na RCP?', a: '100-120 compressões por minuto.' },
+                { id: 165, block: 3, q: 'Qual a profundidade das compressões?', a: '5-6 cm em adulto, 1/3 do diâmetro AP em crianças e lactentes.' },
+                { id: 166, block: 3, q: 'O que é o DEA (Desfibrilhador Externo Automático)?', a: 'Dispositivo que analisa ritmo cardíaco e administra choque se ritmo chocável (FV/TV sem pulso).' },
+                { id: 167, block: 3, q: 'Quando usar DEA?', a: 'Paragem cardíaca com ritmo chocável (fibrilhação ventricular, taquicardia ventricular sem pulso).' },
+                { id: 168, block: 3, q: 'O que é a posição lateral de segurança?', a: 'Posição para prevenir obstrução da via aérea em paciente inconsciente com respiração espontânea.' },
+                { id: 169, block: 3, q: 'Quando usar posição lateral de segurança?', a: 'Paciente inconsciente com respiração espontânea, sem suspeita de trauma raquimedular.' },
+                { id: 170, block: 3, q: 'O que é a febre?', a: 'Temperatura corporal > 37,5-38°C, resposta do organismo a infeção ou inflamação.' },
+                { id: 171, block: 3, q: 'Qual o tratamento da febre?', a: 'Antipiréticos (paracetamol, ibuprofeno), hidratação, repouso, tratar causa subjacente.' },
+                { id: 172, block: 3, q: 'O que é a dor?', a: 'Experiência sensorial e emocional desagradável, associada a lesão tecidual real ou potencial.' },
+                { id: 173, block: 3, q: 'Como avaliar a dor?', a: 'Escalas: numérica (0-10), facial (Wong-Baker), verbal, comportamental (em crianças/incapazes).' },
+                { id: 174, block: 3, q: 'O que são analgésicos?', a: 'Medicamentos que aliviam a dor: paracetamol, AINEs, opioides, adjuvantes.' },
+                { id: 175, block: 3, q: 'O que é a náusea?', a: 'Sensação de enjoo, vontade de vomitar.' },
+                { id: 176, block: 3, q: 'O que é o vómito?', a: 'Expulsão forçada de conteúdo gástrico pela boca.' },
+                { id: 177, block: 3, q: 'Qual o tratamento de náusea/vómito?', a: 'Antieméticos (metoclopramida, ondansetron), hidratação, dieta leve, tratar causa.' },
+                { id: 178, block: 3, q: 'O que é a diarreia?', a: 'Aumento da frequência (>3 evacuações/dia) e diminuição da consistência das fezes.' },
+                { id: 179, block: 3, q: 'Qual o tratamento da diarreia?', a: 'Hidratação (SRO), dieta, probióticos, antidiarreicos se indicado, tratar causa.' },
+                { id: 180, block: 3, q: 'O que é a obstipação?', a: 'Dificuldade em evacuar, fezes duras, frequência < 3 vezes/semana.' },
+                { id: 181, block: 3, q: 'Qual o tratamento da obstipação?', a: 'Fibras, hidratação, exercício, laxantes osmóticos/estimulantes se necessário.' },
+                { id: 182, block: 3, q: 'O que é a incontinência urinária?', a: 'Perda involuntária de urina, com impacto social e higiénico.' },
+                { id: 183, block: 3, q: 'Quais os tipos de incontinência?', a: 'Esforço, urgência, transbordo, funcional, mista.' },
+                { id: 184, block: 3, q: 'O que é a higiene corporal?', a: 'Limpeza do corpo para prevenir infeções, promover conforto e dignidade.' },
+                { id: 185, block: 3, q: 'Qual a importância da higiene das mãos?', a: 'Medida mais eficaz para prevenir transmissão de infeções associadas aos cuidados de saúde.' },
+                { id: 186, block: 3, q: 'Quando realizar higiene das mãos?', a: '5 momentos: antes de contactar paciente, antes de procedimento assético, após risco de fluidos, após contactar paciente, após contactar ambiente.' },
+                { id: 187, block: 3, q: 'O que é a higiene oral?', a: 'Limpeza da boca, dentes, língua e gengivas, para prevenir infeções e promover conforto.' },
+                { id: 188, block: 3, q: 'Qual a importância da higiene oral?', a: 'Prevenir cáries, gengivite, pneumonia associada a ventilação, infeções sistémicas.' },
+                { id: 189, block: 3, q: 'O que é a mobilização?', a: 'Movimento do paciente para prevenir complicações do imobilismo.' },
+                { id: 190, block: 3, q: 'Qual o objetivo da mobilização?', a: 'Prevenir úlceras de pressão, trombose venosa profunda, atrofia muscular, pneumonias.' },
+                { id: 191, block: 3, q: 'O que é a transferência?', a: 'Movimento de paciente entre superfícies (cama-cadeira, cama-maca).' },
+                { id: 192, block: 3, q: 'Quais os cuidados na transferência?', a: 'Técnica adequada, segurança do paciente e profissional, conforto, comunicação.' },
+                { id: 193, block: 3, q: 'O que é a nutrição entérica?', a: 'Alimentação por sonda no tubo digestivo (nasogástrica, nasoenteral, gastrostomia).' },
+                { id: 194, block: 3, q: 'O que é a nutrição parentérica?', a: 'Nutrição por via endovenosa, quando trato digestivo não funcional.' },
+                { id: 195, block: 3, q: 'Quais os cuidados na alimentação por sonda?', a: 'Verificar posição da sonda, higiene, velocidade adequada, temperatura, volume.' },
+                { id: 196, block: 3, q: 'O que é a eliminação?', a: 'Excreção de resíduos metabólicos: urina, fezes, suor, respiração.' },
+                { id: 197, block: 3, q: 'O que é a ostomia?', a: 'Abertura cirúrgica para exterior (colostomia, ileostomia, urostomia).' },
+                { id: 198, block: 3, q: 'Quais os cuidados com ostomia?', a: 'Higiene do estoma, bolsa adequada, proteção da pele periestomal, educação do paciente.' },
+                { id: 199, block: 3, q: 'O que é a medicação?', a: 'Administração de fármacos para prevenção, diagnóstico ou tratamento.' },
+                { id: 200, block: 3, q: 'Quais os 5 certos da medicação?', a: 'Paciente certo, medicamento certo, dose certa, via certa, hora certa (alguns adicionam: registo certo, razão certa).' },
+                { id: 201, block: 4, q: 'O que é o raio-X?', a: 'Exame de imagem que usa radiação ionizante para visualizar estruturas internas.' },
+                { id: 202, block: 4, q: 'Quais os cuidados na radiologia?', a: 'Proteção radiológica (avental de chumbo), justificação do exame, otimização da dose (ALARA).' },
+                { id: 203, block: 4, q: 'O que é a ecografia?', a: 'Exame de imagem que usa ultrassons, sem radiação ionizante.' },
+                { id: 204, block: 4, q: 'Qual a vantagem da ecografia?', a: 'Sem radiação, tempo real, portátil, baixo custo, segura em grávidas.' },
+                { id: 205, block: 4, q: 'O que é a TAC (Tomografia Axial Computorizada)?', a: 'Exame de imagem com raios-X e processamento computorizado, para cortes transversais.' },
+                { id: 206, block: 4, q: 'O que é a ressonância magnética?', a: 'Exame que usa campo magnético e ondas de rádio, excelente para tecidos moles.' },
+                { id: 207, block: 4, q: 'Qual a contraindicação da RM?', a: 'Marcapasso cardíaco, implantes metálicos ferromagnéticos, claustrofobia severa.' },
+                { id: 208, block: 4, q: 'O que é a hemograma?', a: 'Exame que avalia células do sangue: hemácias, leucócitos, plaquetas.' },
+                { id: 209, block: 4, q: 'O que avalia o hemograma?', a: 'Hemácias (Hb, Ht), leucócitos (total e diferencial), plaquetas, índices hematimétricos.' },
+                { id: 210, block: 4, q: 'O que é a anemia no hemograma?', a: 'Hemoglobina e hematócrito diminuídos abaixo dos valores de referência.' },
+                { id: 211, block: 4, q: 'O que é a leucocitose?', a: 'Aumento do número de leucócitos (> 10.000/µL), geralmente por infeção ou inflamação.' },
+                { id: 212, block: 4, q: 'O que é a leucopenia?', a: 'Diminuição do número de leucócitos (< 4.000/µL), por infeções virais, medicamentos, etc.' },
+                { id: 213, block: 4, q: 'O que é a trombocitopenia?', a: 'Diminuição das plaquetas (< 150.000/µL), com risco de sangramento.' },
+                { id: 214, block: 4, q: 'O que é a glicemia?', a: 'Dosagem de glicose no sangue, para diagnóstico e monitorização de diabetes.' },
+                { id: 215, block: 4, q: 'Qual o valor normal de glicemia em jejum?', a: '70-100 mg/dL (3,9-5,6 mmol/L).' },
+                { id: 216, block: 4, q: 'O que é a ureia?', a: 'Produto do metabolismo das proteínas, marcador de função renal.' },
+                { id: 217, block: 4, q: 'O que é a creatinina?', a: 'Marcador da função renal, mais específico que ureia.' },
+                { id: 218, block: 4, q: 'O que é o colesterol?', a: 'Lipídeo essencial para o organismo, precursor de hormonas e membranas celulares.' },
+                { id: 219, block: 4, q: 'Qual o valor desejável de colesterol total?', a: '< 200 mg/dL (desejável), 200-239 (limítrofe), ≥ 240 (alto).' },
+                { id: 220, block: 4, q: 'O que é o LDL?', a: 'Colesterol "mau", associado a risco cardiovascular aumentado.' },
+                { id: 221, block: 4, q: 'O que é o HDL?', a: 'Colesterol "bom", protetor cardiovascular.' },
+                { id: 222, block: 4, q: 'O que são os triglicerídeos?', a: 'Gorduras no sangue, fonte de energia, elevados em risco cardiovascular.' },
+                { id: 223, block: 4, q: 'O que é o TGO/AST?', a: 'Enzima hepática (também cardíaca e muscular), elevada em lesão hepática.' },
+                { id: 224, block: 4, q: 'O que é o TGP/ALT?', a: 'Enzima hepática mais específica, elevada em hepatite e lesão hepática.' },
+                { id: 225, block: 4, q: 'O que é a bilirrubina?', a: 'Produto da degradação da hemoglobina, elevada em icterícia.' },
+                { id: 226, block: 4, q: 'O que é a albumina?', a: 'Proteína sintetizada pelo fígado, marcador de função hepática e nutricional.' },
+                { id: 227, block: 4, q: 'O que é o TAP/INR?', a: 'Exame da coagulação, para monitorização de anticoagulantes orais (varfarina).' },
+                { id: 228, block: 4, q: 'O que é o TTPA?', a: 'Tempo de tromboplastina parcial ativada, avalia via intrínseca da coagulação.' },
+                { id: 229, block: 4, q: 'O que é a tipagem sanguínea?', a: 'Determinação do grupo ABO (A, B, AB, O) e fator Rh (positivo/negativo).' },
+                { id: 230, block: 4, q: 'O que é a prova cruzada?', a: 'Teste de compatibilidade entre sangue do dador e recetor, antes de transfusão.' },
+                { id: 231, block: 4, q: 'O que é a urina tipo I?', a: 'Exame físico (cor, aspecto), químico (pH, glicose, proteínas, sangue) e microscópico da urina.' },
+                { id: 232, block: 4, q: 'O que é a proteinúria?', a: 'Presença de proteínas na urina, sinal de lesão renal.' },
+                { id: 233, block: 4, q: 'O que é a glicosúria?', a: 'Presença de glicose na urina, geralmente quando glicemia > 180 mg/dL.' },
+                { id: 234, block: 4, q: 'O que é a hematúria?', a: 'Presença de sangue na urina, por infeção, cálculos, tumores, etc.' },
+                { id: 235, block: 4, q: 'O que é a piúria?', a: 'Presença de leucócitos na urina, sinal de infeção urinária.' },
+                { id: 236, block: 4, q: 'O que é a urocultura?', a: 'Cultura de urina para identificar bactérias e testar sensibilidade a antibióticos.' },
+                { id: 237, block: 4, q: 'O que é o antibiograma?', a: 'Teste de sensibilidade de bactérias a antibióticos, para orientar tratamento.' },
+                { id: 238, block: 4, q: 'O que é o exame parasitológico de fezes?', a: 'Pesquisa de parasitas intestinais e seus ovos nas fezes.' },
+                { id: 239, block: 4, q: 'O que é a pesquisa de sangue oculto nas fezes?', a: 'Detecção de sangue não visível nas fezes, rastreio de cancro colorectal.' },
+                { id: 240, block: 4, q: 'O que é o LCR (Líquido Cefalorraquidiano)?', a: 'Líquido que envolve cérebro e medula espinal, colhido por punção lombar.' },
+                { id: 241, block: 4, q: 'Como se recolhe o LCR?', a: 'Punção lombar (entre L3-L4 ou L4-L5), em decúbito lateral ou sentado.' },
+                { id: 242, block: 4, q: 'O que é a punção venosa?', a: 'Coleta de sangue da veia, para exames laboratoriais.' },
+                { id: 243, block: 4, q: 'Quais os cuidados na punção venosa?', a: 'Higiene, garrote, antissepsia, material adequado, compressão pós-punção.' },
+                { id: 244, block: 4, q: 'O que é a hemocultura?', a: 'Cultura de sangue para detectar bacteriemia/sepse.' },
+                { id: 245, block: 4, q: 'Quando colher hemocultura?', a: 'Suspeita de sepse, febre sem foco, endocardite, antes de iniciar antibióticos.' },
+                { id: 246, block: 4, q: 'O que é a serologia?', a: 'Pesquisa de anticorpos no soro, para diagnóstico de infeções (HIV, hepatites, sífilis).' },
+                { id: 247, block: 4, q: 'O que é o teste de gravidez?', a: 'Pesquisa de beta-hCG na urina ou sangue, para confirmar gravidez.' },
+                { id: 248, block: 4, q: 'O que é o HIV?', a: 'Vírus da Imunodeficiência Humana, causa SIDA.' },
+                { id: 249, block: 4, q: 'Como diagnosticar HIV?', a: 'Teste de anticorpos/antigénios (ELISA), confirmado por Western Blot ou teste rápido.' },
+                { id: 250, block: 4, q: 'O que é a hepatite B?', a: 'Infeção viral do fígado por HBV, transmitida por sangue, sexual, vertical.' },
+                { id: 251, block: 5, q: 'Qual a função do condutor de ambulância?', a: 'Conduzir veículo de emergência com segurança, transporte de pacientes, apoio à equipa.' },
+                { id: 252, block: 5, q: 'Quais os cuidados na condução de ambulância?', a: 'Segurança, velocidade adequada, prioridade de passagem, comunicação com central.' },
+                { id: 253, block: 5, q: 'O que é a triagem no pré-hospitalar?', a: 'Classificação de vítimas por prioridade clínica, em situações de múltiplas vítimas.' },
+                { id: 254, block: 5, q: 'Qual o sistema de triagem mais usado?', a: 'START (Simple Triage and Rapid Treatment), para adultos; JumpSTART para crianças.' },
+                { id: 255, block: 5, q: 'Quais as cores do triagem?', a: 'Vermelho (imediato), Amarelo (urgente), Verde (pouco urgente), Preto (morto/expectante).' },
+                { id: 256, block: 5, q: 'O que significa cor vermelha no triagem?', a: 'Emergência/imediato: risco de vida, necessita intervenção imediata.' },
+                { id: 257, block: 5, q: 'O que significa cor amarela no triagem?', a: 'Urgente: grave mas estável, pode esperar breve período.' },
+                { id: 258, block: 5, q: 'O que significa cor verde no triagem?', a: 'Pouco urgente (ambulatório): lesões menores, pode aguardar.' },
+                { id: 259, block: 5, q: 'O que significa cor preta no triagem?', a: 'Morto ou expectante: sem sinais de vida ou lesões incompatíveis com sobrevivência.' },
+                { id: 260, block: 5, q: 'Qual a função do vigilante hospitalar?', a: 'Garantir segurança do estabelecimento, controlo de acesso, vigilância, prevenção de incidentes.' },
+                { id: 261, block: 5, q: 'Quais os cuidados do vigilante?', a: 'Controlo de acesso, vigilância de áreas, prevenção de furtos, apoio em emergências.' },
+                { id: 262, block: 5, q: 'O que é o controlo de acesso?', a: 'Verificação de entrada/saída de pessoas, veículos e materiais, com registo.' },
+                { id: 263, block: 5, q: 'Qual a função do secretário clínico?', a: 'Gestão administrativa, marcação de consultas, arquivo clínico, atendimento.' },
+                { id: 264, block: 5, q: 'O que é o arquivo clínico?', a: 'Organização e guarda de processos clínicos, com confidencialidade e acesso controlado.' },
+                { id: 265, block: 5, q: 'Qual o prazo de conservação de processos clínicos?', a: 'Mínimo 10-20 anos, conforme legislação de arquivo e proteção de dados.' },
+                { id: 266, block: 5, q: 'O que é a confidencialidade no arquivo?', a: 'Proteção de dados do paciente, acesso apenas a profissionais autorizados.' },
+                { id: 267, block: 5, q: 'O que é a marcação de consultas?', a: 'Agendamento de atendimentos médicos, com gestão de listas de espera.' },
+                { id: 268, block: 5, q: 'Qual a função do maqueiro?', a: 'Transporte de pacientes, material, apoio em procedimentos, manutenção de equipamentos.' },
+                { id: 269, block: 5, q: 'Quais os cuidados no transporte de paciente?', a: 'Segurança, conforto, monitorização, comunicação com equipa.' },
+                { id: 270, block: 5, q: 'O que é a maca?', a: 'Equipamento para transporte de pacientes deitados.' },
+                { id: 271, block: 5, q: 'Quais os cuidados com a maca?', a: 'Higiene, fixação do paciente, segurança, travões.' },
+                { id: 272, block: 5, q: 'O que é a cadeira de rodas?', a: 'Equipamento para transporte de pacientes com mobilidade reduzida.' },
+                { id: 273, block: 5, q: 'Quais os cuidados com cadeira de rodas?', a: 'Segurança, conforto, travões ativados, transferência adequada.' },
+                { id: 274, block: 5, q: 'O que é o oxigénio medicinal?', a: 'Gás para tratamento de hipoxemia, armazenado em cilindros ou rede hospitalar.' },
+                { id: 275, block: 5, q: 'Quais os cuidados com cilindro de oxigénio?', a: 'Fixação, distância de fontes de calor, válvula fechada quando não em uso.' },
+                { id: 276, block: 5, q: 'O que é o carrinho de emergência?', a: 'Carrinho com material e medicamentos para reanimação cardiopulmonar.' },
+                { id: 277, block: 5, q: 'O que deve ter no carrinho de emergência?', a: 'DEA, medicamentos de emergência, material de via aérea, acesso venoso, soros.' },
+                { id: 278, block: 5, q: 'Qual a importância da verificação do carrinho?', a: 'Garantir disponibilidade e funcionalidade em situação de emergência.' },
+                { id: 279, block: 5, q: 'O que é a limpeza hospitalar?', a: 'Higiene do ambiente para prevenir infeções associadas aos cuidados de saúde.' },
+                { id: 280, block: 5, q: 'Quais os tipos de limpeza hospitalar?', a: 'Concorrente (durante ocupação), terminal (após alta/óbito), de manutenção.' },
+                { id: 281, block: 5, q: 'O que é a limpeza concorrente?', a: 'Limpeza durante ocupação do quarto, diária, para manter higiene.' },
+                { id: 282, block: 5, q: 'O que é a limpeza terminal?', a: 'Limpeza completa após alta, transferência ou óbito, para preparar quarto.' },
+                { id: 283, block: 5, q: 'O que é a desinfecção?', a: 'Eliminação de microrganismos patogénicos, exceto esporos bacterianos.' },
+                { id: 284, block: 5, q: 'O que é a esterilização?', a: 'Eliminação de todas as formas de vida microbiana, incluindo esporos.' },
+                { id: 285, block: 5, q: 'O que são resíduos hospitalares?', a: 'Resíduos gerados em serviços de saúde, com potencial de risco biológico, químico, radioativo.' },
+                { id: 286, block: 5, q: 'Quais os tipos de resíduos hospitalares?', a: 'Grupo I (comuns), II (biológicos), III (perfurocortantes), IV (químicos), V (radioativos).' },
+                { id: 287, block: 5, q: 'O que são resíduos perfurocortantes?', a: 'Agulhas, lâminas, vidros, ampolas - risco de corte e contaminação.' },
+                { id: 288, block: 5, q: 'Como descartar perfurocortantes?', a: 'Caixa rígida resistente à punção, nunca no lixo comum.' },
+                { id: 289, block: 5, q: 'O que é a lavagem das mãos?', a: 'Higiene das mãos com água e sabão, por 40-60 segundos.' },
+                { id: 290, block: 5, q: 'Quando lavar as mãos?', a: '5 momentos: antes/depois de contactar paciente, após fluidos, antes de procedimento assético, após ambiente.' },
+                { id: 291, block: 5, q: 'O que é a fricção das mãos?', a: 'Higiene das mãos com solução alcoólica, por 20-30 segundos.' },
+                { id: 292, block: 5, q: 'Quando usar fricção das mãos?', a: 'Quando mãos não visivelmente sujas, entre contactos de pacientes.' },
+                { id: 293, block: 5, q: 'O que é EPI (Equipamento de Proteção Individual)?', a: 'Equipamento para proteção do trabalhador contra riscos biológicos, químicos, físicos.' },
+                { id: 294, block: 5, q: 'Quais os EPIs básicos?', a: 'Luvas, máscara, óculos/protetor facial, avental, gorro, calçado fechado.' },
+                { id: 295, block: 5, q: 'Quando usar luvas?', a: 'Contacto com fluidos, mucosas, pele não íntegra, materiais contaminados.' },
+                { id: 296, block: 5, q: 'Quando usar máscara?', a: 'Precaução respiratória, procedimentos com aerossóis, pacientes com infeção respiratória.' },
+                { id: 297, block: 5, q: 'O que é a precaução padrão?', a: 'Medidas básicas de prevenção de infeção, aplicáveis a todos os pacientes.' },
+                { id: 298, block: 5, q: 'O que é a precaução de contacto?', a: 'Isolamento para doenças transmitidas por contacto direto/indireto (luvas, avental).' },
+                { id: 299, block: 5, q: 'O que é a precaução respiratória?', a: 'Isolamento para doenças transmitidas por via aérea (máscara N95, quarto com pressão negativa).' },
+                { id: 300, block: 5, q: 'Qual a importância da segurança no trabalho hospitalar?', a: 'Prevenir acidentes, proteger pacientes e trabalhadores, garantir qualidade dos cuidados.' }
+            ],
+            blocks: [
+                { id: 1, title: 'Legislação da Saúde e Ética Profissional', icon: 'fa-balance-scale', color: 'bg-blue-500', range: '1-50' },
+                { id: 2, title: 'Carreira Médica', icon: 'fa-user-md', color: 'bg-red-500', range: '51-120' },
+                { id: 3, title: 'Enfermagem', icon: 'fa-stethoscope', color: 'bg-green-500', range: '121-200' },
+                { id: 4, title: 'Diagnóstico e Terapêutica', icon: 'fa-microscope', color: 'bg-purple-500', range: '201-250' },
+                { id: 5, title: 'Apoio Hospitalar', icon: 'fa-hospital', color: 'bg-orange-500', range: '251-300' }
+            ],
+            badges: [
+                { id: 'first_question', name: 'Primeira Questão', icon: 'fa-star', desc: 'Completou a primeira questão', color: 'bg-blue-500' },
+                { id: 'block_master', name: 'Mestre de Bloco', icon: 'fa-trophy', desc: 'Completou um bloco inteiro', color: 'bg-yellow-500' },
+                { id: 'perfect_score', name: 'Pontuação Perfeita', icon: 'fa-crown', desc: '10 questões seguidas corretas', color: 'bg-purple-500' },
+                { id: 'streak_7', name: 'Consistente', icon: 'fa-calendar-week', desc: '7 dias seguidos de estudo', color: 'bg-green-500' },
+                { id: 'all_blocks', name: 'Concluinte', icon: 'fa-graduation-cap', desc: 'Completou todos os blocos', color: 'bg-red-500' },
+                { id: 'speed_learner', name: 'Rápido', icon: 'fa-bolt', desc: '20 questões em 10 minutos', color: 'bg-orange-500' },
+                { id: 'health_hero', name: 'Herói da Saúde', icon: 'fa-heartbeat', desc: '100 questões corretas', color: 'bg-cyan-500' },
+                { id: 'marathon', name: 'Maratonista', icon: 'fa-running', desc: '300 questões estudadas', color: 'bg-pink-500' }
+            ],
+            user: {
+                name: 'Candidato',
+                level: 1,
+                xp: 0,
+                streak: 0,
+                lastStudy: null,
+                badges: [],
+                questionsAnswered: {},
+                sessionHistory: [],
+                createdAt: new Date().toISOString(),
+                nameUpdatedAt: new Date().toISOString()
+            }
+        };
+
+        const app = {
+            currentSection: 'dashboard',
+            currentBlock: null,
+            currentQuestion: 0,
+            quizQuestions: [],
+            studyMode: 'flashcard',
+            timer: null,
+            timeLeft: 600,
+            flashcardIndex: 0,
+            flashcardQuestions: [],
+            showAnswer: true,
+            consecutiveCorrect: 0,
+            quizScore: 0,
+            countdownInterval: null,
+            answerExpanded: false,
+            correctAnswerIndex: -1,
+
+            init() {
+                this.loadData();
+                this.checkDailyStreak();
+                this.renderDashboard();
+                this.renderLearningTopics();
+                this.renderQuestionBlocks();
+                this.renderBadges();
+                this.updateDailyGoals();
+                this.showToast('Bem-vindo ao Prep Ministério da Saúde! ', 'success');
+            },
+
+            loadData() {
+                const saved = localStorage.getItem('minsaude_app_data');
+                if (saved) {
+                    const data = JSON.parse(saved);
+                    appData.user = { ...appData.user, ...data.user };
+                }
+            },
+
+            saveData() {
+                localStorage.setItem('minsaude_app_data', JSON.stringify({ user: appData.user }));
+            },
+
+            checkDailyStreak() {
+                const today = new Date().toDateString();
+                const last = appData.user.lastStudy;
+                if (last) {
+                    const lastDate = new Date(last);
+                    const diff = (new Date(today) - new Date(lastDate.toDateString())) / (1000 * 60 * 60 * 24);
+                    if (diff === 1) appData.user.streak++;
+                    else if (diff > 1) appData.user.streak = 1;
+                } else {
+                    appData.user.streak = 1;
+                }
+                appData.user.lastStudy = new Date().toISOString();
+                this.saveData();
+            },
+
+            navigateTo(section) {
+                document.querySelectorAll('section').forEach(s => {
+                    s.classList.remove('active-section');
+                    s.classList.add('hidden-section');
+                });
+                document.getElementById(section).classList.remove('hidden-section');
+                document.getElementById(section).classList.add('active-section');
+                document.querySelectorAll('.nav-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.dataset.target === section) btn.classList.add('active');
+                });
+                this.currentSection = section;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                this.updateUI();
+            },
+
+            renderDashboard() {
+                document.getElementById('totalStreak').textContent = appData.user.streak;
+                document.getElementById('totalPoints').textContent = appData.user.xp;
+                document.getElementById('totalBadges').textContent = appData.user.badges.length;
+                const answered = Object.keys(appData.user.questionsAnswered).length;
+                document.getElementById('questionsProgress').textContent = `${answered}/300`;
+                this.renderRecentActivity();
+            },
+
+            renderLearningTopics() {
+                const container = document.getElementById('learningTopics');
+                container.innerHTML = appData.learning.topics.map(topic => `
+                    <div class="bg-white rounded-2xl p-4 shadow-lg card-hover cursor-pointer" onclick="app.openLearningTopic('${topic.id}')">
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 ${topic.color} rounded-xl flex items-center justify-center text-white text-2xl">
+                                <i class="fas ${topic.icon}"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-bold text-gray-800">${topic.title}</h3>
+                                <p class="text-xs text-gray-500">Conteúdo teórico</p>
+                            </div>
+                            <i class="fas fa-chevron-right text-gray-400"></i>
+                        </div>
+                    </div>
+                `).join('');
+            },
+
+            openLearningTopic(topicId) {
+                const topic = appData.learning.topics.find(t => t.id === topicId);
+                document.getElementById('learningTitle').textContent = topic.title;
+                document.getElementById('learningText').innerHTML = topic.content;
+                this.navigateTo('learningContent');
+            },
+
+            renderQuestionBlocks() {
+                const container = document.getElementById('questionBlocks');
+                container.innerHTML = appData.blocks.map(block => {
+                    const blockQuestions = appData.questions.filter(q => q.block === block.id);
+                    const answered = blockQuestions.filter(q => appData.user.questionsAnswered[q.id]).length;
+                    const percentage = (answered / blockQuestions.length) * 100;
+                    return `
+                        <div class="bg-white rounded-2xl p-4 shadow-lg card-hover cursor-pointer" onclick="app.openBlock(${block.id})">
+                            <div class="flex items-center gap-4">
+                                <div class="w-14 h-14 ${block.color} rounded-xl flex items-center justify-center text-white text-2xl">
+                                    <i class="fas ${block.icon}"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="font-bold text-gray-800">${block.title}</h3>
+                                    <p class="text-xs text-gray-500 mb-2">Questões ${block.range}</p>
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="${block.color.replace('bg-', 'bg-')} h-2 rounded-full transition-all" style="width: ${percentage}%"></div>
+                                    </div>
+                                    <p class="text-xs text-gray-500 mt-1">${answered}/${blockQuestions.length} completas</p>
+                                </div>
+                                <i class="fas fa-chevron-right text-gray-400"></i>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                const totalAnswered = Object.keys(appData.user.questionsAnswered).length;
+                document.getElementById('totalProgress').textContent = `${totalAnswered}/300`;
+                document.getElementById('totalProgressBar').style.width = `${(totalAnswered / 300) * 100}%`;
+            },
+
+            openBlock(blockId) {
+                this.currentBlock = blockId;
+                const blockQuestions = appData.questions.filter(q => q.block === blockId);
+                const shuffledQuestions = [...blockQuestions].sort(() => Math.random() - 0.5);
+                
+                if (this.studyMode === 'flashcard') {
+                    this.flashcardQuestions = shuffledQuestions;
+                    this.flashcardIndex = 0;
+                    this.showFlashcard();
+                    this.navigateTo('flashcardInterface');
+                } else if (this.studyMode === 'quiz' || this.studyMode === 'timer') {
+                    this.quizQuestions = shuffledQuestions;
+                    this.currentQuestion = 0;
+                    this.quizScore = 0;
+                    this.consecutiveCorrect = 0;
+                    this.showAnswer = true;
+                    document.getElementById('answerToggle').classList.add('active');
+                    this.startQuiz();
+                } else if (this.studyMode === 'multiple') {
+                    this.quizQuestions = shuffledQuestions;
+                    this.currentQuestion = 0;
+                    this.quizScore = 0;
+                    this.consecutiveCorrect = 0;
+                    this.startMultipleChoice();
+                }
+            },
+
+            setStudyMode(mode) {
+                this.studyMode = mode;
+                document.querySelectorAll('.study-mode-btn').forEach(btn => {
+                    btn.classList.remove('active', 'bg-gradient-to-r', 'from-orange-400', 'to-orange-600', 'text-white');
+                    btn.classList.add('bg-gray-100', 'text-gray-600');
+                });
+                event.target.closest('button').classList.remove('bg-gray-100', 'text-gray-600');
+                event.target.closest('button').classList.add('active', 'bg-gradient-to-r', 'from-orange-400', 'to-orange-600', 'text-white');
+                const modeNames = { flashcard: 'Flashcards', quiz: 'Quiz', multiple: 'Múltipla Escolha', timer: 'Cronómetro' };
+                this.showToast(`Modo ${modeNames[mode]} ativado!`, 'info');
+            },
+
+            showFlashcard() {
+                if (this.flashcardIndex >= this.flashcardQuestions.length) {
+                    this.completeFlashcardSession();
+                    return;
+                }
+                const q = this.flashcardQuestions[this.flashcardIndex];
+                document.getElementById('flashcardCounter').textContent = `${this.flashcardIndex + 1}/${this.flashcardQuestions.length}`;
+                document.getElementById('flashcardQuestion').textContent = q.q;
+                document.getElementById('flashcardAnswer').textContent = q.a;
+                document.querySelector('.flashcard').classList.remove('flipped');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            },
+
+            markFlashcard(difficulty) {
+                const q = this.flashcardQuestions[this.flashcardIndex];
+                appData.user.questionsAnswered[q.id] = { difficulty: difficulty, date: new Date().toISOString() };
+                this.addXP(5);
+                this.checkBadge('first_question');
+            },
+
+            nextFlashcard() {
+                this.flashcardIndex++;
+                this.showFlashcard();
+            },
+
+            completeFlashcardSession() {
+                appData.user.sessionHistory.push({ date: new Date().toISOString(), mode: 'flashcard', block: this.currentBlock, questions: this.flashcardQuestions.length });
+                this.saveData();
+                confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+                this.showToast('Sessão de flashcards completa! +XP', 'success');
+                this.navigateTo('questions');
+                this.renderQuestionBlocks();
+            },
+
+            startQuiz() {
+                if (this.studyMode === 'timer') {
+                    this.timeLeft = 600;
+                    this.startTimer();
+                }
+                this.showQuizQuestion();
+                this.navigateTo('quizInterface');
+            },
+
+            startTimer() {
+                if (this.timer) clearInterval(this.timer);
+                this.timer = setInterval(() => {
+                    this.timeLeft--;
+                    const pct = (this.timeLeft / 600) * 100;
+                    document.getElementById('quizTimerBar').style.width = `${pct}%`;
+                    if (this.timeLeft <= 0) this.endQuizSession();
+                }, 1000);
+            },
+
+            showQuizQuestion() {
+                if (this.currentQuestion >= this.quizQuestions.length) {
+                    this.endQuizSession();
+                    return;
+                }
+                const q = this.quizQuestions[this.currentQuestion];
+                document.getElementById('quizCounter').textContent = `${this.currentQuestion + 1}/${this.quizQuestions.length}`;
+                document.getElementById('quizScore').textContent = `${this.quizScore} pts`;
+                document.getElementById('quizCategory').textContent = `Bloco ${q.block}`;
+                document.getElementById('quizQuestion').textContent = q.q;
+                document.getElementById('quizAnswer').textContent = q.a;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            },
+
+            toggleAnswerVisibility() {
+                this.showAnswer = !this.showAnswer;
+                const toggle = document.getElementById('answerToggle');
+                const container = document.getElementById('answerContainer');
+                if (this.showAnswer) {
+                    toggle.classList.add('active');
+                    container.style.opacity = '1';
+                    container.style.maxHeight = '500px';
+                } else {
+                    toggle.classList.remove('active');
+                    container.style.opacity = '0.3';
+                    container.style.maxHeight = '0';
+                }
+            },
+
+            markQuizAnswer(result) {
+                const q = this.quizQuestions[this.currentQuestion];
+                appData.user.questionsAnswered[q.id] = { result: result, date: new Date().toISOString() };
+                
+                if (result === 'correct') {
+                    this.quizScore += 10;
+                    this.consecutiveCorrect++;
+                    confetti({ particleCount: 40, spread: 60, origin: { y: 0.7 } });
+                    this.showToast('Correto! +10 XP', 'success');
+                } else {
+                    this.consecutiveCorrect = 0;
+                    const wrongBtn = event.target.closest('button');
+                    wrongBtn.classList.add('wrong-reaction');
+                    document.body.classList.add('wrong-flash');
+                    setTimeout(() => {
+                        wrongBtn.classList.remove('wrong-reaction');
+                        document.body.classList.remove('wrong-flash');
+                    }, 600);
+                    this.showToast('Errado! Continue a estudar', 'error');
+                }
+                this.checkBadge('first_question');
+                if (this.consecutiveCorrect >= 10) this.checkBadge('perfect_score');
+                
+                setTimeout(() => {
+                    this.currentQuestion++;
+                    this.showQuizQuestion();
+                }, 800);
+            },
+
+            startMultipleChoice() {
+                if (this.studyMode === 'timer') {
+                    this.timeLeft = 600;
+                    this.startTimer();
+                }
+                this.showMultipleQuestion();
+                this.navigateTo('multipleInterface');
+            },
+
+            showMultipleQuestion() {
+                if (this.currentQuestion >= this.quizQuestions.length) {
+                    this.endQuizSession();
+                    return;
+                }
+                const q = this.quizQuestions[this.currentQuestion];
+                document.getElementById('multipleCounter').textContent = `${this.currentQuestion + 1}/${this.quizQuestions.length}`;
+                document.getElementById('multipleScore').textContent = `${this.quizScore} pts`;
+                document.getElementById('multipleCategory').textContent = `Bloco ${q.block}`;
+                document.getElementById('multipleQuestion').textContent = q.q;
+                document.getElementById('multipleFeedback').classList.add('hidden');
+                this.answerExpanded = false;
+                
+                const options = this.generateMultipleOptions(q);
+                this.correctAnswerIndex = options.findIndex(opt => opt.correct);
+                
+                const optionsHtml = options.map((opt, idx) => `
+                    <button onclick="app.checkMultipleAnswer(${idx})" 
+                            class="quiz-option w-full p-4 bg-gray-50 border-2 border-gray-200 rounded-xl text-left font-semibold text-sm text-gray-700 leading-relaxed" 
+                            data-index="${idx}">
+                        <span class="option-letter inline-flex items-center justify-center w-9 h-9 rounded-full mr-3 text-sm font-bold flex-shrink-0">${String.fromCharCode(65 + idx)}</span>
+                        <span class="align-middle">${opt.text}</span>
+                    </button>
+                `).join('');
+                
+                document.getElementById('multipleOptions').innerHTML = optionsHtml;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            },
+
+            generateMultipleOptions(correctQuestion) {
+                const sameBlockQuestions = appData.questions.filter(q => q.block === correctQuestion.block && q.id !== correctQuestion.id);
+                const shuffled = [...sameBlockQuestions].sort(() => Math.random() - 0.5);
+                const distractors = shuffled.slice(0, 3).map(q => ({ text: q.a, correct: false }));
+                const correctOption = { text: correctQuestion.a, correct: true };
+                return [...distractors, correctOption].sort(() => Math.random() - 0.5);
+            },
+
+            checkMultipleAnswer(selectedIndex) {
+                const q = this.quizQuestions[this.currentQuestion];
+                const buttons = document.querySelectorAll('#multipleOptions .quiz-option');
+                const isCorrect = selectedIndex === this.correctAnswerIndex;
+                
+                buttons.forEach(btn => btn.disabled = true);
+                
+                if (isCorrect) {
+                    buttons[selectedIndex].classList.add('correct');
+                    this.quizScore += 10;
+                    this.consecutiveCorrect++;
+                    confetti({ particleCount: 40, spread: 60, origin: { y: 0.7 } });
+                    this.showToast('Correto! +10 XP', 'success');
+                    
+                    document.getElementById('feedbackText').textContent = '✅ Correto!';
+                    document.getElementById('feedbackText').className = 'font-semibold mb-2 text-green-600';
+                    document.getElementById('feedbackExplanation').textContent = q.a;
+                    document.getElementById('correctAnswerBox').classList.remove('expanded');
+                    document.getElementById('wrongActionButtons').classList.add('hidden');
+                    document.getElementById('multipleFeedback').classList.remove('hidden');
+                    
+                    appData.user.questionsAnswered[q.id] = { result: 'correct', date: new Date().toISOString() };
+                    
+                    setTimeout(() => {
+                        this.currentQuestion++;
+                        this.showMultipleQuestion();
+                    }, 1500);
+                } else {
+                    buttons[selectedIndex].classList.add('wrong');
+                    buttons[this.correctAnswerIndex].classList.add('correct');
+                    
+                    this.consecutiveCorrect = 0;
+                    this.showToast('Errado! Estude a resposta correta', 'error');
+                    
+                    document.getElementById('feedbackText').textContent = '❌ Errado';
+                    document.getElementById('feedbackText').className = 'font-semibold mb-2 text-red-600';
+                    document.getElementById('feedbackExplanation').textContent = q.a;
+                    document.getElementById('correctAnswerBox').classList.add('expanded');
+                    document.getElementById('wrongActionButtons').classList.remove('hidden');
+                    document.getElementById('multipleFeedback').classList.remove('hidden');
+                    
+                    appData.user.questionsAnswered[q.id] = { result: 'wrong', date: new Date().toISOString() };
+                    
+                    this.startWrongAnswerCountdown();
+                }
+                
+                this.checkBadge('first_question');
+                if (this.consecutiveCorrect >= 10) this.checkBadge('perfect_score');
+            },
+
+            startWrongAnswerCountdown() {
+                let seconds = 60;
+                document.getElementById('countdownTimer').textContent = seconds;
+                if (this.countdownInterval) clearInterval(this.countdownInterval);
+                this.countdownInterval = setInterval(() => {
+                    seconds--;
+                    document.getElementById('countdownTimer').textContent = seconds;
+                    if (seconds <= 0) this.nextMultipleQuestion();
+                }, 1000);
+            },
+
+            nextMultipleQuestion() {
+                if (this.countdownInterval) {
+                    clearInterval(this.countdownInterval);
+                    this.countdownInterval = null;
+                }
+                this.currentQuestion++;
+                this.showMultipleQuestion();
+            },
+
+            toggleAnswerExpand() {
+                this.answerExpanded = !this.answerExpanded;
+                const box = document.getElementById('correctAnswerBox');
+                const btn = document.querySelector('.expand-btn');
+                if (this.answerExpanded) {
+                    box.classList.add('expanded');
+                    btn.classList.add('expanded');
+                } else {
+                    box.classList.remove('expanded');
+                    btn.classList.remove('expanded');
+                }
+            },
+
+            endQuizSession() {
+                if (this.timer) clearInterval(this.timer);
+                if (this.countdownInterval) clearInterval(this.countdownInterval);
+                appData.user.sessionHistory.push({ date: new Date().toISOString(), mode: this.studyMode, block: this.currentBlock, questions: this.quizQuestions.length, score: this.quizScore });
+                this.saveData();
+                confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+                this.showToast(`Sessão completa! ${this.quizScore} pts`, 'success');
+                this.navigateTo('questions');
+                this.renderQuestionBlocks();
+            },
+
+            addXP(amount) {
+                appData.user.xp += amount;
+                const newLevel = Math.floor(appData.user.xp / 500) + 1;
+                if (newLevel > appData.user.level) {
+                    appData.user.level = newLevel;
+                    this.showToast(`Subiu para o nível ${newLevel}!`, 'success');
+                    confetti({ particleCount: 150, spread: 100 });
+                }
+                this.saveData();
+                this.updateUI();
+            },
+
+            checkBadge(badgeId) {
+                if (!appData.user.badges.includes(badgeId)) {
+                    appData.user.badges.push(badgeId);
+                    this.saveData();
+                    this.renderBadges();
+                    this.showToast(`Nova medalha desbloqueada!`, 'success');
+                    confetti({ particleCount: 100, spread: 70 });
+                }
+            },
+
+            renderBadges() {
+                const container = document.getElementById('badgesGrid');
+                container.innerHTML = appData.badges.map(badge => {
+                    const earned = appData.user.badges.includes(badge.id);
+                    return `
+                        <div class="badge ${earned ? '' : 'locked'} flex flex-col items-center cursor-pointer" onclick="app.showBadgeInfo('${badge.id}')">
+                            <div class="w-12 h-12 ${badge.color} rounded-full flex items-center justify-center text-white text-xl mb-1 shadow-lg">
+                                <i class="fas ${badge.icon}"></i>
+                            </div>
+                            <span class="text-[10px] text-center font-semibold ${earned ? 'text-gray-800' : 'text-gray-400'}">${badge.name}</span>
+                        </div>
+                    `;
+                }).join('');
+            },
+
+            showBadgeInfo(badgeId) {
+                const badge = appData.badges.find(b => b.id === badgeId);
+                const earned = appData.user.badges.includes(badgeId);
+                this.showToast(`${badge.name}: ${badge.desc}`, earned ? 'success' : 'info');
+            },
+
+            editName() {
+                const nameDisplay = document.getElementById('profileName');
+                const nameInput = document.getElementById('nameInput');
+                nameDisplay.classList.add('hidden');
+                nameInput.classList.remove('hidden');
+                nameInput.value = appData.user.name;
+                nameInput.focus();
+                nameInput.select();
+                nameDisplay.classList.add('editing');
+            },
+
+            saveName() {
+                const nameDisplay = document.getElementById('profileName');
+                const nameInput = document.getElementById('nameInput');
+                const newName = nameInput.value.trim();
+                if (newName && newName !== appData.user.name) {
+                    appData.user.name = newName;
+                    appData.user.nameUpdatedAt = new Date().toISOString();
+                    this.saveData();
+                    this.updateUI();
+                    this.showToast('Nome atualizado com sucesso!', 'success');
+                }
+                nameDisplay.classList.remove('hidden');
+                nameInput.classList.add('hidden');
+                nameDisplay.classList.remove('editing');
+            },
+
+            updateUI() {
+                document.getElementById('userName').textContent = appData.user.name;
+                document.getElementById('userLevel').textContent = `Nível ${appData.user.level}`;
+                document.getElementById('profileInitial').textContent = appData.user.name.charAt(0).toUpperCase();
+                document.getElementById('profileName').innerHTML = `${appData.user.name}<i class="fas fa-pen text-xs text-gray-400 ml-2"></i>`;
+                const memberSince = new Date(appData.user.nameUpdatedAt || appData.user.createdAt);
+                document.getElementById('memberSince').textContent = memberSince.toLocaleDateString('pt-PT');
+                const correct = Object.values(appData.user.questionsAnswered).filter(a => a.result === 'correct').length;
+                const wrong = Object.values(appData.user.questionsAnswered).filter(a => a.result === 'wrong').length;
+                const total = correct + wrong;
+                const percentage = total > 0 ? Math.round((correct / total) * 100) : 0;
+                document.getElementById('profileCorrect').textContent = correct;
+                document.getElementById('profileWrong').textContent = wrong;
+                document.getElementById('profileTotal').textContent = `${percentage}%`;
+                this.renderBadges();
+                this.renderSessionHistory();
+            },
+
+            renderSessionHistory() {
+                const container = document.getElementById('sessionHistory');
+                if (appData.user.sessionHistory.length === 0) {
+                    container.innerHTML = '<p class="text-center text-gray-400 py-4">Sem sessões realizadas</p>';
+                    return;
+                }
+                container.innerHTML = appData.user.sessionHistory.slice(-10).reverse().map(session => {
+                    const block = appData.blocks.find(b => b.id === session.block);
+                    return `
+                        <div class="p-3 bg-gray-50 rounded-xl flex justify-between items-center">
+                            <div>
+                                <div class="font-semibold text-sm">${block ? block.title : 'Bloco ' + session.block}</div>
+                                <div class="text-xs text-gray-500">${new Date(session.date).toLocaleDateString('pt-PT')} • ${session.questions} questões</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-xs text-gray-500 capitalize">${session.mode}</div>
+                                ${session.score ? `<div class="text-xs font-bold text-blue-600">${session.score} pts</div>` : ''}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            },
+
+            renderRecentActivity() {
+                const container = document.getElementById('recentActivity');
+                const activities = appData.user.sessionHistory.slice(-5).reverse();
+                if (activities.length === 0) {
+                    container.innerHTML = '<p class="text-center py-4 text-gray-400">Sem atividade recente</p>';
+                    return;
+                }
+                container.innerHTML = activities.map(a => {
+                    const block = appData.blocks.find(b => b.id === a.block);
+                    return `
+                        <div class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50">
+                            <i class="fas fa-question-circle text-blue-500"></i>
+                            <div class="flex-1">
+                                <div class="text-sm font-medium text-gray-800">${block ? block.title : 'Bloco ' + a.block}</div>
+                                <div class="text-xs text-gray-500">${new Date(a.date).toLocaleDateString('pt-PT')} • ${a.questions} questões</div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            },
+
+            updateDailyGoals() {
+                const goals = [
+                    { text: 'Estudar 10 questões', done: Object.keys(appData.user.questionsAnswered).length >= 10, icon: 'fa-question-circle' },
+                    { text: 'Completar um bloco', done: appData.blocks.some(b => { const blockQuestions = appData.questions.filter(q => q.block === b.id); const answered = blockQuestions.filter(q => appData.user.questionsAnswered[q.id]).length; return answered === blockQuestions.length; }), icon: 'fa-check-circle' },
+                    { text: 'Ganhar 50 XP', done: appData.user.xp >= 50, icon: 'fa-star' }
+                ];
+                const container = document.getElementById('dailyGoals');
+                container.innerHTML = goals.map(g => `
+                    <div class="flex items-center gap-3 p-3 rounded-xl ${g.done ? 'bg-green-50' : 'bg-gray-50'}">
+                        <i class="fas ${g.icon} ${g.done ? 'text-green-600' : 'text-gray-400'}"></i>
+                        <span class="flex-1 text-sm ${g.done ? 'text-green-800 line-through' : 'text-gray-700'}">${g.text}</span>
+                        ${g.done ? '<i class="fas fa-check text-green-600"></i>' : '<div class="w-5 h-5 rounded-full border-2 border-gray-300"></div>'}
+                    </div>
+                `).join('');
+            },
+
+            exportData() {
+                const dataStr = JSON.stringify({ user: appData.user, exportDate: new Date().toISOString() }, null, 2);
+                const blob = new Blob([dataStr], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `minsaude_progress_${new Date().toISOString().split('T')[0]}.json`;
+                a.click();
+                this.showToast('Dados exportados com sucesso!', 'success');
+            },
+
+            importData(input) {
+                const file = input.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    try {
+                        const data = JSON.parse(e.target.result);
+                        if (confirm('Isto vai substituir o seu progresso atual. Continuar?')) {
+                            appData.user = { ...appData.user, ...data.user };
+                            this.saveData();
+                            this.init();
+                            this.showToast('Dados importados com sucesso!', 'success');
+                        }
+                    } catch (err) {
+                        this.showToast('Erro ao importar ficheiro!', 'error');
+                    }
+                };
+                reader.readAsText(file);
+            },
+
+            resetProgress() {
+                if (confirm('Tem a certeza? Todo o progresso será perdido!')) {
+                    localStorage.removeItem('minsaude_app_data');
+                    location.reload();
+                }
+            },
+
+            showToast(message, type = 'info') {
+                const colors = { success: 'bg-green-500', error: 'bg-red-500', info: 'bg-blue-500', warning: 'bg-yellow-500' };
+                const icons = { success: 'fa-check-circle', error: 'fa-exclamation-circle', info: 'fa-info-circle', warning: 'fa-exclamation-triangle' };
+                const toast = document.createElement('div');
+                toast.className = `toast ${colors[type]} text-white px-6 py-3 rounded-xl shadow-lg flex items-center gap-3 mb-2 pointer-events-auto`;
+                toast.innerHTML = `<i class="fas ${icons[type]}"></i><span class="font-semibold">${message}</span>`;
+                document.getElementById('toastContainer').appendChild(toast);
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    toast.style.transform = 'translateY(100px)';
+                    setTimeout(() => toast.remove(), 300);
+                }, 3000);
+            },
+
+            showProfile() {
+                this.navigateTo('profile');
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => { app.init(); });
+    </script>
+</body>
+</html>
