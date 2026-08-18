@@ -1,1 +1,1560 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#FF9100">
+    <title>Prep Administração Pública - 100 Questões</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            background: linear-gradient(180deg, #FFDC61 0%, #FF9100 50%, #BFC5CB 100%);
+            background-attachment: fixed;
+            overflow-x: hidden;
+            touch-action: manipulation;
+            min-height: 100vh;
+        }
 
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px) saturate(180%);
+            -webkit-backdrop-filter: blur(12px) saturate(180%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px) saturate(180%);
+            -webkit-backdrop-filter: blur(12px) saturate(180%);
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .card-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .btn-press {
+            transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.15s;
+        }
+        .btn-press:active {
+            transform: scale(0.92);
+            box-shadow: 0 0 0 0 rgba(0,0,0,0.2);
+        }
+        .btn-press:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .card-hover {
+            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s;
+        }
+        .card-hover:hover {
+            transform: translateY(-4px) scale(1.01);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.2);
+        }
+        .card-hover:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        .slide-in {
+            animation: slideIn 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .pulse-ring {
+            animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 145, 0, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 20px rgba(255, 145, 0, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 145, 0, 0); }
+        }
+
+        .toast {
+            animation: toastSlide 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes toastSlide {
+            from { transform: translateY(100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .badge {
+            transition: all 0.3s ease;
+        }
+
+        .badge:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .badge.locked {
+            filter: grayscale(100%);
+            opacity: 0.5;
+        }
+
+        .hidden-section {
+            display: none;
+        }
+
+        .active-section {
+            display: block;
+            animation: fadeIn 0.35s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .quiz-option {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .quiz-option:active {
+            transform: scale(0.96);
+        }
+
+        .quiz-option.correct {
+            background: linear-gradient(135deg, #10b981, #059669) !important;
+            color: white !important;
+            animation: correctPulse 0.6s ease;
+            border-color: #059669 !important;
+        }
+
+        .quiz-option.wrong {
+            background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+            color: white !important;
+            animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+            border-color: #dc2626 !important;
+        }
+
+        @keyframes correctPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(16, 185, 129, 0.3); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); }
+            20%, 40%, 60%, 80% { transform: translateX(8px); }
+        }
+
+        .timer-bar {
+            transition: width 1s linear;
+        }
+
+        .flashcard {
+            perspective: 1000px;
+            height: 320px;
+        }
+
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .flashcard.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .flashcard-back {
+            transform: rotateY(180deg);
+        }
+
+        .streak-fire {
+            animation: flicker 1s infinite;
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.85; transform: scale(1.05); }
+        }
+
+        .ripple {
+            position: relative;
+            overflow: hidden;
+        }
+        .ripple::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        .ripple:active::after {
+            width: 300px;
+            height: 300px;
+        }
+
+        .wrong-reaction {
+            animation: wrongShake 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+        }
+
+        @keyframes wrongShake {
+            0%, 100% { transform: translateX(0) rotate(0); }
+            20% { transform: translateX(-10px) rotate(-3deg); }
+            40% { transform: translateX(10px) rotate(3deg); }
+            60% { transform: translateX(-8px) rotate(-2deg); }
+            80% { transform: translateX(8px) rotate(2deg); }
+        }
+
+        .wrong-flash {
+            animation: wrongFlash 0.5s ease;
+        }
+
+        @keyframes wrongFlash {
+            0%, 100% { background-color: inherit; }
+            50% { background-color: #fee2e2; }
+        }
+
+        .nav-btn {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .nav-btn:active {
+            transform: scale(0.9);
+        }
+        .nav-btn.active {
+            background: linear-gradient(135deg, #FFDC61, #FF9100);
+            color: white !important;
+            transform: scale(1.05);
+        }
+        .nav-btn.active .menu-icon {
+            color: white !important;
+        }
+
+        .menu-icon {
+            color: #FF9100;
+            transition: all 0.3s ease;
+        }
+        .nav-btn:hover .menu-icon {
+            color: white;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 26px;
+            background: #d1d5db;
+            border-radius: 20px;
+            transition: background 0.3s;
+        }
+        .toggle-switch.active {
+            background: #10b981;
+        }
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .toggle-switch.active::after {
+            transform: translateX(24px);
+        }
+
+        .editable-name {
+            cursor: pointer;
+            border-bottom: 2px dashed transparent;
+            transition: border-color 0.3s;
+        }
+        .editable-name:hover {
+            border-bottom-color: #FF9100;
+        }
+        .editable-name.editing {
+            border-bottom-color: #FF9100;
+        }
+
+        .expand-btn {
+            transition: transform 0.3s;
+        }
+        .expand-btn.expanded {
+            transform: rotate(180deg);
+        }
+
+        .answer-scroll {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+        .answer-scroll.expanded {
+            max-height: 500px;
+        }
+
+        .countdown {
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .option-letter {
+            background: linear-gradient(135deg, #FFDC61 0%, #FF9100 100%);
+            color: white;
+            box-shadow: 0 4px 8px rgba(255, 145, 0, 0.35);
+            transition: all 0.25s ease;
+        }
+
+        .external-menu-btn {
+            background: linear-gradient(135deg, #FFDC61 0%, #FF9100 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(255, 145, 0, 0.4);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .external-menu-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 16px rgba(255, 145, 0, 0.5);
+        }
+        .external-menu-btn:active {
+            transform: scale(0.95);
+        }
+
+        .nav-arrow-gradient {
+            background: linear-gradient(135deg, #FFDC61 0%, #FF9100 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .elite-badge {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #1e293b;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-20">
+
+    <header class="fixed top-0 w-full z-50 glass-effect shadow-lg">
+        <div class="flex justify-between items-center p-4">
+            <div class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold pulse-ring">
+                    <i class="fas fa-landmark"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold text-gray-800">Prep Administração Pública</h1>
+                    <p class="text-xs text-gray-600">100 Questões • <span class="elite-badge">Elite & Académico</span></p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <a href="https://criativacowork.github.io/LGOV130072026/assets/ladjumgov_exames.html" class="external-menu-btn w-10 h-10 rounded-full flex items-center justify-center btn-press" title="Outros Temas">
+                    <i class="fas fa-th-large text-sm"></i>
+                </a>
+                <div class="text-right hidden sm:block">
+                    <div class="text-sm font-bold text-gray-800" id="userName">Candidato</div>
+                    <div class="text-xs text-gray-600" id="userLevel">Nível 1</div>
+                </div>
+                <button onclick="app.showProfile()" class="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full text-white flex items-center justify-center shadow-lg btn-press">
+                    <i class="fas fa-user"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="pt-20 px-4 max-w-md mx-auto">
+        
+        <section id="dashboard" class="active-section space-y-4">
+            <div class="card-gradient rounded-2xl p-6 text-white shadow-xl card-hover">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <h2 class="text-2xl font-bold mb-1">Bem-vindo! 👋</h2>
+                        <p class="text-white/90 text-sm">Concursos Públicos de Elite e Estudos Académicos</p>
+                    </div>
+                    <div class="bg-white/20 rounded-full p-2 streak-fire">
+                        <i class="fas fa-fire text-yellow-300 text-xl"></i>
+                    </div>
+                </div>
+                <div class="flex gap-4 mt-4">
+                    <div class="bg-white/20 rounded-xl p-3 flex-1 text-center btn-press">
+                        <div class="text-2xl font-bold" id="totalStreak">0</div>
+                        <div class="text-xs">Dias seguidos</div>
+                    </div>
+                    <div class="bg-white/20 rounded-xl p-3 flex-1 text-center btn-press">
+                        <div class="text-2xl font-bold" id="totalPoints">0</div>
+                        <div class="text-xs">Pontos XP</div>
+                    </div>
+                    <div class="bg-white/20 rounded-xl p-3 flex-1 text-center btn-press">
+                        <div class="text-2xl font-bold" id="totalBadges">0</div>
+                        <div class="text-xs">Medalhas</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div class="bg-white rounded-2xl p-4 shadow-lg card-hover cursor-pointer" onclick="app.navigateTo('learning')">
+                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-2">
+                        <i class="fas fa-book menu-icon text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-800">Aprender</h3>
+                    <p class="text-xs text-gray-500">Conteúdo teórico</p>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-4 shadow-lg card-hover cursor-pointer" onclick="app.navigateTo('questions')">
+                    <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mb-2">
+                        <i class="fas fa-question-circle menu-icon text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-800">Questões</h3>
+                    <p class="text-xs text-gray-500" id="questionsProgress">0/100</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 shadow-lg">
+                <h3 class="font-bold text-gray-800 mb-3">Modo de Estudo</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <button onclick="app.setStudyMode('flashcard')" class="study-mode-btn active bg-gradient-to-r from-orange-400 to-orange-600 text-white py-3 rounded-xl text-sm font-semibold btn-press ripple">
+                        <i class="fas fa-clone block mb-1"></i>
+                        Flashcards
+                    </button>
+                    <button onclick="app.setStudyMode('quiz')" class="study-mode-btn bg-gray-100 text-gray-600 py-3 rounded-xl text-sm font-semibold btn-press ripple">
+                        <i class="fas fa-check-circle block mb-1"></i>
+                        Quiz
+                    </button>
+                    <button onclick="app.setStudyMode('multiple')" class="study-mode-btn bg-gray-100 text-gray-600 py-3 rounded-xl text-sm font-semibold btn-press ripple">
+                        <i class="fas fa-list-ul block mb-1"></i>
+                        Múltipla Escolha
+                    </button>
+                    <button onclick="app.setStudyMode('timer')" class="study-mode-btn bg-gray-100 text-gray-600 py-3 rounded-xl text-sm font-semibold btn-press ripple">
+                        <i class="fas fa-stopwatch block mb-1"></i>
+                        Cronómetro
+                    </button>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 shadow-lg">
+                <h3 class="font-bold text-gray-800 mb-3 flex items-center gap-2">
+                    <i class="fas fa-tasks text-purple-600"></i>
+                    Objetivos de Hoje
+                </h3>
+                <div id="dailyGoals" class="space-y-2"></div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 shadow-lg">
+                <h3 class="font-bold text-gray-800 mb-3">Atividade Recente</h3>
+                <div id="recentActivity" class="space-y-2 text-sm text-gray-600">
+                    <p class="text-center py-4">Sem atividade recente</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="learning" class="hidden-section space-y-4">
+            <div class="flex items-center gap-3 mb-4">
+                <button onclick="app.navigateTo('dashboard')" class="w-10 h-10 bg-white rounded-full shadow flex items-center justify-center btn-press">
+                    <i class="fas fa-arrow-left nav-arrow-gradient text-xl"></i>
+                </button>
+                <h2 class="text-2xl font-bold text-white">Conteúdo Teórico</h2>
+            </div>
+            <div class="space-y-3" id="learningTopics"></div>
+        </section>
+
+        <section id="learningContent" class="hidden-section">
+            <div class="bg-white rounded-2xl shadow-xl p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <button onclick="app.navigateTo('learning')" class="w-10 h-10 bg-white rounded-full shadow flex items-center justify-center btn-press">
+                        <i class="fas fa-arrow-left nav-arrow-gradient text-xl"></i>
+                    </button>
+                    <h3 class="text-lg font-bold text-gray-800" id="learningTitle">Título</h3>
+                </div>
+                <div id="learningText" class="prose prose-sm max-w-none text-gray-700 space-y-4"></div>
+            </div>
+        </section>
+
+        <section id="questions" class="hidden-section space-y-4">
+            <div class="flex items-center gap-3 mb-4">
+                <button onclick="app.navigateTo('dashboard')" class="w-10 h-10 bg-white rounded-full shadow flex items-center justify-center btn-press">
+                    <i class="fas fa-arrow-left nav-arrow-gradient text-xl"></i>
+                </button>
+                <h2 class="text-2xl font-bold text-white">Questões</h2>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 shadow-lg">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-sm font-semibold text-gray-700">Progresso Geral</span>
+                    <span class="text-sm font-bold text-blue-600" id="totalProgress">0/100</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-3">
+                    <div class="bg-gradient-to-r from-blue-500 to-purple-500 h-3 rounded-full transition-all" id="totalProgressBar" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <div class="space-y-3" id="questionBlocks"></div>
+        </section>
+
+        <section id="flashcardInterface" class="hidden-section">
+            <div class="bg-white rounded-2xl shadow-xl p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <button onclick="app.navigateTo('questions')" class="w-10 h-10 bg-white rounded-full shadow flex items-center justify-center btn-press">
+                        <i class="fas fa-arrow-left nav-arrow-gradient text-xl"></i>
+                    </button>
+                    <span class="text-sm font-bold text-gray-600" id="flashcardCounter">1/20</span>
+                </div>
+
+                <div class="flashcard mb-6 cursor-pointer" onclick="this.classList.toggle('flipped')">
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front bg-gradient-to-br from-blue-500 to-purple-600 text-white shadow-lg">
+                            <div>
+                                <div class="text-xs uppercase tracking-wide mb-2 opacity-75">Pergunta</div>
+                                <div class="text-lg font-semibold" id="flashcardQuestion">Pergunta aqui...</div>
+                            </div>
+                        </div>
+                        <div class="flashcard-back bg-gradient-to-br from-green-500 to-teal-600 text-white shadow-lg">
+                            <div>
+                                <div class="text-xs uppercase tracking-wide mb-2 opacity-75">Resposta</div>
+                                <div class="text-sm" id="flashcardAnswer">Resposta aqui...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex gap-3">
+                    <button onclick="app.markFlashcard('difficult')" class="flex-1 bg-red-500 text-white py-3 rounded-xl font-bold btn-press ripple">
+                        <i class="fas fa-times mr-2"></i>Difícil
+                    </button>
+                    <button onclick="app.markFlashcard('easy')" class="flex-1 bg-green-500 text-white py-3 rounded-xl font-bold btn-press ripple">
+                        <i class="fas fa-check mr-2"></i>Fácil
+                    </button>
+                </div>
+
+                <button onclick="app.nextFlashcard()" class="w-full mt-3 bg-gradient-to-r from-orange-400 to-orange-600 text-white py-3 rounded-xl font-bold btn-press ripple">
+                    Próxima <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </section>
+
+        <section id="quizInterface" class="hidden-section">
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                <div class="w-full bg-gray-200 h-2">
+                    <div id="quizTimerBar" class="bg-red-500 h-2 timer-bar" style="width: 100%"></div>
+                </div>
+                
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-sm text-gray-500" id="quizCounter">1/10</span>
+                        <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm font-bold" id="quizScore">0 pts</span>
+                    </div>
+
+                    <div class="mb-4">
+                        <span class="text-xs font-bold text-purple-600 uppercase tracking-wide" id="quizCategory">Categoria</span>
+                        <h3 class="text-lg font-bold text-gray-800 mt-2" id="quizQuestion">Pergunta aqui...</h3>
+                    </div>
+
+                    <div class="flex items-center justify-between bg-gray-50 p-3 rounded-xl mb-4">
+                        <span class="text-sm font-semibold text-gray-700"><i class="fas fa-eye mr-2"></i>Mostrar resposta</span>
+                        <div id="answerToggle" class="toggle-switch active" onclick="app.toggleAnswerVisibility()"></div>
+                    </div>
+
+                    <div id="answerContainer" class="bg-gray-50 p-4 rounded-xl mb-4 transition-all">
+                        <p class="text-sm text-gray-700" id="quizAnswer">Resposta aqui...</p>
+                    </div>
+
+                    <div class="flex gap-3">
+                        <button onclick="app.markQuizAnswer('correct')" class="flex-1 bg-green-500 text-white py-3 rounded-xl font-bold btn-press ripple">
+                            <i class="fas fa-check mr-2"></i>Correto
+                        </button>
+                        <button onclick="app.markQuizAnswer('wrong')" class="flex-1 bg-red-500 text-white py-3 rounded-xl font-bold btn-press ripple">
+                            <i class="fas fa-times mr-2"></i>Errado
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="multipleInterface" class="hidden-section">
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                <div class="w-full bg-gray-200 h-2">
+                    <div id="multipleTimerBar" class="bg-red-500 h-2 timer-bar" style="width: 100%"></div>
+                </div>
+                
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <button onclick="app.navigateTo('questions')" class="w-10 h-10 bg-white rounded-full shadow flex items-center justify-center btn-press">
+                            <i class="fas fa-arrow-left nav-arrow-gradient text-xl"></i>
+                        </button>
+                        <div class="flex items-center gap-2">
+                            <span class="text-sm text-gray-500 font-semibold" id="multipleCounter">1/10</span>
+                            <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm font-bold" id="multipleScore">0 pts</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <span class="text-xs font-bold text-purple-600 uppercase tracking-wide" id="multipleCategory">Categoria</span>
+                        <h3 class="text-lg font-bold text-gray-800 mt-2" id="multipleQuestion">Pergunta aqui...</h3>
+                    </div>
+
+                    <div id="multipleOptions" class="space-y-3"></div>
+
+                    <div id="multipleFeedback" class="hidden mt-4">
+                        <div class="p-4 rounded-xl mb-3" id="feedbackBox">
+                            <p class="font-semibold mb-2" id="feedbackText"></p>
+                            <div class="flex items-start gap-2 mb-2">
+                                <button onclick="app.toggleAnswerExpand()" class="expand-btn text-blue-600 mt-1">
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                                <div class="flex-1">
+                                    <p class="text-xs font-bold text-gray-700 mb-1">Resposta Correta:</p>
+                                    <div id="correctAnswerBox" class="answer-scroll">
+                                        <p class="text-sm text-gray-700 bg-white p-3 rounded-lg" id="feedbackExplanation"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="wrongActionButtons" class="hidden">
+                            <div class="flex items-center justify-between bg-orange-50 p-3 rounded-xl mb-3">
+                                <div class="flex items-center gap-2">
+                                    <i class="fas fa-clock text-orange-600 countdown" id="countdownIcon"></i>
+                                    <span class="text-sm font-semibold text-orange-800">Próxima em: <span id="countdownTimer" class="font-bold">60</span>s</span>
+                                </div>
+                            </div>
+                            <button onclick="app.nextMultipleQuestion()" class="w-full bg-gradient-to-r from-orange-400 to-orange-600 text-white py-3 rounded-xl font-bold btn-press ripple">
+                                <i class="fas fa-arrow-right mr-2"></i>Próxima Pergunta
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="profile" class="hidden-section space-y-4">
+            <div class="flex items-center gap-3 mb-4">
+                <button onclick="app.navigateTo('dashboard')" class="w-10 h-10 bg-white rounded-full shadow flex items-center justify-center btn-press">
+                    <i class="fas fa-arrow-left nav-arrow-gradient text-xl"></i>
+                </button>
+                <h2 class="text-2xl font-bold text-white">Perfil & Progresso</h2>
+            </div>
+
+            <div class="bg-white rounded-2xl p-6 shadow-lg text-center">
+                <div class="w-24 h-24 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-3xl font-bold">
+                    <span id="profileInitial">U</span>
+                </div>
+                
+                <div class="mb-2">
+                    <h3 class="text-xl font-bold text-gray-800 editable-name" id="profileName" onclick="app.editName()">
+                        Utilizador
+                        <i class="fas fa-pen text-xs text-gray-400 ml-2"></i>
+                    </h3>
+                    <input type="text" id="nameInput" class="hidden text-center text-xl font-bold border-b-2 border-orange-500 focus:outline-none bg-transparent" onblur="app.saveName()" onkeypress="if(event.key==='Enter')app.saveName()">
+                </div>
+                
+                <p class="text-gray-500 text-sm">Membro desde <span id="memberSince">--</span></p>
+                
+                <div class="flex justify-center gap-4 mt-4">
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-blue-600" id="profileCorrect">0</div>
+                        <div class="text-xs text-gray-500">Corretas</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-red-600" id="profileWrong">0</div>
+                        <div class="text-xs text-gray-500">Erradas</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-purple-600" id="profileTotal">0%</div>
+                        <div class="text-xs text-gray-500">Taxa Acerto</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 shadow-lg">
+                <h3 class="font-bold text-gray-800 mb-3">Medalhas Conquistadas</h3>
+                <div id="badgesGrid" class="grid grid-cols-4 gap-3"></div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 shadow-lg space-y-3">
+                <h3 class="font-bold text-gray-800">Dados & Backup</h3>
+                <button onclick="app.exportData()" class="w-full bg-gradient-to-r from-orange-400 to-orange-600 text-white py-3 rounded-xl font-semibold btn-press ripple">
+                    <i class="fas fa-download mr-2"></i>Exportar Progresso (JSON)
+                </button>
+                <label class="w-full bg-gray-600 text-white py-3 rounded-xl font-semibold text-center cursor-pointer block btn-press">
+                    <i class="fas fa-upload mr-2"></i>Importar Progresso
+                    <input type="file" accept=".json" onchange="app.importData(this)" class="hidden">
+                </label>
+                <button onclick="app.resetProgress()" class="w-full bg-red-500 text-white py-3 rounded-xl font-semibold btn-press ripple">
+                    <i class="fas fa-trash mr-2"></i>Reiniciar Progresso
+                </button>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 shadow-lg">
+                <h3 class="font-bold text-gray-800 mb-3">Histórico de Sessões</h3>
+                <div id="sessionHistory" class="space-y-2 max-h-64 overflow-y-auto">
+                    <p class="text-center text-gray-400 py-4">Sem sessões realizadas</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <nav class="fixed bottom-0 w-full glass-nav shadow-lg z-50">
+        <div class="flex justify-around items-center p-2 max-w-md mx-auto">
+            <button onclick="app.navigateTo('dashboard')" class="nav-btn active flex-1 py-3 px-2 rounded-xl text-center" data-target="dashboard">
+                <i class="fas fa-home menu-icon text-xl mb-1 block"></i>
+                <span class="text-xs">Início</span>
+            </button>
+            <button onclick="app.navigateTo('learning')" class="nav-btn flex-1 py-3 px-2 rounded-xl text-center" data-target="learning">
+                <i class="fas fa-book menu-icon text-xl mb-1 block"></i>
+                <span class="text-xs">Aprender</span>
+            </button>
+            <button onclick="app.navigateTo('questions')" class="nav-btn flex-1 py-3 px-2 rounded-xl text-center" data-target="questions">
+                <i class="fas fa-question-circle menu-icon text-xl mb-1 block"></i>
+                <span class="text-xs">Questões</span>
+            </button>
+            <button onclick="app.navigateTo('profile')" class="nav-btn flex-1 py-3 px-2 rounded-xl text-center" data-target="profile">
+                <i class="fas fa-user menu-icon text-xl mb-1 block"></i>
+                <span class="text-xs">Perfil</span>
+            </button>
+        </div>
+    </nav>
+
+    <div id="toastContainer" class="fixed bottom-20 left-0 right-0 z-50 pointer-events-none px-4"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script>
+        const appData = {
+            learning: {
+                topics: [
+                    {
+                        id: 'conceitos',
+                        title: 'Conceitos e Enquadramento Constitucional',
+                        icon: 'fa-landmark',
+                        color: 'bg-blue-500',
+                        content: `<h4 class="font-bold text-lg mb-2">Administração Pública em Angola</h4><p class="mb-3">A Administração Pública angolana encontra o seu fundamento constitucional central no <strong>Título VII da Constituição da República de Angola (CRA)</strong>, especificamente nos <strong>Artigos 198.º a 201.º</strong>.</p><h4 class="font-bold text-lg mb-2">Sentidos da Administração Pública</h4><div class="bg-blue-50 p-3 rounded-xl mb-3"><p class="font-semibold mb-2">Sentido Orgânico (Subjetivo):</p><p class="text-sm">Conjunto de órgãos, serviços, agentes e pessoas coletivas públicas que têm a seu cargo o desempenho da atividade administrativa do Estado (ex: Ministérios, Direções Nacionais, Governos Provinciais).</p></div><div class="bg-green-50 p-3 rounded-xl mb-3"><p class="font-semibold mb-2">Sentido Material (Objetivo):</p><p class="text-sm">A própria atividade em si, isto é, a atuação concreta, sistemática e contínua que o Estado desenvolve para a satisfação das necessidades coletivas e a realização do interesse público.</p></div><h4 class="font-bold text-lg mb-2">Princípios Orientadores (Art. 198.º CRA)</h4><ul class="list-disc pl-5 mb-3 space-y-1"><li>Igualdade</li><li>Proporcionalidade</li><li>Justiça</li><li>Imparcialidade</li><li>Boa-fé</li><li>Legalidade</li><li>Desburocratização</li></ul><h4 class="font-bold text-lg mb-2">Entidades Administrativas Independentes</h4><p class="mb-3">Pessoas coletivas públicas de direito público, dotadas de autonomia administrativa e financeira, criadas para regular, fiscalizar ou supervisionar setores específicos. Suporte constitucional: <strong>Artigo 199.º, n.º 4 da CRA</strong>.</p><p class="mb-3">Diploma: <strong>Lei n.º 27/21, de 25 de Outubro</strong> (Lei de Bases das Entidades Administrativas Independentes).</p><h4 class="font-bold text-lg mb-2">Probidade Administrativa</h4><p class="mb-3">Regulada pela <strong>Lei n.º 3/10 (Lei da Probidade Pública)</strong>. Abrange todos os agentes públicos, titulares de cargos políticos, magistrados, funcionários, militares, polícias e gestores de empresas públicas.</p>`
+                    },
+                    {
+                        id: 'principios',
+                        title: 'Princípios da Atividade Administrativa (CPA)',
+                        icon: 'fa-balance-scale',
+                        color: 'bg-purple-500',
+                        content: `<h4 class="font-bold text-lg mb-2">Código do Procedimento Administrativo</h4><p class="mb-3">O diploma que rege o Procedimento Administrativo em Angola é a <strong>Lei n.º 31/22, de 30 de Agosto</strong>, que aprovou o novo Código do Procedimento Administrativo (CPA), revogando o antigo Decreto-Lei n.º 16-A/95 (LPA).</p><h4 class="font-bold text-lg mb-2">Princípios Fundamentais</h4><div class="bg-purple-50 p-3 rounded-xl mb-3"><p class="font-semibold mb-2">Legalidade (Art. 3.º)</p><p class="text-sm">A Administração deve atuar em estrita conformidade com a lei e o direito.</p></div><div class="bg-blue-50 p-3 rounded-xl mb-3"><p class="font-semibold mb-2">Prossecução do Interesse Público (Art. 4.º)</p><p class="text-sm">Realização do interesse público coletivo, respeitando direitos dos particulares.</p></div><div class="bg-green-50 p-3 rounded-xl mb-3"><p class="font-semibold mb-2">Boa Administração (Art. 5.º)</p><p class="text-sm">Atuação ágil, célere, desburocratizada, eficiente e eficaz.</p></div><div class="bg-yellow-50 p-3 rounded-xl mb-3"><p class="font-semibold mb-2">Igualdade</p><p class="text-sm">Tratar igual os iguais e diferente os diferentes, sem privilégios ou discriminações.</p></div><div class="bg-orange-50 p-3 rounded-xl mb-3"><p class="font-semibold mb-2">Proporcionalidade</p><p class="text-sm">Decisões adequadas, necessárias e equilibradas em relação aos fins legítimos.</p></div><div class="bg-red-50 p-3 rounded-xl mb-3"><p class="font-semibold mb-2">Imparcialidade</p><p class="text-sm">Atuação neutra, isenta e equidistante, proibindo conflitos de interesses.</p></div><h4 class="font-bold text-lg mb-2">Prazo Geral de Decisão</h4><p class="mb-3"><strong>60 dias</strong> (Artigo 32.º do CPA de 2022), salvo disposição especial em contrário.</p><h4 class="font-bold text-lg mb-2">Princípios Adicionais</h4><ul class="list-disc pl-5 space-y-1"><li>Boa-Fé</li><li>Decisão (Art. 12.º)</li><li>Transparência e Acesso à Informação</li><li>Audiência Prévia (Contraditório)</li><li>Colaboração com os Particulares</li><li>Gratuidade (em regra)</li><li>Celeridade</li><li>Inovação (governação eletrónica)</li><li>Adequação Procedimental</li><li>Segurança Jurídica e Proteção da Confiança</li><li>Continuidade do Serviço Público</li><li>Cooperação Institucional</li></ul>`
+                    },
+                    {
+                        id: 'organizacao',
+                        title: 'Organização Administrativa',
+                        icon: 'fa-sitemap',
+                        color: 'bg-green-500',
+                        content: `<h4 class="font-bold text-lg mb-2">Divisão Orgânica</h4><p class="mb-3">A Administração Pública em Angola divide-se em três grandes setores:</p><ol class="list-decimal pl-5 mb-3 space-y-1"><li><strong>Administração Direta do Estado</strong></li><li><strong>Administração Indireta do Estado</strong></li><li><strong>Administração Autónoma (Autarquias Locais)</strong></li></ol><h4 class="font-bold text-lg mb-2">Administração Direta</h4><p class="mb-3">Órgãos e serviços integrados na estrutura central do Estado, desprovidos de personalidade jurídica própria (ex: Ministérios, Secretarias de Estado, Governos Provinciais).</p><h4 class="font-bold text-lg mb-2">Administração Indireta</h4><p class="mb-3">Entidades públicas com <strong>personalidade jurídica própria</strong>, autonomia administrativa e financeira e património próprio (ex: Institutos Públicos, Empresas Públicas).</p><div class="bg-blue-50 p-3 rounded-xl mb-3"><p class="font-semibold mb-2">Instituto Público vs Empresa Pública</p><p class="text-sm"><strong>Instituto Público:</strong> Sem fins lucrativos, funções de autoridade ou serviços sociais (ex: INEA, INAS, AGT).</p><p class="text-sm mt-2"><strong>Empresa Pública:</strong> Finalidade económica/comercial, rege-se pelo direito privado (ex: Sonangol, TAAG, ENDIAMA). Regida pela <strong>Lei n.º 11/13, de 3 de Setembro</strong>.</p></div><h4 class="font-bold text-lg mb-2">Hierarquia vs Tutela</h4><div class="bg-green-50 p-3 rounded-xl mb-3"><p class="font-semibold mb-2">Hierarquia</p><p class="text-sm">Subordinação direta: o superior pode dar ordens, revogar e substituir atos (Administração Direta).</p></div><div class="bg-orange-50 p-3 rounded-xl mb-3"><p class="font-semibold mb-2">Tutela</p><p class="text-sm">Mera fiscalização da legalidade, sem poder de dar ordens diretas (Administração Indireta e Autónoma).</p></div><h4 class="font-bold text-lg mb-2">Desconcentração vs Descentralização</h4><ul class="list-disc pl-5 space-y-1"><li><strong>Desconcentração:</strong> Distribuição interna de competências dentro da mesma pessoa coletiva</li><li><strong>Descentralização:</strong> Transferência definitiva para entidades autónomas</li><li><strong>Delegação:</strong> Transferência temporária de poderes</li><li><strong>Avocação:</strong> Órgão superior chama a si competência delegada</li></ul>`
+                    },
+                    {
+                        id: 'funcao',
+                        title: 'Função Pública (Lei n.º 26/22)',
+                        icon: 'fa-user-tie',
+                        color: 'bg-orange-500',
+                        content: `<h4 class="font-bold text-lg mb-2">Lei de Bases da Função Pública</h4><p class="mb-3">A lei que regula as bases gerais do Emprego Público em Angola é a <strong>Lei n.º 26/22, de 22 de Agosto</strong>, que substituiu a antiga Lei n.º 17/90.</p><h4 class="font-bold text-lg mb-2">Figuras Principais</h4><div class="bg-orange-50 p-3 rounded-xl mb-3"><p class="font-semibold mb-2">Funcionário Público</p><p class="text-sm">Cidadão que, após aprovação em concurso público, desempenha funções permanentes mediante nomeação num lugar do quadro.</p></div><div class="bg-blue-50 p-3 rounded-xl mb-3"><p class="font-semibold mb-2">Agente Administrativo</p><p class="text-sm">Profissional contratado temporariamente sob regime de contrato de trabalho público para necessidades urgentes e transitórias.</p></div><h4 class="font-bold text-lg mb-2">Deveres do Funcionário</h4><ul class="list-disc pl-5 mb-3 space-y-1"><li>Obediência (com limite: recusar ordens que impliquem crime)</li><li>Zelo</li><li>Sigilo profissional</li><li>Assiduidade e pontualidade</li><li>Lealdade</li><li>Imparcialidade</li><li>Urbanidade</li><li>Probidade</li></ul><h4 class="font-bold text-lg mb-2">Direitos Fundamentais</h4><ul class="list-disc pl-5 mb-3 space-y-1"><li>Vencimento</li><li>Férias remuneradas</li><li>Aposentação (reforma)</li><li>Previdência social</li><li>Condições dignas de trabalho</li><li>Progressão na carreira</li><li>Greve e livre associação sindical</li></ul><h4 class="font-bold text-lg mb-2">Sanções Disciplinares</h4><ol class="list-decimal pl-5 space-y-1"><li>Advertência verbal</li><li>Censura escrita</li><li>Multa</li><li>Despromoção</li><li>Demissão</li></ol><h4 class="font-bold text-lg mb-2">RINAR</h4><p class="mt-3"><strong>Decreto Presidencial n.º 211/23</strong> - Regime da Nova Arquitetura Remuneratória, visando dignificação salarial e atração de talentos.</p>`
+                    },
+                    {
+                        id: 'servicos',
+                        title: 'Serviços Públicos e Atos Administrativos',
+                        icon: 'fa-file-contract',
+                        color: 'bg-red-500',
+                        content: `<h4 class="font-bold text-lg mb-2">Serviço Público</h4><p class="mb-3">Atividade de interesse geral assumida pelo Estado para assegurar a satisfação regular e contínua de necessidades coletivas básicas (ex: água, saúde, eletricidade, transporte).</p><h4 class="font-bold text-lg mb-2">Modos de Gestão</h4><ul class="list-disc pl-5 mb-3 space-y-1"><li><strong>Gestão Direta:</strong> Pelo Estado através dos seus órgãos</li><li><strong>Gestão Indireta:</strong> Por empresas públicas ou institutos</li><li><strong>Gestão Delegada/Concedida:</strong> Por empresas privadas (concessão, PPP)</li></ul><h4 class="font-bold text-lg mb-2">Ato Administrativo</h4><p class="mb-3">Decisão unilateral e de autoridade tomada por um órgão da Administração Pública que visa produzir efeitos jurídicos individuais e concretos.</p><h4 class="font-bold text-lg mb-2">Elementos Essenciais</h4><ul class="list-disc pl-5 mb-3 space-y-1"><li><strong>Sujeto:</strong> Órgão com competência legal</li><li><strong>Objeto:</strong> Matéria da decisão</li><li><strong>Forma:</strong> Modo de exteriorização (geralmente escrito)</li><li><strong>Fim:</strong> Interesse coletivo previsto na lei</li></ul><h4 class="font-bold text-lg mb-2">Invalidade do Ato</h4><div class="bg-red-50 p-3 rounded-xl mb-3"><p class="font-semibold mb-2">Nulidade (Art. 133.º CPA)</p><p class="text-sm">Ato totalmente inválido desde a origem. Causas: violação grave de direitos fundamentais, usurpação de competências, atos impossíveis, coação ou corrupção.</p></div><div class="bg-orange-50 p-3 rounded-xl mb-3"><p class="font-semibold mb-2">Anulabilidade</p><p class="text-sm">Regra geral para atos que violem a lei mas não se enquadrem nas causas de nulidade. Válidos até serem anulados.</p></div><h4 class="font-bold text-lg mb-2">Vícios do Ato Administrativo</h4><ul class="list-disc pl-5 mb-3 space-y-1"><li>Incompetência (vício subjetivo)</li><li>Vício de Forma</li><li>Desvio de Poder (fim ilegal)</li><li>Violação da Lei (objeto ilegal)</li></ul><h4 class="font-bold text-lg mb-2">Garantias dos Cidadãos</h4><div class="bg-blue-50 p-3 rounded-xl mb-3"><p class="font-semibold mb-2">Garantias Administrativas</p><ul class="list-disc pl-5 text-sm space-y-1"><li><strong>Reclamação:</strong> Ao mesmo órgão que praticou o ato</li><li><strong>Recurso Hierárquico:</strong> Ao superior hierárquico</li><li><strong>Recurso Tutelar:</strong> Ao órgão de tutela</li></ul></div><div class="bg-green-50 p-3 rounded-xl"><p class="font-semibold mb-2">Garantias Contenciosas</p><p class="text-sm">Recursos aos Tribunais Administrativos para fiscalizar legalidade, anular atos ilícitos ou obter indemnizações.</p></div>`
+                    }
+                ]
+            },
+            questions: [
+                { id: 1, block: 1, q: 'O que é a Administração Pública em sentido orgânico (ou subjetivo)?', a: 'Refere-se ao conjunto de órgãos, serviços, agentes e pessoas coletivas públicas que têm a seu cargo o desempenho da atividade administrativa do Estado, ou seja, a estrutura que compõe o aparelho administrativo do país (ex: Ministérios, Direções Nacionais, Governos Provinciais).' },
+                { id: 2, block: 1, q: 'O que é a Administração Pública em sentido material (ou objetivo)?', a: 'É a própria atividade em si, isto é, a atuação concreta, sistemática e contínua que o Estado desenvolve para a satisfação das necessidades coletivas e a realização do interesse público, sob o império do Direito.' },
+                { id: 3, block: 1, q: 'Qual é o enquadramento constitucional da Administração Pública em Angola?', a: 'A Administração Pública angolana encontra o seu fundamento constitucional central no Título VII da Constituição da República de Angola (CRA), especificamente nos Artigos 198.º a 201.º.' },
+                { id: 4, block: 1, q: 'Como a CRA define o objetivo fundamental da Administração Pública?', a: 'De acordo com o Artigo 198.º da CRA, a Administração Pública visa a prossecução do interesse público, devendo pautar a sua conduta pelo respeito aos direitos subjectivos e interesses legalmente protegidos dos cidadãos.' },
+                { id: 5, block: 1, q: 'Quais são os princípios orientadores da Administração Pública consagrados no Artigo 198.º, n.º 1 da CRA?', a: 'A Administração Pública rege-se pelos princípios da igualdade, proporcionalidade, justiça, imparcialidade e boa-fé, além do respeito pela legalidade e da desburocratização dos serviços públicos.' },
+                { id: 6, block: 1, q: 'De quem depende a direção da Administração Pública Central em Angola?', a: 'Depende diretamente do Presidente da República, na sua qualidade de Titular do Poder Executivo (TPE), que dirige a Administração Pública Central de forma unipessoal e coadjuvado pelo seu executivo (Artigo 120.º, alínea m) da CRA).' },
+                { id: 7, block: 1, q: 'O que estabelece a Constituição sobre a descentralização e desconcentração administrativas?', a: 'O Artigo 199.º da CRA determina que a Administração Pública deve ser estruturada com base nos princípios da descentralização e desconcentração administrativas, de modo a aproximar os serviços das populações e simplificar a atividade administrativa.' },
+                { id: 8, block: 1, q: 'O que são as Entidades Administrativas Independentes e qual o seu suporte constitucional?', a: 'São pessoas coletivas públicas de direito público, dotadas de autonomia administrativa e financeira, criadas para regular, fiscalizar ou supervisionar setores específicos (económico, social ou de direitos fundamentais). Estão constitucionalmente legitimadas pelo Artigo 199.º, n.º 4 da CRA.' },
+                { id: 9, block: 1, q: 'Qual é o diploma que estabelece as bases gerais das Entidades Administrativas Independentes em Angola?', a: 'É a Lei n.º 27/21, de 25 de Outubro (Lei de Bases das Entidades Administrativas Independentes).' },
+                { id: 10, block: 1, q: 'O que estabelece o Artigo 200.º da CRA sobre os direitos e garantias dos particulares?', a: 'Garante aos cidadãos o direito de serem informados pela Administração sobre o andamento dos processos em que sejam diretamente interessados, o direito de acesso aos arquivos públicos (respeitadas as restrições da lei) e o direito à impugnação de atos administrativos que lesem os seus direitos.' },
+                { id: 11, block: 1, q: 'Qual é a autoridade administrativa máxima encarregue de zelar pela legalidade e integridade da Administração Pública?', a: 'A Inspeção Geral da Administração do Estado (IGAE), órgão auxiliar do Titular do Poder Executivo focado no controlo interno, fiscalização e auditoria da legalidade administrativa e combate à corrupção.' },
+                { id: 12, block: 1, q: 'O que caracteriza a "função administrativa" em relação às funções política e judicial?', a: 'A função administrativa é executiva, subordinada à lei e de caráter contínuo e prático (resolve problemas do dia a dia). A função política define as diretrizes do Estado; a judicial dirime conflitos com força de caso julgado.' },
+                { id: 13, block: 1, q: 'O que é a "discricionariedade administrativa"?', a: 'É a margem de livre decisão ou escolha de caminhos que a lei confere ao órgão administrativo para que este possa adotar a solução técnica ou política que melhor realize o interesse público num caso concreto.' },
+                { id: 14, block: 1, q: 'Quais são os limites da discricionariedade administrativa no ordenamento jurídico angolano?', a: 'A discricionariedade não é sinónimo de arbítrio. Ela está limitada pela Constituição, pelos princípios gerais do Direito Administrativo (como a proporcionalidade e a justiça) e pelo fim do interesse público que a norma legal visa atingir.' },
+                { id: 15, block: 1, q: 'O que são os "conceitos jurídicos indeterminados"?', a: 'São termos vagos ou elásticos utilizados pela lei (como "perigo iminente", "interesse público urgente", "grave perturbação") que a Administração deve preencher no caso concreto, mediante uma valoração racional fundamentada.' },
+                { id: 16, block: 1, q: 'O que é o "desvio de poder"?', a: 'É um vício de legalidade do ato administrativo que ocorre quando um órgão administrativo utiliza um poder discricionário para atingir um fim diferente daquele para o qual a lei lhe conferiu essa competência (ex: remover um funcionário por vingança pessoal e não por interesse do serviço).' },
+                { id: 17, block: 1, q: 'Como a CRA protege o cidadão contra os abusos do poder administrativo?', a: 'Por meio do recurso contencioso aos Tribunais Administrativos (Artigo 200.º, n.º 4), da intervenção do Provedor de Justiça e do direito de indemnização por danos causados por atos ilícitos dos agentes públicos (Artigo 75.º da CRA).' },
+                { id: 18, block: 1, q: 'O que é a "probidade administrativa"?', a: 'É o dever ético e legal do agente público de atuar com honestidade, retidão, lealdade e transparência na gestão dos bens públicos, evitando conflitos de interesse, conforme regulado pela Lei n.º 3/10 (Lei da Probidade Pública).' },
+                { id: 19, block: 1, q: 'Quem está sujeito à Lei da Probidade Pública em Angola?', a: 'Todos os agentes públicos, incluindo titulares de cargos políticos, magistrados, funcionários da administração pública direta, indireta e local, militares, polícias, gestores de empresas públicas e qualquer pessoa que exerça mandato ou atividade em entidade pública.' },
+                { id: 20, block: 1, q: 'O que constitui um "acto de improbidade administrativa"?', a: 'Qualquer ação ou omissão que resulte em enriquecimento ilícito do agente público, cause prejuízo ao erário público ou atente contra os princípios da Administração Pública.' },
+                { id: 21, block: 2, q: 'Qual é o diploma que rege o Procedimento Administrativo em Angola?', a: 'É a Lei n.º 31/22, de 30 de Agosto, que aprovou o novo Código do Procedimento Administrativo (CPA), revogando o antigo Decreto-Lei n.º 16-A/95 (LPA).' },
+                { id: 22, block: 2, q: 'O que é o "procedimento administrativo"?', a: 'É a sucessão encadeada de atos e formalidades legalmente previstos, praticados pelos órgãos administrativos e pelos interessados, com vista à formação, manifestação ou execução de uma decisão administrativa.' },
+                { id: 23, block: 2, q: 'Qual a diferença entre "procedimento administrativo" e "processo administrativo"?', a: 'O procedimento é a sequência de atos que leva à decisão (o caminho); o processo é o suporte material ou eletrónico que reúne os documentos, pareceres e decisões que compõem o procedimento (a pasta física ou virtual).' },
+                { id: 24, block: 2, q: 'O que consagra o Princípio da Legalidade no Artigo 3.º do CPA?', a: 'Determina que a Administração Pública deve atuar em estrita conformidade com a lei e o direito, não podendo praticar atos que não tenham cobertura legal prévia.' },
+                { id: 25, block: 2, q: 'O que consagra o Princípio da Prossecução do Interesse Público (Artigo 4.º do CPA)?', a: 'Os órgãos e agentes da Administração devem pautar toda a sua atuação pela realização do interesse público coletivo, respeitando os direitos subjetivos e interesses legítimos dos particulares.' },
+                { id: 26, block: 2, q: 'O que é o Princípio da Boa Administração (Artigo 5.º do CPA)?', a: 'Determina que a Administração deve estruturar-se de modo a aproximar os serviços das populações e atuar de forma ágil, célere, desburocratizada, eficiente e eficaz para responder às necessidades dos cidadãos com o menor custo possível.' },
+                { id: 27, block: 2, q: 'Como se define o Princípio da Igualdade no CPA?', a: 'A Administração deve tratar de forma igual todos os cidadãos que se encontrem em situações idênticas, e de forma diferente aqueles que estejam em situações distintas, sendo proibido qualquer privilégio ou discriminação.' },
+                { id: 28, block: 2, q: 'O que preconiza o Princípio da Proporcionalidade?', a: 'As decisões da Administração que limitem direitos ou imponham deveres aos particulares devem ser adequadas, necessárias e equilibradas (proporcionais) em relação aos fins legítimos que se pretende atingir.' },
+                { id: 29, block: 2, q: 'O que é o Princípio da Imparcialidade?', a: 'Impõe que a Administração atue de forma neutra, isenta e equidistante em relação aos interesses em conflito, proibindo os agentes públicos de intervir em decisões onde tenham interesses pessoais, familiares ou profissionais (gerando impedimentos e suspeições).' },
+                { id: 30, block: 2, q: 'O que rege o Princípio da Boa-Fé na atividade administrativa?', a: 'A Administração e os particulares devem agir reciprocamente com lealdade, honestidade, confiança mútua e respeito pelas legítimas expetativas geradas pela conduta anterior de cada uma das partes.' },
+                { id: 31, block: 2, q: 'O que é o Princípio da Decisão (Artigo 12.º do CPA)?', a: 'Os órgãos administrativos têm o dever de emitir decisão expressa sobre todos os assuntos que lhes sejam apresentados pelos particulares (reclamações, petições, solicitações), não podendo eximir-se sob pretexto de dúvida ou silêncio da lei.' },
+                { id: 32, block: 2, q: 'Qual o prazo geral para a tomada de decisão administrativa sob o CPA de 2022?', a: 'Salvo disposição especial em contrário, o prazo geral para a Administração concluir um procedimento administrativo e tomar uma decisão final é de 60 dias (Artigo 32.º).' },
+                { id: 33, block: 2, q: 'O que é o Princípio da Transparência e do Acesso à Informação?', a: 'Garante que os cidadãos têm o direito de conhecer os procedimentos e as decisões administrativas, aceder a documentos, registos e arquivos do Estado (princípio do arquivo aberto), com salvaguarda das matérias de segurança do Estado ou segredo de justiça.' },
+                { id: 34, block: 2, q: 'Em que consiste o Princípio da Audiência Prévia (ou do Contraditório)?', a: 'É a obrigação de a Administração ouvir o interessado antes de tomar a decisão final, permitindo que este se pronuncie sobre o sentido provável da decisão e apresente argumentos ou provas adicionais.' },
+                { id: 35, block: 2, q: 'O que significa o Princípio da Colaboração da Administração com os Particulares?', a: 'A Administração deve apoiar e orientar os cidadãos, esclarecendo as suas dúvidas, indicando os documentos necessários e facilitando o exercício dos seus direitos.' },
+                { id: 36, block: 2, q: 'O que é o Princípio da Gratuidade do procedimento?', a: 'Em regra, o procedimento administrativo é gratuito para o particular, exceto quando normas especiais imponham o pagamento de taxas, emolumentos ou despesas específicas comprovadas.' },
+                { id: 37, block: 2, q: 'O que é o Princípio da Celeridade?', a: 'Impõe que a tramitação do procedimento administrativo seja rápida, evitando dilações inúteis ou formalismos excessivos que prejudiquem a utilidade da decisão.' },
+                { id: 38, block: 2, q: 'Qual a consequência da violação de qualquer um destes princípios pelo ato administrativo?', a: 'Gera a ilegalidade do ato, tornando-o anulável ou nulo, e passível de ser impugnado administrativa ou judicialmente pelos cidadãos afetados.' },
+                { id: 39, block: 2, q: 'O que é o Princípio da Inovação na Administração Pública?', a: 'Adotado no novo CPA, obriga a Administração a atualizar-se e inovar constantemente em termos tecnológicos e metodológicos, promovendo a governação eletrónica para facilitar a vida dos cidadãos.' },
+                { id: 40, block: 2, q: 'O que consagra o Princípio da Adequação Procedimental?', a: 'Dá aos órgãos administrativos a faculdade de adaptar os trâmites do procedimento administrativo à especificidade do caso concreto, simplificando-o para melhor atingir o interesse público, desde que não violem direitos dos particulares.' },
+                { id: 41, block: 2, q: 'O que é o Princípio da Segurança Jurídica e Proteção da Confiança?', a: 'Impede que a Administração altere de forma brusca e imotivada as suas práticas ou decisões estáveis, protegendo as situações jurídicas consolidadas dos particulares que agiram de boa-fé.' },
+                { id: 42, block: 2, q: 'O que prevê o Princípio da Continuidade do Serviço Público?', a: 'A Administração não pode suspender ou cessar a prestação de serviços essenciais às populações, devendo mantê-los mesmo em situações de crise, greve ou emergência, ainda que sob a forma de serviços mínimos.' },
+                { id: 43, block: 2, q: 'Qual o papel da fundamentação na decisão administrativa?', a: 'A fundamentação é um dever constitucional e legal. Consiste na exposição clara dos motivos de facto (circunstâncias reais) e de direito (normas aplicadas) que justificam a tomada de uma determinada decisão.' },
+                { id: 44, block: 2, q: 'A falta de fundamentação de um ato administrativo gera que tipo de vício?', a: 'Gera o vício de forma, uma vez que a fundamentação é um requisito formal obrigatório do ato administrativo, resultando na anulabilidade do mesmo.' },
+                { id: 45, block: 2, q: 'O que é o Princípio da Cooperação Institucional?', a: 'Determina que os diferentes órgãos, ministérios e serviços da Administração Pública devem colaborar estreitamente entre si para partilhar informação e agilizar processos.' },
+                { id: 46, block: 3, q: 'Como se divide organicamente a Administração Pública em Angola?', a: 'Divide-se em três grandes setores: Administração Direta do Estado; Administração Indireta do Estado; Administração Autónoma (Autarquias Locais).' },
+                { id: 47, block: 3, q: 'O que é a Administração Direta do Estado?', a: 'É o conjunto de órgãos e serviços integrados na estrutura central do Estado que dependem direta e organicamente do Titular do Poder Executivo, desprovidos de personalidade jurídica própria e autonomia financeira absoluta (ex: Ministérios, Secretarias de Estado, Governos Provinciais).' },
+                { id: 48, block: 3, q: 'O que caracteriza a Administração Central Direta do Estado?', a: 'Os seus serviços executam políticas públicas de âmbito nacional e as suas decisões aplicam-se a todo o território da República de Angola. Os ministros dirigem esses serviços sob dependência direta do Presidente da República.' },
+                { id: 49, block: 3, q: 'O que é a Administração Local (ou Periférica) Direta do Estado?', a: 'É a projeção territorial da Administração Central nas províncias e municípios (Governadores Provinciais e Administradores Municipais), encarregues de executar as políticas do Estado em zonas geográficas específicas.' },
+                { id: 50, block: 3, q: 'O que é a Administração Indireta do Estado?', a: 'É o conjunto de entidades públicas com personalidade jurídica própria, autonomia administrativa e financeira e património próprio, criadas pelo Estado para desempenhar funções técnicas ou operacionais especializadas (ex: Institutos Públicos, Empresas Públicas).' },
+                { id: 51, block: 3, q: 'O que é a "Personalidade Jurídica" no contexto administrativo?', a: 'É a capacidade jurídica de ser titular de direitos e obrigações de forma independente. Uma entidade da Administração Indireta (ex: INACOM) assina contratos, emprega pessoal e responde judicialmente em seu próprio nome, ao contrário de um Ministério que atua em nome do Estado.' },
+                { id: 52, block: 3, q: 'O que são os Institutos Públicos em Angola?', a: 'São pessoas coletivas públicas da Administração Indireta criadas para desempenhar funções administrativas de caráter técnico, de fiscalização, regulação ou de prestação de serviços (ex: INEA, INAS, AGT).' },
+                { id: 53, block: 3, q: 'Qual a diferença fundamental entre um Instituto Público e uma Empresa Pública?', a: 'Instituto Público: Não tem fins lucrativos; desempenha funções de autoridade pública ou presta serviços sociais. Empresa Pública: Tem finalidade económica, comercial ou industrial; rege-se prioritariamente pelo direito privado e visa a sustentabilidade ou geração de lucro (ex: Sonangol, TAAG, ENDIAMA).' },
+                { id: 54, block: 3, q: 'O que rege o funcionamento das Empresas Públicas em Angola?', a: 'A Lei n.º 11/13, de 3 de Setembro (Lei das Empresas Públicas), que estabelece as regras de criação, gestão, controlo e tutela destas entidades.' },
+                { id: 55, block: 3, q: 'Quem detém a tutela financeira e de mérito sobre as Empresas Públicas?', a: 'O Ministério das Finanças (tutela financeira) e o Ministério do Setor de Atividade respetivo (tutela setorial/mérito), agindo sob delegação do Titular do Poder Executivo.' },
+                { id: 56, block: 3, q: 'O que é a Administração Autónoma?', a: 'É exercida por pessoas coletivas públicas territoriais autónomas que prosseguem interesses próprios das suas populações, geridas por órgãos eleitos pelos próprios cidadãos, sem subordinação hierárquica ao Estado (as Autarquias Locais).' },
+                { id: 57, block: 3, q: 'Por que as Autarquias Locais são consideradas Administração Autónoma?', a: 'Porque gozam de autonomia regulamentar, financeira, patrimonial e de gestão de pessoal, atuando sem interferência direta do poder central, sob mera fiscalização de legalidade (tutela administrativa).' },
+                { id: 58, block: 3, q: 'O que é a "Tutela Administrativa" exercida pelo Estado sobre a Administração Autónoma?', a: 'É o poder de controlo que o Estado exerce sobre as Autarquias Locais para garantir que estas atuam em conformidade com a lei, não podendo, em regra, alterar ou anular decisões das autarquias por razões de conveniência política.' },
+                { id: 59, block: 3, q: 'Qual a diferença fundamental entre "Hierarquia" e "Tutela"?', a: 'Hierarquia: Relação de subordinação direta onde o superior pode dar ordens, orientações, revogar e substituir atos do subordinado (ocorre na Administração Direta). Tutela: Relação de mera fiscalização da legalidade dos atos de um ente autónomo, sem poder de dar ordens diretas ou substituir decisões por mérito (ocorre sobre a Administração Indireta e Autónoma).' },
+                { id: 60, block: 3, q: 'O que são "Supervisão" ou "Superintendência"?', a: 'É o poder que o Titular do Poder Executivo (ou os seus Ministros) exerce sobre as entidades da Administração Indireta (Institutos Públicos) para orientar a sua estratégia e garantir o alinhamento com as metas nacionais.' },
+                { id: 61, block: 3, q: 'O que são os Serviços Públicos Personalizados?', a: 'É outra designação para os Institutos Públicos de caráter essencialmente prestador de serviços à comunidade (ex: Hospitais Públicos, Universidades Públicas).' },
+                { id: 62, block: 3, q: 'O que são as Fundações Públicas de Direito Público?', a: 'Pessoas coletivas criadas pelo Estado com base num património afetado à realização de fins culturais, sociais ou científicos específicos, dotadas de autonomia.' },
+                { id: 63, block: 3, q: 'O que são as Associações Públicas?', a: 'Pessoas coletivas públicas constituídas por grupos de profissionais para gerir os seus interesses e regular o exercício da profissão, exercendo poderes públicos delegados (ex: Ordem dos Advogados de Angola, Ordem dos Médicos).' },
+                { id: 64, block: 3, q: 'O que é a "Concentração Administrativa"?', a: 'Ocorre quando todas as competências decisórias de uma pessoa coletiva pública estão reunidas no órgão superior da hierarquia, sem delegação para os órgãos subordinados.' },
+                { id: 65, block: 3, q: 'O que é a "Desconcentração Administrativa"?', a: 'Distribuição de competências decisórias de órgãos superiores para órgãos subalternos ou locais dentro da mesma pessoa coletiva pública (ex: delegação de assinatura do Ministro para o Diretor Nacional).' },
+                { id: 66, block: 3, q: 'O que é a "Descentralização Administrativa"?', a: 'Transferência definitiva de atribuições públicas do Estado para outras pessoas coletivas públicas autónomas (como as Autarquias Locais ou Institutos Públicos).' },
+                { id: 67, block: 3, q: 'O que é a "Delegação de Competências"?', a: 'Ato pelo qual um órgão administrativo (delegante) transfere temporariamente para outro órgão ou subalterno (delegado) o poder de praticar determinados atos numa matéria específica.' },
+                { id: 68, block: 3, q: 'Quais são os requisitos legais da delegação de competências?', a: 'Exige uma lei de habilitação autorizadora, um ato formal de delegação publicado no Diário da República e a clara definição dos poderes transmitidos e dos limites da delegação.' },
+                { id: 69, block: 3, q: 'O que é a "Avocação" de competências?', a: 'Ato pelo qual o órgão superior chama a si a decisão sobre uma matéria que estava originalmente ou temporariamente delegada num órgão subalterno.' },
+                { id: 70, block: 3, q: 'O que é a "Subdelegação de Competências"?', a: 'Ocorre quando o órgão que recebeu poderes delegados os transfere, por sua vez, para um terceiro órgão subalterno, desde que expressamente autorizado pelo delegante original.' },
+                { id: 71, block: 4, q: 'Qual é a lei que regula as bases gerais do Emprego Público em Angola?', a: 'É a Lei n.º 26/22, de 22 de Agosto (Lei de Bases da Função Pública), que substituiu a antiga Lei n.º 17/90.' },
+                { id: 72, block: 4, q: 'Quem é considerado "Funcionário Público"?', a: 'É o cidadão que, após aprovação em concurso público de ingresso, desempenha funções profissionais permanentes na Administração Pública, mediante nomeação num lugar do quadro de pessoal e recebendo remuneração do Estado.' },
+                { id: 73, block: 4, q: 'Quem é considerado "Agente Administrativo"?', a: 'É o profissional contratado temporariamente para exercer funções na Administração Pública, sob regime de contrato de trabalho público, para satisfazer necessidades urgentes e transitórias do serviço.' },
+                { id: 74, block: 4, q: 'Quais são as formas de provimento (ingresso) na Função Pública angolana?', a: 'O ingresso é feito obrigatoriamente por concurso público de ingresso, assente nos princípios da igualdade, mérito e transparência, materializando-se através de nomeação para lugares permanentes do quadro.' },
+                { id: 75, block: 4, q: 'O que é a "Nomeação" na Função Pública?', a: 'É o ato administrativo unilateral pelo qual a Administração Pública investe um cidadão num cargo público ou lugar do quadro de pessoal, gerando uma relação jurídica de emprego público estável.' },
+                { id: 76, block: 4, q: 'O que é o "Contrato de Trabalho Público" (regime de contrato)?', a: 'Regime contratual temporário aplicável para tarefas excecionais, sazonais ou urgentes, que não confere ao contratado a qualidade de funcionário público de carreira.' },
+                { id: 77, block: 4, q: 'Quais são os principais deveres do funcionário público angolano segundo a Lei n.º 26/22?', a: 'Os deveres de obediência, zelo, sigilo profissional, assiduidade, pontualidade, lealdade, imparcialidade, urbanidade e probidade.' },
+                { id: 78, block: 4, q: 'O que é o Dever de Obediência e qual o seu limite?', a: 'O funcionário deve cumprir prontamente as ordens dos seus superiores hierárquicos relativas ao serviço. No entanto, o funcionário tem o direito e o dever de recusar ordens que impliquem a prática de um crime evidente.' },
+                { id: 79, block: 4, q: 'Quais são os direitos fundamentais do funcionário público?', a: 'Direito ao vencimento, férias remuneradas, aposentação (reforma), previdência social, condições dignas de higiene e segurança no trabalho, progressão na carreira, greve e livre associação sindical.' },
+                { id: 80, block: 4, q: 'Como funciona o regime de Avaliação de Desempenho dos funcionários públicos?', a: 'É uma avaliação anual obrigatória e sistemática que mede a qualidade, produtividade e o cumprimento de metas individuais do funcionário, influenciando diretamente a sua promoção, progressão e renovação de contratos.' },
+                { id: 81, block: 4, q: 'O que é o Regime da Nova Arquitetura Remuneratória (RINAR)?', a: 'Instituído pelo Decreto Presidencial n.º 211/23, é o plano de reforma e modernização do sistema de remunerações da Função Pública angolana, visando a dignificação salarial e atração de talentos de alto nível.' },
+                { id: 82, block: 4, q: 'Quais são as infrações disciplinares na Função Pública?', a: 'Qualquer violação dos deveres gerais ou específicos do cargo por parte do funcionário, por ação ou omissão, intencional ou por negligência grave.' },
+                { id: 83, block: 4, q: 'Quais são as sanções disciplinares previstas na legislação angolana?', a: 'Advertência verbal; Censura escrita; Multa; Despromoção; Demissão (rescisão forçada do vínculo).' },
+                { id: 84, block: 4, q: 'O que é o "Processo Disciplinar"?', a: 'É o procedimento obrigatório instaurado para apurar a autoria e materialidade de uma infração grave cometida por um funcionário, garantindo-lhe sempre o direito de defesa e contraditório, sob pena de nulidade da sanção aplicada.' },
+                { id: 85, block: 4, q: 'O que caracteriza a "Incompatibilidade" na Função Pública?', a: 'A proibição legal de acumular o cargo público com outras atividades privadas ou públicas que comprometam a isenção, a eficiência ou o horário de trabalho do funcionário (ex: acumular um cargo executivo com gerência ativa em empresa privada fornecedora do Estado).' },
+                { id: 86, block: 5, q: 'O que é um "Serviço Público" na ótica material?', a: 'É uma atividade de interesse geral assumida pelo Estado (ou delegada em particulares) com o objetivo de assegurar a satisfação regular e contínua de necessidades coletivas básicas da população (ex: fornecimento de água, saúde, eletricidade, transporte coletivo).' },
+                { id: 87, block: 5, q: 'Quais são os modos de gestão de um Serviço Público?', a: 'Gestão Direta: Prestado diretamente pelo Estado através dos seus próprios órgãos; Gestão Indireta: Prestado por empresas públicas ou institutos especializados; Gestão Delegada/Concedida: Prestado por empresas privadas mediante concessão, licença ou parceria público-privada.' },
+                { id: 88, block: 5, q: 'O que é o "Ato Administrativo"?', a: 'É a decisão unilateral e de autoridade tomada por um órgão da Administração Pública que, no exercício de poderes públicos, visa produzir efeitos jurídicos individuais e concretos sobre uma situação real.' },
+                { id: 89, block: 5, q: 'Quais são os elementos constitutivos essenciais do ato administrativo?', a: 'Sujeto: O órgão administrativo com competência legal para decidir; Objeto: A matéria ou conteúdo sobre o qual recai a decisão; Forma: O modo como o ato se exterioriza (por escrito, regra geral); Fim: A prossecução do interesse coletivo previsto na lei de suporte.' },
+                { id: 90, block: 5, q: 'Quais são as formas de invalidade do ato administrativo no Direito Angolano?', a: 'O ato inválido pode padecer de duas sanções jurídicas fundamentais: Nulidade: O ato é totalmente inválido desde a sua origem, não produz efeitos jurídicos válidos e pode ser impugnado a qualquer tempo; Anulabilidade: O ato produz efeitos temporários até ser anulado, devendo a sua impugnação ocorrer dentro de prazos legais restritos.' },
+                { id: 91, block: 5, q: 'Quais são as causas típicas que geram a Nulidade de um ato administrativo (Artigo 133.º do CPA)?', a: 'Atos que violem gravemente direitos fundamentais constitucionais; atos que usurpem competências de tribunais ou do poder legislativo; atos impossíveis ou incompreensíveis; e atos praticados sob coação física ou corrupção de agentes.' },
+                { id: 92, block: 5, q: 'O que é a "Anulabilidade" do ato administrativo?', a: 'É a regra geral aplicável aos atos que violem a lei mas não se enquadrem nas causas taxativas de nulidade. Estes atos são válidos e obrigatórios enquanto não forem anulados pela própria Administração ou por um Tribunal.' },
+                { id: 93, block: 5, q: 'O que são os Vícios do Ato Administrativo?', a: 'São as irregularidades ou ilegalidades que contaminam o ato administrativo, classificadas em: Incompetência (vício subjetivo); Vício de Forma (omissão de formalidades); Desvio de Poder (fim ilegal); Violação da Lei (objeto ilegal).' },
+                { id: 94, block: 5, q: 'O que é a "Revogação" do ato administrativo?', a: 'É o ato administrativo pelo qual um órgão decide eliminar ou extinguir os efeitos de um ato administrativo anterior, por razões de ilegalidade (revogação corretiva) ou mera conveniência (revogação de mérito).' },
+                { id: 95, block: 5, q: 'O que são as "Garantias Administrativas" dos cidadãos?', a: 'São os meios que os particulares utilizam para contestar decisões e defender os seus direitos diretamente perante os próprios órgãos da Administração Pública, sem recorrer imediatamente aos tribunais.' },
+                { id: 96, block: 5, q: 'O que é a "Reclamação" administrativa?', a: 'É a contestação de um ato administrativo apresentada diretamente ao mesmo órgão que praticou o ato impugnado, solicitando que este reconsidere a sua decisão.' },
+                { id: 97, block: 5, q: 'O que é o "Recurso Hierárquico"?', a: 'É a impugnação de um ato dirigida ao superior hierárquico daquele que tomou a decisão (ex: recorrer da decisão do Diretor Nacional para o Ministro respetivo), visando a revogação ou modificação do ato.' },
+                { id: 98, block: 5, q: 'O que é o "Recurso Tutelar"?', a: 'É a contestação apresentada perante o órgão do Estado que exerce poder de tutela sobre a entidade descentralizada que praticou o ato (ex: recorrer da decisão de uma Autarquia ou Instituto Público para o Ministério da Tutela).' },
+                { id: 99, block: 5, q: 'O que são as "Garantias Contenciosas"?', a: 'São os meios judiciais pelos quais os cidadãos solicitam aos Tribunais Administrativos (juízes independentes) que fiscalizem a legalidade dos atos do Estado, anulem atos ilícitos ou condenem a Administração a pagar indemnizações por danos.' },
+                { id: 100, block: 5, q: 'Qual a importância das Tecnologias de Informação na Administração Pública de acordo com o CPA de 2022?', a: 'A desmaterialização e digitalização de processos (governação digital/e-governo) são obrigatórias para otimizar o atendimento, acelerar os prazos de resposta, garantir a transparência ativa e facilitar o acesso dos cidadãos aos seus processos via portais online.' }
+            ],
+            blocks: [
+                { id: 1, title: 'Conceitos e Enquadramento Constitucional (CRA)', icon: 'fa-landmark', color: 'bg-blue-500', range: '1-20' },
+                { id: 2, title: 'Princípios da Atividade Administrativa (CPA)', icon: 'fa-balance-scale', color: 'bg-purple-500', range: '21-45' },
+                { id: 3, title: 'Organização Administrativa', icon: 'fa-sitemap', color: 'bg-green-500', range: '46-70' },
+                { id: 4, title: 'Função Pública (Lei n.º 26/22)', icon: 'fa-user-tie', color: 'bg-orange-500', range: '71-85' },
+                { id: 5, title: 'Serviços Públicos e Atos Administrativos', icon: 'fa-file-contract', color: 'bg-red-500', range: '86-100' }
+            ],
+            badges: [
+                { id: 'first_question', name: 'Primeira Questão', icon: 'fa-star', desc: 'Completou a primeira questão', color: 'bg-blue-500' },
+                { id: 'block_master', name: 'Mestre de Bloco', icon: 'fa-trophy', desc: 'Completou um bloco inteiro', color: 'bg-yellow-500' },
+                { id: 'perfect_score', name: 'Pontuação Perfeita', icon: 'fa-crown', desc: '10 questões seguidas corretas', color: 'bg-purple-500' },
+                { id: 'streak_7', name: 'Consistente', icon: 'fa-calendar-week', desc: '7 dias seguidos de estudo', color: 'bg-green-500' },
+                { id: 'all_blocks', name: 'Concluinte', icon: 'fa-graduation-cap', desc: 'Completou todos os blocos', color: 'bg-red-500' },
+                { id: 'speed_learner', name: 'Rápido', icon: 'fa-bolt', desc: '20 questões em 10 minutos', color: 'bg-orange-500' }
+            ],
+            user: {
+                name: 'Candidato',
+                level: 1,
+                xp: 0,
+                streak: 0,
+                lastStudy: null,
+                badges: [],
+                questionsAnswered: {},
+                sessionHistory: [],
+                createdAt: new Date().toISOString(),
+                nameUpdatedAt: new Date().toISOString()
+            }
+        };
+
+        const app = {
+            currentSection: 'dashboard',
+            currentBlock: null,
+            currentQuestion: 0,
+            quizQuestions: [],
+            studyMode: 'flashcard',
+            timer: null,
+            timeLeft: 600,
+            flashcardIndex: 0,
+            flashcardQuestions: [],
+            showAnswer: true,
+            consecutiveCorrect: 0,
+            quizScore: 0,
+            countdownInterval: null,
+            answerExpanded: false,
+            correctAnswerIndex: -1,
+
+            init() {
+                this.loadData();
+                this.checkDailyStreak();
+                this.renderDashboard();
+                this.renderLearningTopics();
+                this.renderQuestionBlocks();
+                this.renderBadges();
+                this.updateDailyGoals();
+                this.showToast('Bem-vindo ao Prep Administração Pública! ', 'success');
+            },
+
+            loadData() {
+                const saved = localStorage.getItem('admin_publica_app_data');
+                if (saved) {
+                    const data = JSON.parse(saved);
+                    appData.user = { ...appData.user, ...data.user };
+                }
+            },
+
+            saveData() {
+                localStorage.setItem('admin_publica_app_data', JSON.stringify({ user: appData.user }));
+            },
+
+            checkDailyStreak() {
+                const today = new Date().toDateString();
+                const last = appData.user.lastStudy;
+                if (last) {
+                    const lastDate = new Date(last);
+                    const diff = (new Date(today) - new Date(lastDate.toDateString())) / (1000 * 60 * 60 * 24);
+                    if (diff === 1) appData.user.streak++;
+                    else if (diff > 1) appData.user.streak = 1;
+                } else {
+                    appData.user.streak = 1;
+                }
+                appData.user.lastStudy = new Date().toISOString();
+                this.saveData();
+            },
+
+            navigateTo(section) {
+                document.querySelectorAll('section').forEach(s => {
+                    s.classList.remove('active-section');
+                    s.classList.add('hidden-section');
+                });
+                document.getElementById(section).classList.remove('hidden-section');
+                document.getElementById(section).classList.add('active-section');
+                document.querySelectorAll('.nav-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.dataset.target === section) btn.classList.add('active');
+                });
+                this.currentSection = section;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                this.updateUI();
+            },
+
+            renderDashboard() {
+                document.getElementById('totalStreak').textContent = appData.user.streak;
+                document.getElementById('totalPoints').textContent = appData.user.xp;
+                document.getElementById('totalBadges').textContent = appData.user.badges.length;
+                const answered = Object.keys(appData.user.questionsAnswered).length;
+                document.getElementById('questionsProgress').textContent = `${answered}/100`;
+                this.renderRecentActivity();
+            },
+
+            renderLearningTopics() {
+                const container = document.getElementById('learningTopics');
+                container.innerHTML = appData.learning.topics.map(topic => `
+                    <div class="bg-white rounded-2xl p-4 shadow-lg card-hover cursor-pointer" onclick="app.openLearningTopic('${topic.id}')">
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 ${topic.color} rounded-xl flex items-center justify-center text-white text-2xl">
+                                <i class="fas ${topic.icon}"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-bold text-gray-800">${topic.title}</h3>
+                                <p class="text-xs text-gray-500">Conteúdo teórico</p>
+                            </div>
+                            <i class="fas fa-chevron-right text-gray-400"></i>
+                        </div>
+                    </div>
+                `).join('');
+            },
+
+            openLearningTopic(topicId) {
+                const topic = appData.learning.topics.find(t => t.id === topicId);
+                document.getElementById('learningTitle').textContent = topic.title;
+                document.getElementById('learningText').innerHTML = topic.content;
+                this.navigateTo('learningContent');
+            },
+
+            renderQuestionBlocks() {
+                const container = document.getElementById('questionBlocks');
+                container.innerHTML = appData.blocks.map(block => {
+                    const blockQuestions = appData.questions.filter(q => q.block === block.id);
+                    const answered = blockQuestions.filter(q => appData.user.questionsAnswered[q.id]).length;
+                    const percentage = (answered / blockQuestions.length) * 100;
+                    return `
+                        <div class="bg-white rounded-2xl p-4 shadow-lg card-hover cursor-pointer" onclick="app.openBlock(${block.id})">
+                            <div class="flex items-center gap-4">
+                                <div class="w-14 h-14 ${block.color} rounded-xl flex items-center justify-center text-white text-2xl">
+                                    <i class="fas ${block.icon}"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="font-bold text-gray-800">${block.title}</h3>
+                                    <p class="text-xs text-gray-500 mb-2">Questões ${block.range}</p>
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="${block.color.replace('bg-', 'bg-')} h-2 rounded-full transition-all" style="width: ${percentage}%"></div>
+                                    </div>
+                                    <p class="text-xs text-gray-500 mt-1">${answered}/${blockQuestions.length} completas</p>
+                                </div>
+                                <i class="fas fa-chevron-right text-gray-400"></i>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                const totalAnswered = Object.keys(appData.user.questionsAnswered).length;
+                document.getElementById('totalProgress').textContent = `${totalAnswered}/100`;
+                document.getElementById('totalProgressBar').style.width = `${(totalAnswered / 100) * 100}%`;
+            },
+
+            openBlock(blockId) {
+                this.currentBlock = blockId;
+                const blockQuestions = appData.questions.filter(q => q.block === blockId);
+                const shuffledQuestions = [...blockQuestions].sort(() => Math.random() - 0.5);
+                
+                if (this.studyMode === 'flashcard') {
+                    this.flashcardQuestions = shuffledQuestions;
+                    this.flashcardIndex = 0;
+                    this.showFlashcard();
+                    this.navigateTo('flashcardInterface');
+                } else if (this.studyMode === 'quiz' || this.studyMode === 'timer') {
+                    this.quizQuestions = shuffledQuestions;
+                    this.currentQuestion = 0;
+                    this.quizScore = 0;
+                    this.consecutiveCorrect = 0;
+                    this.showAnswer = true;
+                    document.getElementById('answerToggle').classList.add('active');
+                    this.startQuiz();
+                } else if (this.studyMode === 'multiple') {
+                    this.quizQuestions = shuffledQuestions;
+                    this.currentQuestion = 0;
+                    this.quizScore = 0;
+                    this.consecutiveCorrect = 0;
+                    this.startMultipleChoice();
+                }
+            },
+
+            setStudyMode(mode) {
+                this.studyMode = mode;
+                document.querySelectorAll('.study-mode-btn').forEach(btn => {
+                    btn.classList.remove('active', 'bg-gradient-to-r', 'from-orange-400', 'to-orange-600', 'text-white');
+                    btn.classList.add('bg-gray-100', 'text-gray-600');
+                });
+                event.target.closest('button').classList.remove('bg-gray-100', 'text-gray-600');
+                event.target.closest('button').classList.add('active', 'bg-gradient-to-r', 'from-orange-400', 'to-orange-600', 'text-white');
+                const modeNames = { flashcard: 'Flashcards', quiz: 'Quiz', multiple: 'Múltipla Escolha', timer: 'Cronómetro' };
+                this.showToast(`Modo ${modeNames[mode]} ativado!`, 'info');
+            },
+
+            showFlashcard() {
+                if (this.flashcardIndex >= this.flashcardQuestions.length) {
+                    this.completeFlashcardSession();
+                    return;
+                }
+                const q = this.flashcardQuestions[this.flashcardIndex];
+                document.getElementById('flashcardCounter').textContent = `${this.flashcardIndex + 1}/${this.flashcardQuestions.length}`;
+                document.getElementById('flashcardQuestion').textContent = q.q;
+                document.getElementById('flashcardAnswer').textContent = q.a;
+                document.querySelector('.flashcard').classList.remove('flipped');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            },
+
+            markFlashcard(difficulty) {
+                const q = this.flashcardQuestions[this.flashcardIndex];
+                appData.user.questionsAnswered[q.id] = { difficulty: difficulty, date: new Date().toISOString() };
+                this.addXP(5);
+                this.checkBadge('first_question');
+            },
+
+            nextFlashcard() {
+                this.flashcardIndex++;
+                this.showFlashcard();
+            },
+
+            completeFlashcardSession() {
+                appData.user.sessionHistory.push({ date: new Date().toISOString(), mode: 'flashcard', block: this.currentBlock, questions: this.flashcardQuestions.length });
+                this.saveData();
+                confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+                this.showToast('Sessão de flashcards completa! +XP', 'success');
+                this.navigateTo('questions');
+                this.renderQuestionBlocks();
+            },
+
+            startQuiz() {
+                if (this.studyMode === 'timer') {
+                    this.timeLeft = 600;
+                    this.startTimer();
+                }
+                this.showQuizQuestion();
+                this.navigateTo('quizInterface');
+            },
+
+            startTimer() {
+                if (this.timer) clearInterval(this.timer);
+                this.timer = setInterval(() => {
+                    this.timeLeft--;
+                    const pct = (this.timeLeft / 600) * 100;
+                    document.getElementById('quizTimerBar').style.width = `${pct}%`;
+                    if (this.timeLeft <= 0) this.endQuizSession();
+                }, 1000);
+            },
+
+            showQuizQuestion() {
+                if (this.currentQuestion >= this.quizQuestions.length) {
+                    this.endQuizSession();
+                    return;
+                }
+                const q = this.quizQuestions[this.currentQuestion];
+                document.getElementById('quizCounter').textContent = `${this.currentQuestion + 1}/${this.quizQuestions.length}`;
+                document.getElementById('quizScore').textContent = `${this.quizScore} pts`;
+                document.getElementById('quizCategory').textContent = `Bloco ${q.block}`;
+                document.getElementById('quizQuestion').textContent = q.q;
+                document.getElementById('quizAnswer').textContent = q.a;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            },
+
+            toggleAnswerVisibility() {
+                this.showAnswer = !this.showAnswer;
+                const toggle = document.getElementById('answerToggle');
+                const container = document.getElementById('answerContainer');
+                if (this.showAnswer) {
+                    toggle.classList.add('active');
+                    container.style.opacity = '1';
+                    container.style.maxHeight = '500px';
+                } else {
+                    toggle.classList.remove('active');
+                    container.style.opacity = '0.3';
+                    container.style.maxHeight = '0';
+                }
+            },
+
+            markQuizAnswer(result) {
+                const q = this.quizQuestions[this.currentQuestion];
+                appData.user.questionsAnswered[q.id] = { result: result, date: new Date().toISOString() };
+                
+                if (result === 'correct') {
+                    this.quizScore += 10;
+                    this.consecutiveCorrect++;
+                    confetti({ particleCount: 40, spread: 60, origin: { y: 0.7 } });
+                    this.showToast('Correto! +10 XP', 'success');
+                } else {
+                    this.consecutiveCorrect = 0;
+                    const wrongBtn = event.target.closest('button');
+                    wrongBtn.classList.add('wrong-reaction');
+                    document.body.classList.add('wrong-flash');
+                    setTimeout(() => {
+                        wrongBtn.classList.remove('wrong-reaction');
+                        document.body.classList.remove('wrong-flash');
+                    }, 600);
+                    this.showToast('Errado! Continue a estudar', 'error');
+                }
+                this.checkBadge('first_question');
+                if (this.consecutiveCorrect >= 10) this.checkBadge('perfect_score');
+                
+                setTimeout(() => {
+                    this.currentQuestion++;
+                    this.showQuizQuestion();
+                }, 800);
+            },
+
+            startMultipleChoice() {
+                if (this.studyMode === 'timer') {
+                    this.timeLeft = 600;
+                    this.startTimer();
+                }
+                this.showMultipleQuestion();
+                this.navigateTo('multipleInterface');
+            },
+
+            showMultipleQuestion() {
+                if (this.currentQuestion >= this.quizQuestions.length) {
+                    this.endQuizSession();
+                    return;
+                }
+                const q = this.quizQuestions[this.currentQuestion];
+                document.getElementById('multipleCounter').textContent = `${this.currentQuestion + 1}/${this.quizQuestions.length}`;
+                document.getElementById('multipleScore').textContent = `${this.quizScore} pts`;
+                document.getElementById('multipleCategory').textContent = `Bloco ${q.block}`;
+                document.getElementById('multipleQuestion').textContent = q.q;
+                document.getElementById('multipleFeedback').classList.add('hidden');
+                this.answerExpanded = false;
+                
+                const options = this.generateMultipleOptions(q);
+                this.correctAnswerIndex = options.findIndex(opt => opt.correct);
+                
+                const optionsHtml = options.map((opt, idx) => `
+                    <button onclick="app.checkMultipleAnswer(${idx})" 
+                            class="quiz-option w-full p-4 bg-gray-50 border-2 border-gray-200 rounded-xl text-left font-semibold text-sm text-gray-700 leading-relaxed" 
+                            data-index="${idx}">
+                        <span class="option-letter inline-flex items-center justify-center w-9 h-9 rounded-full mr-3 text-sm font-bold flex-shrink-0">${String.fromCharCode(65 + idx)}</span>
+                        <span class="align-middle">${opt.text}</span>
+                    </button>
+                `).join('');
+                
+                document.getElementById('multipleOptions').innerHTML = optionsHtml;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            },
+
+            generateMultipleOptions(correctQuestion) {
+                const sameBlockQuestions = appData.questions.filter(q => q.block === correctQuestion.block && q.id !== correctQuestion.id);
+                const shuffled = [...sameBlockQuestions].sort(() => Math.random() - 0.5);
+                const distractors = shuffled.slice(0, 3).map(q => ({ text: q.a, correct: false }));
+                const correctOption = { text: correctQuestion.a, correct: true };
+                return [...distractors, correctOption].sort(() => Math.random() - 0.5);
+            },
+
+            checkMultipleAnswer(selectedIndex) {
+                const q = this.quizQuestions[this.currentQuestion];
+                const buttons = document.querySelectorAll('#multipleOptions .quiz-option');
+                const isCorrect = selectedIndex === this.correctAnswerIndex;
+                
+                buttons.forEach(btn => btn.disabled = true);
+                
+                if (isCorrect) {
+                    buttons[selectedIndex].classList.add('correct');
+                    this.quizScore += 10;
+                    this.consecutiveCorrect++;
+                    confetti({ particleCount: 40, spread: 60, origin: { y: 0.7 } });
+                    this.showToast('Correto! +10 XP', 'success');
+                    
+                    document.getElementById('feedbackText').textContent = '✅ Correto!';
+                    document.getElementById('feedbackText').className = 'font-semibold mb-2 text-green-600';
+                    document.getElementById('feedbackExplanation').textContent = q.a;
+                    document.getElementById('correctAnswerBox').classList.remove('expanded');
+                    document.getElementById('wrongActionButtons').classList.add('hidden');
+                    document.getElementById('multipleFeedback').classList.remove('hidden');
+                    
+                    appData.user.questionsAnswered[q.id] = { result: 'correct', date: new Date().toISOString() };
+                    
+                    setTimeout(() => {
+                        this.currentQuestion++;
+                        this.showMultipleQuestion();
+                    }, 1500);
+                } else {
+                    buttons[selectedIndex].classList.add('wrong');
+                    buttons[this.correctAnswerIndex].classList.add('correct');
+                    
+                    this.consecutiveCorrect = 0;
+                    this.showToast('Errado! Estude a resposta correta', 'error');
+                    
+                    document.getElementById('feedbackText').textContent = '❌ Errado';
+                    document.getElementById('feedbackText').className = 'font-semibold mb-2 text-red-600';
+                    document.getElementById('feedbackExplanation').textContent = q.a;
+                    document.getElementById('correctAnswerBox').classList.add('expanded');
+                    document.getElementById('wrongActionButtons').classList.remove('hidden');
+                    document.getElementById('multipleFeedback').classList.remove('hidden');
+                    
+                    appData.user.questionsAnswered[q.id] = { result: 'wrong', date: new Date().toISOString() };
+                    
+                    this.startWrongAnswerCountdown();
+                }
+                
+                this.checkBadge('first_question');
+                if (this.consecutiveCorrect >= 10) this.checkBadge('perfect_score');
+            },
+
+            startWrongAnswerCountdown() {
+                let seconds = 60;
+                document.getElementById('countdownTimer').textContent = seconds;
+                if (this.countdownInterval) clearInterval(this.countdownInterval);
+                this.countdownInterval = setInterval(() => {
+                    seconds--;
+                    document.getElementById('countdownTimer').textContent = seconds;
+                    if (seconds <= 0) this.nextMultipleQuestion();
+                }, 1000);
+            },
+
+            nextMultipleQuestion() {
+                if (this.countdownInterval) {
+                    clearInterval(this.countdownInterval);
+                    this.countdownInterval = null;
+                }
+                this.currentQuestion++;
+                this.showMultipleQuestion();
+            },
+
+            toggleAnswerExpand() {
+                this.answerExpanded = !this.answerExpanded;
+                const box = document.getElementById('correctAnswerBox');
+                const btn = document.querySelector('.expand-btn');
+                if (this.answerExpanded) {
+                    box.classList.add('expanded');
+                    btn.classList.add('expanded');
+                } else {
+                    box.classList.remove('expanded');
+                    btn.classList.remove('expanded');
+                }
+            },
+
+            endQuizSession() {
+                if (this.timer) clearInterval(this.timer);
+                if (this.countdownInterval) clearInterval(this.countdownInterval);
+                appData.user.sessionHistory.push({ date: new Date().toISOString(), mode: this.studyMode, block: this.currentBlock, questions: this.quizQuestions.length, score: this.quizScore });
+                this.saveData();
+                confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+                this.showToast(`Sessão completa! ${this.quizScore} pts`, 'success');
+                this.navigateTo('questions');
+                this.renderQuestionBlocks();
+            },
+
+            addXP(amount) {
+                appData.user.xp += amount;
+                const newLevel = Math.floor(appData.user.xp / 500) + 1;
+                if (newLevel > appData.user.level) {
+                    appData.user.level = newLevel;
+                    this.showToast(`Subiu para o nível ${newLevel}!`, 'success');
+                    confetti({ particleCount: 150, spread: 100 });
+                }
+                this.saveData();
+                this.updateUI();
+            },
+
+            checkBadge(badgeId) {
+                if (!appData.user.badges.includes(badgeId)) {
+                    appData.user.badges.push(badgeId);
+                    this.saveData();
+                    this.renderBadges();
+                    this.showToast(`Nova medalha desbloqueada!`, 'success');
+                    confetti({ particleCount: 100, spread: 70 });
+                }
+            },
+
+            renderBadges() {
+                const container = document.getElementById('badgesGrid');
+                container.innerHTML = appData.badges.map(badge => {
+                    const earned = appData.user.badges.includes(badge.id);
+                    return `
+                        <div class="badge ${earned ? '' : 'locked'} flex flex-col items-center cursor-pointer" onclick="app.showBadgeInfo('${badge.id}')">
+                            <div class="w-12 h-12 ${badge.color} rounded-full flex items-center justify-center text-white text-xl mb-1 shadow-lg">
+                                <i class="fas ${badge.icon}"></i>
+                            </div>
+                            <span class="text-[10px] text-center font-semibold ${earned ? 'text-gray-800' : 'text-gray-400'}">${badge.name}</span>
+                        </div>
+                    `;
+                }).join('');
+            },
+
+            showBadgeInfo(badgeId) {
+                const badge = appData.badges.find(b => b.id === badgeId);
+                const earned = appData.user.badges.includes(badgeId);
+                this.showToast(`${badge.name}: ${badge.desc}`, earned ? 'success' : 'info');
+            },
+
+            editName() {
+                const nameDisplay = document.getElementById('profileName');
+                const nameInput = document.getElementById('nameInput');
+                nameDisplay.classList.add('hidden');
+                nameInput.classList.remove('hidden');
+                nameInput.value = appData.user.name;
+                nameInput.focus();
+                nameInput.select();
+                nameDisplay.classList.add('editing');
+            },
+
+            saveName() {
+                const nameDisplay = document.getElementById('profileName');
+                const nameInput = document.getElementById('nameInput');
+                const newName = nameInput.value.trim();
+                if (newName && newName !== appData.user.name) {
+                    appData.user.name = newName;
+                    appData.user.nameUpdatedAt = new Date().toISOString();
+                    this.saveData();
+                    this.updateUI();
+                    this.showToast('Nome atualizado com sucesso!', 'success');
+                }
+                nameDisplay.classList.remove('hidden');
+                nameInput.classList.add('hidden');
+                nameDisplay.classList.remove('editing');
+            },
+
+            updateUI() {
+                document.getElementById('userName').textContent = appData.user.name;
+                document.getElementById('userLevel').textContent = `Nível ${appData.user.level}`;
+                document.getElementById('profileInitial').textContent = appData.user.name.charAt(0).toUpperCase();
+                document.getElementById('profileName').innerHTML = `${appData.user.name}<i class="fas fa-pen text-xs text-gray-400 ml-2"></i>`;
+                const memberSince = new Date(appData.user.nameUpdatedAt || appData.user.createdAt);
+                document.getElementById('memberSince').textContent = memberSince.toLocaleDateString('pt-PT');
+                const correct = Object.values(appData.user.questionsAnswered).filter(a => a.result === 'correct').length;
+                const wrong = Object.values(appData.user.questionsAnswered).filter(a => a.result === 'wrong').length;
+                const total = correct + wrong;
+                const percentage = total > 0 ? Math.round((correct / total) * 100) : 0;
+                document.getElementById('profileCorrect').textContent = correct;
+                document.getElementById('profileWrong').textContent = wrong;
+                document.getElementById('profileTotal').textContent = `${percentage}%`;
+                this.renderBadges();
+                this.renderSessionHistory();
+            },
+
+            renderSessionHistory() {
+                const container = document.getElementById('sessionHistory');
+                if (appData.user.sessionHistory.length === 0) {
+                    container.innerHTML = '<p class="text-center text-gray-400 py-4">Sem sessões realizadas</p>';
+                    return;
+                }
+                container.innerHTML = appData.user.sessionHistory.slice(-10).reverse().map(session => {
+                    const block = appData.blocks.find(b => b.id === session.block);
+                    return `
+                        <div class="p-3 bg-gray-50 rounded-xl flex justify-between items-center">
+                            <div>
+                                <div class="font-semibold text-sm">${block ? block.title : 'Bloco ' + session.block}</div>
+                                <div class="text-xs text-gray-500">${new Date(session.date).toLocaleDateString('pt-PT')} • ${session.questions} questões</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-xs text-gray-500 capitalize">${session.mode}</div>
+                                ${session.score ? `<div class="text-xs font-bold text-blue-600">${session.score} pts</div>` : ''}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            },
+
+            renderRecentActivity() {
+                const container = document.getElementById('recentActivity');
+                const activities = appData.user.sessionHistory.slice(-5).reverse();
+                if (activities.length === 0) {
+                    container.innerHTML = '<p class="text-center py-4 text-gray-400">Sem atividade recente</p>';
+                    return;
+                }
+                container.innerHTML = activities.map(a => {
+                    const block = appData.blocks.find(b => b.id === a.block);
+                    return `
+                        <div class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50">
+                            <i class="fas fa-question-circle text-blue-500"></i>
+                            <div class="flex-1">
+                                <div class="text-sm font-medium text-gray-800">${block ? block.title : 'Bloco ' + a.block}</div>
+                                <div class="text-xs text-gray-500">${new Date(a.date).toLocaleDateString('pt-PT')} • ${a.questions} questões</div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            },
+
+            updateDailyGoals() {
+                const goals = [
+                    { text: 'Estudar 10 questões', done: Object.keys(appData.user.questionsAnswered).length >= 10, icon: 'fa-question-circle' },
+                    { text: 'Completar um bloco', done: appData.blocks.some(b => { const blockQuestions = appData.questions.filter(q => q.block === b.id); const answered = blockQuestions.filter(q => appData.user.questionsAnswered[q.id]).length; return answered === blockQuestions.length; }), icon: 'fa-check-circle' },
+                    { text: 'Ganhar 50 XP', done: appData.user.xp >= 50, icon: 'fa-star' }
+                ];
+                const container = document.getElementById('dailyGoals');
+                container.innerHTML = goals.map(g => `
+                    <div class="flex items-center gap-3 p-3 rounded-xl ${g.done ? 'bg-green-50' : 'bg-gray-50'}">
+                        <i class="fas ${g.icon} ${g.done ? 'text-green-600' : 'text-gray-400'}"></i>
+                        <span class="flex-1 text-sm ${g.done ? 'text-green-800 line-through' : 'text-gray-700'}">${g.text}</span>
+                        ${g.done ? '<i class="fas fa-check text-green-600"></i>' : '<div class="w-5 h-5 rounded-full border-2 border-gray-300"></div>'}
+                    </div>
+                `).join('');
+            },
+
+            exportData() {
+                const dataStr = JSON.stringify({ user: appData.user, exportDate: new Date().toISOString() }, null, 2);
+                const blob = new Blob([dataStr], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `admin_publica_progress_${new Date().toISOString().split('T')[0]}.json`;
+                a.click();
+                this.showToast('Dados exportados com sucesso!', 'success');
+            },
+
+            importData(input) {
+                const file = input.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    try {
+                        const data = JSON.parse(e.target.result);
+                        if (confirm('Isto vai substituir o seu progresso atual. Continuar?')) {
+                            appData.user = { ...appData.user, ...data.user };
+                            this.saveData();
+                            this.init();
+                            this.showToast('Dados importados com sucesso!', 'success');
+                        }
+                    } catch (err) {
+                        this.showToast('Erro ao importar ficheiro!', 'error');
+                    }
+                };
+                reader.readAsText(file);
+            },
+
+            resetProgress() {
+                if (confirm('Tem a certeza? Todo o progresso será perdido!')) {
+                    localStorage.removeItem('admin_publica_app_data');
+                    location.reload();
+                }
+            },
+
+            showToast(message, type = 'info') {
+                const colors = { success: 'bg-green-500', error: 'bg-red-500', info: 'bg-blue-500', warning: 'bg-yellow-500' };
+                const icons = { success: 'fa-check-circle', error: 'fa-exclamation-circle', info: 'fa-info-circle', warning: 'fa-exclamation-triangle' };
+                const toast = document.createElement('div');
+                toast.className = `toast ${colors[type]} text-white px-6 py-3 rounded-xl shadow-lg flex items-center gap-3 mb-2 pointer-events-auto`;
+                toast.innerHTML = `<i class="fas ${icons[type]}"></i><span class="font-semibold">${message}</span>`;
+                document.getElementById('toastContainer').appendChild(toast);
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    toast.style.transform = 'translateY(100px)';
+                    setTimeout(() => toast.remove(), 300);
+                }, 3000);
+            },
+
+            showProfile() {
+                this.navigateTo('profile');
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => { app.init(); });
+    </script>
+</body>
+</html>
