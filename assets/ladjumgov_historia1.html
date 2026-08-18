@@ -1,1 +1,1560 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#FF9100">
+    <title>Prep História de Angola - 100 Questões</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            background: linear-gradient(180deg, #FFDC61 0%, #FF9100 50%, #BFC5CB 100%);
+            background-attachment: fixed;
+            overflow-x: hidden;
+            touch-action: manipulation;
+            min-height: 100vh;
+        }
 
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px) saturate(180%);
+            -webkit-backdrop-filter: blur(12px) saturate(180%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px) saturate(180%);
+            -webkit-backdrop-filter: blur(12px) saturate(180%);
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .card-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .btn-press {
+            transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.15s;
+        }
+        .btn-press:active {
+            transform: scale(0.92);
+            box-shadow: 0 0 0 0 rgba(0,0,0,0.2);
+        }
+        .btn-press:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .card-hover {
+            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s;
+        }
+        .card-hover:hover {
+            transform: translateY(-4px) scale(1.01);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.2);
+        }
+        .card-hover:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        .slide-in {
+            animation: slideIn 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .pulse-ring {
+            animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 145, 0, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 20px rgba(255, 145, 0, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 145, 0, 0); }
+        }
+
+        .toast {
+            animation: toastSlide 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes toastSlide {
+            from { transform: translateY(100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .badge {
+            transition: all 0.3s ease;
+        }
+
+        .badge:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .badge.locked {
+            filter: grayscale(100%);
+            opacity: 0.5;
+        }
+
+        .hidden-section {
+            display: none;
+        }
+
+        .active-section {
+            display: block;
+            animation: fadeIn 0.35s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .quiz-option {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .quiz-option:active {
+            transform: scale(0.96);
+        }
+
+        .quiz-option.correct {
+            background: linear-gradient(135deg, #10b981, #059669) !important;
+            color: white !important;
+            animation: correctPulse 0.6s ease;
+            border-color: #059669 !important;
+        }
+
+        .quiz-option.wrong {
+            background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+            color: white !important;
+            animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+            border-color: #dc2626 !important;
+        }
+
+        @keyframes correctPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(16, 185, 129, 0.3); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); }
+            20%, 40%, 60%, 80% { transform: translateX(8px); }
+        }
+
+        .timer-bar {
+            transition: width 1s linear;
+        }
+
+        .flashcard {
+            perspective: 1000px;
+            height: 320px;
+        }
+
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .flashcard.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .flashcard-back {
+            transform: rotateY(180deg);
+        }
+
+        .streak-fire {
+            animation: flicker 1s infinite;
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.85; transform: scale(1.05); }
+        }
+
+        .ripple {
+            position: relative;
+            overflow: hidden;
+        }
+        .ripple::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        .ripple:active::after {
+            width: 300px;
+            height: 300px;
+        }
+
+        .wrong-reaction {
+            animation: wrongShake 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+        }
+
+        @keyframes wrongShake {
+            0%, 100% { transform: translateX(0) rotate(0); }
+            20% { transform: translateX(-10px) rotate(-3deg); }
+            40% { transform: translateX(10px) rotate(3deg); }
+            60% { transform: translateX(-8px) rotate(-2deg); }
+            80% { transform: translateX(8px) rotate(2deg); }
+        }
+
+        .wrong-flash {
+            animation: wrongFlash 0.5s ease;
+        }
+
+        @keyframes wrongFlash {
+            0%, 100% { background-color: inherit; }
+            50% { background-color: #fee2e2; }
+        }
+
+        .nav-btn {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .nav-btn:active {
+            transform: scale(0.9);
+        }
+        .nav-btn.active {
+            background: linear-gradient(135deg, #FFDC61, #FF9100);
+            color: white !important;
+            transform: scale(1.05);
+        }
+        .nav-btn.active .menu-icon {
+            color: white !important;
+        }
+
+        .menu-icon {
+            color: #FF9100;
+            transition: all 0.3s ease;
+        }
+        .nav-btn:hover .menu-icon {
+            color: white;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 26px;
+            background: #d1d5db;
+            border-radius: 20px;
+            transition: background 0.3s;
+        }
+        .toggle-switch.active {
+            background: #10b981;
+        }
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .toggle-switch.active::after {
+            transform: translateX(24px);
+        }
+
+        .editable-name {
+            cursor: pointer;
+            border-bottom: 2px dashed transparent;
+            transition: border-color 0.3s;
+        }
+        .editable-name:hover {
+            border-bottom-color: #FF9100;
+        }
+        .editable-name.editing {
+            border-bottom-color: #FF9100;
+        }
+
+        .expand-btn {
+            transition: transform 0.3s;
+        }
+        .expand-btn.expanded {
+            transform: rotate(180deg);
+        }
+
+        .answer-scroll {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+        .answer-scroll.expanded {
+            max-height: 500px;
+        }
+
+        .countdown {
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .option-letter {
+            background: linear-gradient(135deg, #FFDC61 0%, #FF9100 100%);
+            color: white;
+            box-shadow: 0 4px 8px rgba(255, 145, 0, 0.35);
+            transition: all 0.25s ease;
+        }
+
+        .external-menu-btn {
+            background: linear-gradient(135deg, #FFDC61 0%, #FF9100 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(255, 145, 0, 0.4);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .external-menu-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 16px rgba(255, 145, 0, 0.5);
+        }
+        .external-menu-btn:active {
+            transform: scale(0.95);
+        }
+
+        .nav-arrow-gradient {
+            background: linear-gradient(135deg, #FFDC61 0%, #FF9100 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .elite-badge {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #1e293b;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-20">
+
+    <header class="fixed top-0 w-full z-50 glass-effect shadow-lg">
+        <div class="flex justify-between items-center p-4">
+            <div class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold pulse-ring">
+                    <i class="fas fa-landmark"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold text-gray-800">Prep História de Angola</h1>
+                    <p class="text-xs text-gray-600">100 Questões • <span class="elite-badge">Elite & Académico</span></p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <a href="https://criativacowork.github.io/LGOV130072026/assets/ladjumgov_exames.html" class="external-menu-btn w-10 h-10 rounded-full flex items-center justify-center btn-press" title="Outros Temas">
+                    <i class="fas fa-th-large text-sm"></i>
+                </a>
+                <div class="text-right hidden sm:block">
+                    <div class="text-sm font-bold text-gray-800" id="userName">Candidato</div>
+                    <div class="text-xs text-gray-600" id="userLevel">Nível 1</div>
+                </div>
+                <button onclick="app.showProfile()" class="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full text-white flex items-center justify-center shadow-lg btn-press">
+                    <i class="fas fa-user"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="pt-20 px-4 max-w-md mx-auto">
+        
+        <section id="dashboard" class="active-section space-y-4">
+            <div class="card-gradient rounded-2xl p-6 text-white shadow-xl card-hover">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <h2 class="text-2xl font-bold mb-1">Bem-vindo! 👋</h2>
+                        <p class="text-white/90 text-sm">Concursos Públicos e Estudos Académicos</p>
+                    </div>
+                    <div class="bg-white/20 rounded-full p-2 streak-fire">
+                        <i class="fas fa-fire text-yellow-300 text-xl"></i>
+                    </div>
+                </div>
+                <div class="flex gap-4 mt-4">
+                    <div class="bg-white/20 rounded-xl p-3 flex-1 text-center btn-press">
+                        <div class="text-2xl font-bold" id="totalStreak">0</div>
+                        <div class="text-xs">Dias seguidos</div>
+                    </div>
+                    <div class="bg-white/20 rounded-xl p-3 flex-1 text-center btn-press">
+                        <div class="text-2xl font-bold" id="totalPoints">0</div>
+                        <div class="text-xs">Pontos XP</div>
+                    </div>
+                    <div class="bg-white/20 rounded-xl p-3 flex-1 text-center btn-press">
+                        <div class="text-2xl font-bold" id="totalBadges">0</div>
+                        <div class="text-xs">Medalhas</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div class="bg-white rounded-2xl p-4 shadow-lg card-hover cursor-pointer" onclick="app.navigateTo('learning')">
+                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-2">
+                        <i class="fas fa-book menu-icon text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-800">Aprender</h3>
+                    <p class="text-xs text-gray-500">Conteúdo teórico</p>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-4 shadow-lg card-hover cursor-pointer" onclick="app.navigateTo('questions')">
+                    <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mb-2">
+                        <i class="fas fa-question-circle menu-icon text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-800">Questões</h3>
+                    <p class="text-xs text-gray-500" id="questionsProgress">0/100</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 shadow-lg">
+                <h3 class="font-bold text-gray-800 mb-3">Modo de Estudo</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <button onclick="app.setStudyMode('flashcard')" class="study-mode-btn active bg-gradient-to-r from-orange-400 to-orange-600 text-white py-3 rounded-xl text-sm font-semibold btn-press ripple">
+                        <i class="fas fa-clone block mb-1"></i>
+                        Flashcards
+                    </button>
+                    <button onclick="app.setStudyMode('quiz')" class="study-mode-btn bg-gray-100 text-gray-600 py-3 rounded-xl text-sm font-semibold btn-press ripple">
+                        <i class="fas fa-check-circle block mb-1"></i>
+                        Quiz
+                    </button>
+                    <button onclick="app.setStudyMode('multiple')" class="study-mode-btn bg-gray-100 text-gray-600 py-3 rounded-xl text-sm font-semibold btn-press ripple">
+                        <i class="fas fa-list-ul block mb-1"></i>
+                        Múltipla Escolha
+                    </button>
+                    <button onclick="app.setStudyMode('timer')" class="study-mode-btn bg-gray-100 text-gray-600 py-3 rounded-xl text-sm font-semibold btn-press ripple">
+                        <i class="fas fa-stopwatch block mb-1"></i>
+                        Cronómetro
+                    </button>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 shadow-lg">
+                <h3 class="font-bold text-gray-800 mb-3 flex items-center gap-2">
+                    <i class="fas fa-tasks text-purple-600"></i>
+                    Objetivos de Hoje
+                </h3>
+                <div id="dailyGoals" class="space-y-2"></div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 shadow-lg">
+                <h3 class="font-bold text-gray-800 mb-3">Atividade Recente</h3>
+                <div id="recentActivity" class="space-y-2 text-sm text-gray-600">
+                    <p class="text-center py-4">Sem atividade recente</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="learning" class="hidden-section space-y-4">
+            <div class="flex items-center gap-3 mb-4">
+                <button onclick="app.navigateTo('dashboard')" class="w-10 h-10 bg-white rounded-full shadow flex items-center justify-center btn-press">
+                    <i class="fas fa-arrow-left nav-arrow-gradient text-xl"></i>
+                </button>
+                <h2 class="text-2xl font-bold text-white">Conteúdo Teórico</h2>
+            </div>
+            <div class="space-y-3" id="learningTopics"></div>
+        </section>
+
+        <section id="learningContent" class="hidden-section">
+            <div class="bg-white rounded-2xl shadow-xl p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <button onclick="app.navigateTo('learning')" class="w-10 h-10 bg-white rounded-full shadow flex items-center justify-center btn-press">
+                        <i class="fas fa-arrow-left nav-arrow-gradient text-xl"></i>
+                    </button>
+                    <h3 class="text-lg font-bold text-gray-800" id="learningTitle">Título</h3>
+                </div>
+                <div id="learningText" class="prose prose-sm max-w-none text-gray-700 space-y-4"></div>
+            </div>
+        </section>
+
+        <section id="questions" class="hidden-section space-y-4">
+            <div class="flex items-center gap-3 mb-4">
+                <button onclick="app.navigateTo('dashboard')" class="w-10 h-10 bg-white rounded-full shadow flex items-center justify-center btn-press">
+                    <i class="fas fa-arrow-left nav-arrow-gradient text-xl"></i>
+                </button>
+                <h2 class="text-2xl font-bold text-white">Questões</h2>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 shadow-lg">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-sm font-semibold text-gray-700">Progresso Geral</span>
+                    <span class="text-sm font-bold text-blue-600" id="totalProgress">0/100</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-3">
+                    <div class="bg-gradient-to-r from-blue-500 to-purple-500 h-3 rounded-full transition-all" id="totalProgressBar" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <div class="space-y-3" id="questionBlocks"></div>
+        </section>
+
+        <section id="flashcardInterface" class="hidden-section">
+            <div class="bg-white rounded-2xl shadow-xl p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <button onclick="app.navigateTo('questions')" class="w-10 h-10 bg-white rounded-full shadow flex items-center justify-center btn-press">
+                        <i class="fas fa-arrow-left nav-arrow-gradient text-xl"></i>
+                    </button>
+                    <span class="text-sm font-bold text-gray-600" id="flashcardCounter">1/20</span>
+                </div>
+
+                <div class="flashcard mb-6 cursor-pointer" onclick="this.classList.toggle('flipped')">
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front bg-gradient-to-br from-blue-500 to-purple-600 text-white shadow-lg">
+                            <div>
+                                <div class="text-xs uppercase tracking-wide mb-2 opacity-75">Pergunta</div>
+                                <div class="text-lg font-semibold" id="flashcardQuestion">Pergunta aqui...</div>
+                            </div>
+                        </div>
+                        <div class="flashcard-back bg-gradient-to-br from-green-500 to-teal-600 text-white shadow-lg">
+                            <div>
+                                <div class="text-xs uppercase tracking-wide mb-2 opacity-75">Resposta</div>
+                                <div class="text-sm" id="flashcardAnswer">Resposta aqui...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex gap-3">
+                    <button onclick="app.markFlashcard('difficult')" class="flex-1 bg-red-500 text-white py-3 rounded-xl font-bold btn-press ripple">
+                        <i class="fas fa-times mr-2"></i>Difícil
+                    </button>
+                    <button onclick="app.markFlashcard('easy')" class="flex-1 bg-green-500 text-white py-3 rounded-xl font-bold btn-press ripple">
+                        <i class="fas fa-check mr-2"></i>Fácil
+                    </button>
+                </div>
+
+                <button onclick="app.nextFlashcard()" class="w-full mt-3 bg-gradient-to-r from-orange-400 to-orange-600 text-white py-3 rounded-xl font-bold btn-press ripple">
+                    Próxima <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </section>
+
+        <section id="quizInterface" class="hidden-section">
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                <div class="w-full bg-gray-200 h-2">
+                    <div id="quizTimerBar" class="bg-red-500 h-2 timer-bar" style="width: 100%"></div>
+                </div>
+                
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-sm text-gray-500" id="quizCounter">1/10</span>
+                        <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm font-bold" id="quizScore">0 pts</span>
+                    </div>
+
+                    <div class="mb-4">
+                        <span class="text-xs font-bold text-purple-600 uppercase tracking-wide" id="quizCategory">Categoria</span>
+                        <h3 class="text-lg font-bold text-gray-800 mt-2" id="quizQuestion">Pergunta aqui...</h3>
+                    </div>
+
+                    <div class="flex items-center justify-between bg-gray-50 p-3 rounded-xl mb-4">
+                        <span class="text-sm font-semibold text-gray-700"><i class="fas fa-eye mr-2"></i>Mostrar resposta</span>
+                        <div id="answerToggle" class="toggle-switch active" onclick="app.toggleAnswerVisibility()"></div>
+                    </div>
+
+                    <div id="answerContainer" class="bg-gray-50 p-4 rounded-xl mb-4 transition-all">
+                        <p class="text-sm text-gray-700" id="quizAnswer">Resposta aqui...</p>
+                    </div>
+
+                    <div class="flex gap-3">
+                        <button onclick="app.markQuizAnswer('correct')" class="flex-1 bg-green-500 text-white py-3 rounded-xl font-bold btn-press ripple">
+                            <i class="fas fa-check mr-2"></i>Correto
+                        </button>
+                        <button onclick="app.markQuizAnswer('wrong')" class="flex-1 bg-red-500 text-white py-3 rounded-xl font-bold btn-press ripple">
+                            <i class="fas fa-times mr-2"></i>Errado
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="multipleInterface" class="hidden-section">
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                <div class="w-full bg-gray-200 h-2">
+                    <div id="multipleTimerBar" class="bg-red-500 h-2 timer-bar" style="width: 100%"></div>
+                </div>
+                
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <button onclick="app.navigateTo('questions')" class="w-10 h-10 bg-white rounded-full shadow flex items-center justify-center btn-press">
+                            <i class="fas fa-arrow-left nav-arrow-gradient text-xl"></i>
+                        </button>
+                        <div class="flex items-center gap-2">
+                            <span class="text-sm text-gray-500 font-semibold" id="multipleCounter">1/10</span>
+                            <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm font-bold" id="multipleScore">0 pts</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <span class="text-xs font-bold text-purple-600 uppercase tracking-wide" id="multipleCategory">Categoria</span>
+                        <h3 class="text-lg font-bold text-gray-800 mt-2" id="multipleQuestion">Pergunta aqui...</h3>
+                    </div>
+
+                    <div id="multipleOptions" class="space-y-3"></div>
+
+                    <div id="multipleFeedback" class="hidden mt-4">
+                        <div class="p-4 rounded-xl mb-3" id="feedbackBox">
+                            <p class="font-semibold mb-2" id="feedbackText"></p>
+                            <div class="flex items-start gap-2 mb-2">
+                                <button onclick="app.toggleAnswerExpand()" class="expand-btn text-blue-600 mt-1">
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                                <div class="flex-1">
+                                    <p class="text-xs font-bold text-gray-700 mb-1">Resposta Correta:</p>
+                                    <div id="correctAnswerBox" class="answer-scroll">
+                                        <p class="text-sm text-gray-700 bg-white p-3 rounded-lg" id="feedbackExplanation"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="wrongActionButtons" class="hidden">
+                            <div class="flex items-center justify-between bg-orange-50 p-3 rounded-xl mb-3">
+                                <div class="flex items-center gap-2">
+                                    <i class="fas fa-clock text-orange-600 countdown" id="countdownIcon"></i>
+                                    <span class="text-sm font-semibold text-orange-800">Próxima em: <span id="countdownTimer" class="font-bold">60</span>s</span>
+                                </div>
+                            </div>
+                            <button onclick="app.nextMultipleQuestion()" class="w-full bg-gradient-to-r from-orange-400 to-orange-600 text-white py-3 rounded-xl font-bold btn-press ripple">
+                                <i class="fas fa-arrow-right mr-2"></i>Próxima Pergunta
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="profile" class="hidden-section space-y-4">
+            <div class="flex items-center gap-3 mb-4">
+                <button onclick="app.navigateTo('dashboard')" class="w-10 h-10 bg-white rounded-full shadow flex items-center justify-center btn-press">
+                    <i class="fas fa-arrow-left nav-arrow-gradient text-xl"></i>
+                </button>
+                <h2 class="text-2xl font-bold text-white">Perfil & Progresso</h2>
+            </div>
+
+            <div class="bg-white rounded-2xl p-6 shadow-lg text-center">
+                <div class="w-24 h-24 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-3xl font-bold">
+                    <span id="profileInitial">U</span>
+                </div>
+                
+                <div class="mb-2">
+                    <h3 class="text-xl font-bold text-gray-800 editable-name" id="profileName" onclick="app.editName()">
+                        Utilizador
+                        <i class="fas fa-pen text-xs text-gray-400 ml-2"></i>
+                    </h3>
+                    <input type="text" id="nameInput" class="hidden text-center text-xl font-bold border-b-2 border-orange-500 focus:outline-none bg-transparent" onblur="app.saveName()" onkeypress="if(event.key==='Enter')app.saveName()">
+                </div>
+                
+                <p class="text-gray-500 text-sm">Membro desde <span id="memberSince">--</span></p>
+                
+                <div class="flex justify-center gap-4 mt-4">
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-blue-600" id="profileCorrect">0</div>
+                        <div class="text-xs text-gray-500">Corretas</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-red-600" id="profileWrong">0</div>
+                        <div class="text-xs text-gray-500">Erradas</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-purple-600" id="profileTotal">0%</div>
+                        <div class="text-xs text-gray-500">Taxa Acerto</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 shadow-lg">
+                <h3 class="font-bold text-gray-800 mb-3">Medalhas Conquistadas</h3>
+                <div id="badgesGrid" class="grid grid-cols-4 gap-3"></div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 shadow-lg space-y-3">
+                <h3 class="font-bold text-gray-800">Dados & Backup</h3>
+                <button onclick="app.exportData()" class="w-full bg-gradient-to-r from-orange-400 to-orange-600 text-white py-3 rounded-xl font-semibold btn-press ripple">
+                    <i class="fas fa-download mr-2"></i>Exportar Progresso (JSON)
+                </button>
+                <label class="w-full bg-gray-600 text-white py-3 rounded-xl font-semibold text-center cursor-pointer block btn-press">
+                    <i class="fas fa-upload mr-2"></i>Importar Progresso
+                    <input type="file" accept=".json" onchange="app.importData(this)" class="hidden">
+                </label>
+                <button onclick="app.resetProgress()" class="w-full bg-red-500 text-white py-3 rounded-xl font-semibold btn-press ripple">
+                    <i class="fas fa-trash mr-2"></i>Reiniciar Progresso
+                </button>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 shadow-lg">
+                <h3 class="font-bold text-gray-800 mb-3">Histórico de Sessões</h3>
+                <div id="sessionHistory" class="space-y-2 max-h-64 overflow-y-auto">
+                    <p class="text-center text-gray-400 py-4">Sem sessões realizadas</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <nav class="fixed bottom-0 w-full glass-nav shadow-lg z-50">
+        <div class="flex justify-around items-center p-2 max-w-md mx-auto">
+            <button onclick="app.navigateTo('dashboard')" class="nav-btn active flex-1 py-3 px-2 rounded-xl text-center" data-target="dashboard">
+                <i class="fas fa-home menu-icon text-xl mb-1 block"></i>
+                <span class="text-xs">Início</span>
+            </button>
+            <button onclick="app.navigateTo('learning')" class="nav-btn flex-1 py-3 px-2 rounded-xl text-center" data-target="learning">
+                <i class="fas fa-book menu-icon text-xl mb-1 block"></i>
+                <span class="text-xs">Aprender</span>
+            </button>
+            <button onclick="app.navigateTo('questions')" class="nav-btn flex-1 py-3 px-2 rounded-xl text-center" data-target="questions">
+                <i class="fas fa-question-circle menu-icon text-xl mb-1 block"></i>
+                <span class="text-xs">Questões</span>
+            </button>
+            <button onclick="app.navigateTo('profile')" class="nav-btn flex-1 py-3 px-2 rounded-xl text-center" data-target="profile">
+                <i class="fas fa-user menu-icon text-xl mb-1 block"></i>
+                <span class="text-xs">Perfil</span>
+            </button>
+        </div>
+    </nav>
+
+    <div id="toastContainer" class="fixed bottom-20 left-0 right-0 z-50 pointer-events-none px-4"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script>
+        const appData = {
+            learning: {
+                topics: [
+                    {
+                        id: 'pre_colonial',
+                        title: 'Período Pré-Colonial (Reinos e Estruturas)',
+                        icon: 'fa-crown',
+                        color: 'bg-blue-500',
+                        content: `<h4 class="font-bold text-lg mb-2">Reinos Pré-Coloniais</h4><p class="mb-3">Angola foi berço de vários reinos e estruturas políticas complexas antes da chegada dos portugueses.</p><h4 class="font-bold text-lg mb-2">Reino do Kongo</h4><div class="bg-blue-50 p-3 rounded-xl mb-3"><ul class="list-disc pl-5 text-sm space-y-1"><li>Monarquia eletiva centralizada no <strong>ManiKongo</strong></li><li>Capital: <strong>Mbanza Kongo</strong></li><li>Dividido em províncias (Soyo, Mbata, Mpangu)</li><li>Economia baseada em agricultura, metalurgia e comércio com <strong>Nzimbu</strong> (concha-moeda)</li></ul></div><h4 class="font-bold text-lg mb-2">Reino de Ndongo</h4><div class="bg-green-50 p-3 rounded-xl mb-3"><ul class="list-disc pl-5 text-sm space-y-1"><li>Liderado pelo <strong>"Ngola"</strong> (ferreiro-mor)</li><li>Destacou-se pela metalurgia e resistência à expansão colonial</li><li>Independente do Kongo</li></ul></div><h4 class="font-bold text-lg mb-2">Rainha Nzinga Mbandi (Ginga)</h4><div class="bg-purple-50 p-3 rounded-xl mb-3"><p class="text-sm">Resistência militar e diplomática contra Portugal, unificação dos reinos de Ndongo e Matamba, alianças estratégicas com holandeses.</p></div><h4 class="font-bold text-lg mb-2">Reino da Lunda</h4><div class="bg-orange-50 p-3 rounded-xl mb-3"><ul class="list-disc pl-5 text-sm space-y-1"><li>Fundado pela união de <strong>Lweji e Chibinda Ilunga</strong></li><li>Sistema de "posições perpétuas" e "parentesco simbólico"</li><li><strong>Lukano</strong>: bracelete que representava autoridade do Mwant Yav</li><li>Influenciou todo o leste e centro de Angola</li></ul></div><h4 class="font-bold text-lg mb-2">Confederação Ovimbundu</h4><p class="mb-3 text-sm">Reinos como Bailundo, Huambo, Bié, Ciyaka e Ndulu, destacados pelo comércio de longa distância (caravanas).</p>`
+                    },
+                    {
+                        id: 'colonial',
+                        title: 'Período Colonial (1575-1975)',
+                        icon: 'fa-ship',
+                        color: 'bg-red-500',
+                        content: `<h4 class="font-bold text-lg mb-2">Fundação de Luanda</h4><p class="mb-3"><strong>25 de Janeiro de 1576</strong> - Paulo Dias de Novais funda São Paulo de Assunção de Loanda, iniciando o regime de capitania-donatária (Carta de Doação de 1571).</p><h4 class="font-bold text-lg mb-2">Ocupação Holandesa (1641-1648)</h4><p class="mb-3 text-sm">Interrompeu o domínio português, forçou retirada para Massangano. Reconquistada por <strong>Salvador Correia de Sá</strong> vindo do Brasil.</p><h4 class="font-bold text-lg mb-2">Tráfico Transatlântico de Escravos</h4><p class="mb-3 text-sm">Principal motor económico da colónia por séculos. Angola foi o maior exportador de mão-de-obra escrava para as Américas, especialmente Brasil.</p><h4 class="font-bold text-lg mb-2">Conferência de Berlim (1884-1885)</h4><p class="mb-3 text-sm">Substituiu "direito de descoberta" por "ocupação efetiva", obrigando Portugal a realizar campanhas militares para controlar o interior.</p><h4 class="font-bold text-lg mb-2">Campanhas de Pacificação</h4><p class="mb-3 text-sm">Expedições militares (finais séc. XIX e início séc. XX) para subjugar reinos resistentes como Bailundo, Dembos e Cuanhamas.</p><h4 class="font-bold text-lg mb-2">Mandume ya Ndemufayo</h4><p class="mb-3 text-sm">Último rei dos Cuanhamas, liderou resistência feroz até à sua morte em <strong>1917</strong>.</p><h4 class="font-bold text-lg mb-2">Estatuto do Indigenato (1921-1961)</h4><div class="bg-red-50 p-3 rounded-xl mb-3"><p class="text-sm">Sistema discriminatório que dividia população em:</p><ul class="list-disc pl-5 text-sm mt-2 space-y-1"><li><strong>"Civilizados"</strong> - europeus e assimilados</li><li><strong>"Indígenas"</strong> - sem plenos direitos, sujeitos a trabalhos forçados</li></ul></div><h4 class="font-bold text-lg mb-2">DIAMANG</h4><p class="mb-3 text-sm">Companhia de Diamantes de Angola (1917), detinha monopólio da extração de diamantes no Lunda, funcionava como "Estado dentro do Estado".</p><h4 class="font-bold text-lg mb-2">Massacre da Baixa de Cassanje (Janeiro 1961)</h4><p class="mb-3 text-sm">Bombardeamento de trabalhadores de algodão que protestavam contra condições de trabalho, considerado catalisador da luta armada.</p>`
+                    },
+                    {
+                        id: 'libertacao',
+                        title: 'Luta de Libertação Nacional (1961-1974)',
+                        icon: 'fa-fist-raised',
+                        color: 'bg-green-500',
+                        content: `<h4 class="font-bold text-lg mb-2">Início da Luta Armada</h4><div class="bg-green-50 p-3 rounded-xl mb-3"><p class="font-semibold">4 de Fevereiro de 1961</p><p class="text-sm">Ataque às prisões de Luanda (Cadeia de São Paulo) - marco oficial do início da luta armada.</p></div><h4 class="font-bold text-lg mb-2">15 de Março de 1961</h4><p class="mb-3 text-sm">Insurreição em larga escala no Norte liderada pela UPA (União das Populações de Angola), resultando em repressão colonial brutal.</p><h4 class="font-bold text-lg mb-2">Movimentos de Libertação</h4><div class="bg-blue-50 p-3 rounded-xl mb-3"><p class="font-semibold mb-2">MPLA</p><ul class="list-disc pl-5 text-sm space-y-1"><li>Fundado em Dezembro de 1956</li><li>Líder histórico: <strong>Agostinho Neto</strong> (a partir de 1962)</li><li>Ideologia: nacionalismo pan-africanista com influências marxistas</li></ul></div><div class="bg-orange-50 p-3 rounded-xl mb-3"><p class="font-semibold mb-2">FNLA</p><ul class="list-disc pl-5 text-sm space-y-1"><li>Evolução da UPONA/UPA</li><li>Líder: <strong>Holden Roberto</strong></li><li>Base no norte, apoio do Zaire</li></ul></div><div class="bg-purple-50 p-3 rounded-xl mb-3"><p class="font-semibold mb-2">UNITA</p><ul class="list-disc pl-5 text-sm space-y-1"><li>Fundada a <strong>13 de Março de 1966</strong> em Muangai (Moxico)</li><li>Líder: <strong>Jonas Savimbi</strong></li><li>Rutura com a FNLA</li></ul></div><h4 class="font-bold text-lg mb-2">Figuras Heroicas</h4><ul class="list-disc pl-5 mb-3 space-y-1"><li><strong>Deolinda Rodrigues</strong> - Heroína do MPLA, capturada e assassinada pela FNLA em 1967</li><li><strong>Hoji-ya-Henda</strong> - Comandante do MPLA, "Filho Querido do Povo Angolano", morto em 1968</li></ul><h4 class="font-bold text-lg mb-2">Revolução dos Cravos (25 de Abril de 1974)</h4><p class="mb-3 text-sm">Derrubou a ditadura salazarista, pondo fim à política colonial e abrindo caminho para as negociações de independência.</p>`
+                    },
+                    {
+                        id: 'independencia',
+                        title: 'Independência Nacional e Transição',
+                        icon: 'fa-flag',
+                        color: 'bg-yellow-500',
+                        content: `<h4 class="font-bold text-lg mb-2">Acordo do Alvor (Janeiro 1975)</h4><p class="mb-3 text-sm">Acordo entre Portugal e os três movimentos (MPLA, FNLA, UNITA) que previa governo de transição tripartido e eleições antes da independência. Fracassou devido à desconfiança entre movimentos e interferência externa.</p><h4 class="font-bold text-lg mb-2">Independência - 11 de Novembro de 1975</h4><div class="bg-yellow-50 p-3 rounded-xl mb-3"><ul class="list-disc pl-5 text-sm space-y-1"><li><strong>António Agostinho Neto</strong> proclamou a independência em Luanda pelo MPLA</li><li>FNLA e UNITA proclamaram República Democrática no Ambriz e Huambo (governo paralelo sem reconhecimento internacional)</li></ul></div><h4 class="font-bold text-lg mb-2">Operação Carlota (Cuba)</h4><p class="mb-3 text-sm">Cuba enviou milhares de tropas para apoiar o MPLA contra invasão sul-africana e avanço da FNLA sobre Luanda.</p><h4 class="font-bold text-lg mb-2">Batalha de Quifangondo (10 Nov 1975)</h4><p class="mb-3 text-sm">Batalha decisiva onde forças do MPLA e cubanos travaram o avanço da FNLA e mercenários portugueses/zairianos.</p><h4 class="font-bold text-lg mb-2">Frase Histórica de Neto</h4><div class="bg-blue-50 p-3 rounded-xl mb-3"><p class="text-sm font-semibold">"De Cabinda ao Cunene, um só povo, uma só nação"</p><p class="text-xs mt-2">Simbolizava a vontade de manter integridade territorial e unidade nacional acima das divisões étnicas e regionais.</p></div><h4 class="font-bold text-lg mb-2">27 de Maio de 1977</h4><p class="mb-3 text-sm">Tentativa de golpe de Estado liderada por Nito Alves (fracionismo) contra Agostinho Neto, seguida de repressão severa.</p><h4 class="font-bold text-lg mb-2">Sucessão</h4><p class="mb-3 text-sm">Após morte de Neto em 1979, <strong>José Eduardo dos Santos</strong> governou até 2017.</p><h4 class="font-bold text-lg mb-2">Congresso de 1977 do MPLA</h4><p class="mb-3 text-sm">Transformou o movimento em "Partido do Trabalho" (MPLA-PT), adotando oficialmente o Marxismo-Leninismo.</p>`
+                    },
+                    {
+                        id: 'pos_independencia',
+                        title: 'Pós-Independência e Consolidação da Paz',
+                        icon: 'fa-dove',
+                        color: 'bg-purple-500',
+                        content: `<h4 class="font-bold text-lg mb-2">Guerra Civil Angolana</h4><p class="mb-3 text-sm">Luta pelo controlo total do Estado entre governo do MPLA e rebelião armada da UNITA, alimentada pela lógica da Guerra Fria.</p><h4 class="font-bold text-lg mb-2">Batalha do Cuito Cuanavale (1987-1988)</h4><div class="bg-purple-50 p-3 rounded-xl mb-3"><p class="text-sm">Maior batalha terrestre em África desde a II Guerra Mundial. O impasse forçou saída da África do Sul de Angola e acelerou independência da Namíbia.</p></div><h4 class="font-bold text-lg mb-2">Acordos de Bicesse (1991)</h4><ul class="list-disc pl-5 mb-3 space-y-1"><li>Fim do regime de partido único</li><li>Criação das Forças Armadas Angolanas (FAA)</li><li>Primeiras eleições multipartidárias</li></ul><h4 class="font-bold text-lg mb-2">Eleições de Setembro de 1992</h4><p class="mb-3 text-sm">MPLA venceu legislativas e José Eduardo dos Santos venceu primeira volta das presidenciais. UNITA não aceitou resultados, reiniciando guerra.</p><h4 class="font-bold text-lg mb-2">Protocolo de Lusaka (1994)</h4><p class="mb-3 text-sm">Nova tentativa de paz prevendo integração da UNITA no governo (GURN). Fracassou devido ao rearmamento contínuo da UNITA.</p><h4 class="font-bold text-lg mb-2">Fim da Guerra Civil</h4><div class="bg-green-50 p-3 rounded-xl mb-3"><p class="font-semibold">4 de Abril de 2002</p><p class="text-sm">Memorando de Entendimento de Luena assinado após morte de Jonas Savimbi (22 de Fevereiro de 2002).</p><p class="text-xs mt-2">Celebrado como <strong>Dia da Paz e da Reconciliação Nacional</strong>.</p></div><h4 class="font-bold text-lg mb-2">Constituição de 2010</h4><ul class="list-disc pl-5 mb-3 space-y-1"><li>Substituiu Constituição de 1992</li><li>Introduziu regime presidencialista parlamentar</li><li>Cabeça de lista do partido mais votado é o Presidente</li><li>Eliminou eleição presidencial direta</li></ul><h4 class="font-bold text-lg mb-2">Transição de 2017</h4><p class="mb-3 text-sm">Saída voluntária de José Eduardo dos Santos e eleição de <strong>João Lourenço</strong> como sucessor.</p><h4 class="font-bold text-lg mb-2">Desafio Atual</h4><p class="mb-3 text-sm">Diversificação económica para reduzir dependência extrema das exportações de petróleo bruto.</p>`
+                    }
+                ]
+            },
+            questions: [
+                { id: 1, block: 1, q: 'Qual era a estrutura política base do Reino do Kongo antes da chegada dos portugueses?', a: 'O Reino do Kongo era uma monarquia eletiva centralizada na figura do ManiKongo, dividida em províncias (como Soyo, Mbata, Mpangu) governadas por chefes locais subordinados à capital, Mbanza Kongo.' },
+                { id: 2, block: 1, q: 'Como funcionava a economia do Reino do Kongo no século XV?', a: 'Baseava-se na agricultura, metalurgia do ferro, tecelagem de ráfia e no comércio regional, utilizando o Nzimbu (uma concha proveniente da Ilha de Luanda) como moeda.' },
+                { id: 3, block: 1, q: 'Quem foi Nzinga a Nkuwu e qual o seu papel no contacto com os europeus?', a: 'Foi o ManiKongo que recebeu a expedição de Diogo Cão em 1482 e, em 1491, converteu-se ao cristianismo, sendo batizado como D. João I.' },
+                { id: 4, block: 1, q: 'O que caracterizou o governo da Rainha Nzinga Mbandi (Ginga)?', a: 'Caracterizou-se pela resistência militar e diplomática tenaz contra a ocupação portuguesa, a unificação dos reinos de Ndongo e Matamba e a utilização estratégica de alianças, inclusive com os holandeses.' },
+                { id: 5, block: 1, q: 'Qual a origem e importância do Reino de Ndongo?', a: 'Originou-se como um vassalo do Reino do Kongo, liderado pelo "Ngola". Tornou-se independente e um centro de poder regional focado na metalurgia e resistência à expansão colonial a partir de Luanda.' },
+                { id: 6, block: 1, q: 'O que representava o Reino da Lunda na história da região leste?', a: 'Foi um império vasto fundado pela união de Lweji e Chibinda Ilunga, caracterizado por um sistema político de "posições perpétuas" e "parentesco simbólico", influenciando a cultura de quase todo o leste e centro de Angola.' },
+                { id: 7, block: 1, q: 'Quais eram os principais reinos que compunham a confederação Ovimbundu no Planalto Central?', a: 'Reinos como Bailundo, Huambo, Bié, Ciyaka e Ndulu, que se destacaram pelo comércio de longa distância (caravanas).' },
+                { id: 8, block: 1, q: 'O que era o "Lukano" no contexto do Reino da Lunda?', a: 'O Lukano era o bracelete de pele humana (ou simbólica) que representava a autoridade suprema e o poder hereditário do Mwant Yav (imperador).' },
+                { id: 9, block: 1, q: 'Como era a organização social na maioria dos reinos pré-coloniais?', a: 'Baseava-se no parentesco (matrilinear ou patrilinear), na hierarquia entre linhagens nobres e camponeses, e na existência de formas de dependência social/servidão.' },
+                { id: 10, block: 1, q: 'Qual o papel dos "Jagas" na história militar de Angola?', a: 'Eram grupos guerreiros nómadas conhecidos pelas suas táticas de invasão (Mbangala) que desestabilizaram o Reino do Kongo e Ndongo, muitas vezes servindo como mercenários ou aliados de conveniência.' },
+                { id: 11, block: 1, q: 'Quem era o "Mwene Puto"?', a: 'Era o título dado pelos povos do interior (especialmente Lunda) ao Rei de Portugal ou à autoridade colonial portuguesa.' },
+                { id: 12, block: 1, q: 'Qual a relevância da agricultura de queimada nestas sociedades?', a: 'Era a base de subsistência, permitindo a regeneração do solo, mas também ditava a mobilidade de certas comunidades.' },
+                { id: 13, block: 1, q: 'O que era o "Kandala"?', a: 'Um tributo ou sistema de impostos pago pelos súbditos aos seus chefes ou reis como sinal de fidelidade.' },
+                { id: 14, block: 1, q: 'Como se processava a sucessão no Reino do Kongo?', a: 'Não era estritamente hereditária de pai para filho; o sucessor era escolhido por um conselho de eleitores entre os membros das linhagens reais.' },
+                { id: 15, block: 1, q: 'Qual o significado de "Mbanza"?', a: 'Significa "cidade" ou "centro administrativo", sendo a sede do poder político e espiritual.' },
+                { id: 16, block: 1, q: 'Como o Reino de Matamba se tornou central sob a Rainha Nzinga?', a: 'Nzinga conquistou Matamba para servir de santuário e base militar após perder o controlo de partes do Ndongo para os portugueses.' },
+                { id: 17, block: 1, q: 'Qual a importância das ferrarias no Reino de Ndongo?', a: 'O domínio da metalurgia dava vantagem militar (armas) e económica (instrumentos agrícolas), sendo o "Ngola" originalmente associado ao título de ferreiro-mor.' },
+                { id: 18, block: 1, q: 'O que foi a diáspora Lunda?', a: 'A expansão de membros da nobreza Lunda que fundaram novos estados (como o Reino de Cassanje) e influenciaram povos vizinhos através da cultura e política.' },
+                { id: 19, block: 1, q: 'Quem eram os "Quimbares"?', a: 'Eram soldados e agentes africanos que serviam à administração colonial portuguesa, atuando muitas vezes como intermediários.' },
+                { id: 20, block: 1, q: 'Como o comércio de marfim influenciou os reinos do sul e leste?', a: 'Integrou estas sociedades no comércio mundial antes do predomínio total do tráfico de escravos, criando uma elite comercial poderosa.' },
+                { id: 21, block: 2, q: 'O que estabelecia a Carta de Doação de 1571 concedida a Paulo Dias de Novais?', a: 'Concedia-lhe o direito de conquistar e colonizar o território ao sul do Rio Bengo, estabelecer presídios e fundar vilas, iniciando o regime de capitania-donatária.' },
+                { id: 22, block: 2, q: 'Qual a data e o contexto da fundação de Luanda?', a: '25 de Janeiro de 1576 (embora Novais tenha chegado à Ilha em 1575), com o nome de São Paulo de Assunção de Loanda.' },
+                { id: 23, block: 2, q: 'Qual foi o impacto da ocupação holandesa (1641-1648) em Angola?', a: 'Interrompeu o domínio português, forçou a retirada da administração colonial para a Massangano e alinhou os holandeses com o Reino do Kongo e a Rainha Nzinga contra Portugal.' },
+                { id: 24, block: 2, q: 'Quem liderou a reconquista de Luanda aos holandeses em 1648?', a: 'Salvador Correia de Sá e Benevides, vindo do Brasil.' },
+                { id: 25, block: 2, q: 'O que foi o Tráfico Transatlântico de Escravos para Angola?', a: 'Foi o principal motor económico da colónia por séculos, onde Angola funcionou como o maior exportador de mão-de-obra escrava para as Américas, especialmente Brasil.' },
+                { id: 26, block: 2, q: 'Como a Conferência de Berlim (1884-1885) alterou o destino de Angola?', a: 'Substituiu o "direito de descoberta" pelo princípio da "ocupação efetiva", obrigando Portugal a realizar campanhas militares para controlar o interior do território.' },
+                { id: 27, block: 2, q: 'O que foram as "Campanhas de Pacificação"?', a: 'Série de expedições militares portuguesas (finais do séc. XIX e início do XX) para subjugar reinos resistentes como o Bailundo, os Dembos e os Cuanhamas.' },
+                { id: 28, block: 2, q: 'Quem foi Mandume ya Ndemufayo?', a: 'O último rei dos Cuanhamas que liderou uma resistência feroz contra as forças coloniais portuguesas e sul-africanas até à sua morte em 1917.' },
+                { id: 29, block: 2, q: 'O que era o Estatuto do Indigenato (1921-1961)?', a: 'Um sistema jurídico discriminatório que dividia a população em "civilizados" (europeus e assimilados) e "indígenas" (sem plenos direitos de cidadania e sujeitos a trabalhos forçados).' },
+                { id: 30, block: 2, q: 'Defina o conceito de "Assimilado".', a: 'Era o africano que, por dominar a língua portuguesa, professar o cristianismo e ter hábitos europeus, adquiria legalmente o estatuto de cidadão português, separando-se da massa "indígena".' },
+                { id: 31, block: 2, q: 'O que foi o Trabalho Forçado (Chibalo)?', a: 'Um regime de exploração onde os africanos eram obrigados pelo Estado a trabalhar em plantações, minas ou obras públicas com remuneração ínfima ou inexistente.' },
+                { id: 32, block: 2, q: 'Qual a importância da Companhia de Diamantes de Angola (DIAMANG)?', a: 'Fundada em 1917, detinha o monopólio da extração de diamantes no Lunda e funcionava quase como um "Estado dentro do Estado".' },
+                { id: 33, block: 2, q: 'Quando e onde começou a exploração de petróleo em Angola?', a: 'A exploração comercial começou na década de 1950, com a descoberta de jazigos na bacia do Cuanza e, posteriormente, em Cabinda.' },
+                { id: 34, block: 2, q: 'O que foi a Revolta do Bailundo (1902)?', a: 'Uma das maiores insurreições contra o imposto de palhota e o recrutamento de trabalhadores, liderada pelo Rei Mutu-ya-Kevela.' },
+                { id: 35, block: 2, q: 'Qual o papel de Norton de Matos na administração colonial?', a: 'Foi Governador e Alto Comissário que impulsionou o colonato branco, a modernização administrativa e a infraestrutura, mas também reforçou a segregação.' },
+                { id: 36, block: 2, q: 'Como a II Guerra Mundial afetou a economia angolana?', a: 'Houve um boom na exportação de matérias-primas (café, sisal, milho), enriquecendo a elite colona e aumentando a pressão sobre o trabalho africano.' },
+                { id: 37, block: 2, q: 'O que era o "Imposto de Palhota"?', a: 'Um imposto per capita cobrado aos africanos para forçá-los a entrar na economia monetária (obrigando-os a trabalhar para os colonos para pagar o imposto).' },
+                { id: 38, block: 2, q: 'Qual a relevância da linha de caminho-de-ferro de Benguela (CFB)?', a: 'Conectava o porto do Lobito às minas do Catanga (Congo Belga), sendo vital para o escoamento mineral da África Central.' },
+                { id: 39, block: 2, q: 'O que significou a criação da Província Ultramarina em 1951?', a: 'Uma manobra política de Salazar para mudar o estatuto de "Colónia" para "Província", tentando evitar críticas da ONU sobre a descolonização.' },
+                { id: 40, block: 2, q: 'Qual a importância das Missões Religiosas na educação colonial?', a: 'Foram as principais responsáveis pela educação dos africanos, sendo locais onde surgiram as primeiras elites instruídas que fundariam os movimentos nacionalistas.' },
+                { id: 41, block: 2, q: 'O que foi o "Contrato"?', a: 'Eufemismo para o recrutamento forçado de trabalhadores das zonas rurais para as fazendas de café do norte e minas do sul.' },
+                { id: 42, block: 2, q: 'Como o regime de Salazar (Estado Novo) via Angola?', a: 'Como a "joia da coroa" do império, essencial para a sobrevivência económica e o prestígio internacional de Portugal.' },
+                { id: 43, block: 2, q: 'O que representou o Massacre da Baixa de Cassanje?', a: 'O bombardeamento de trabalhadores de algodão em Janeiro de 1961 que protestavam contra as condições de trabalho, considerado um dos catalisadores da luta armada.' },
+                { id: 44, block: 2, q: 'Quem eram os "Degredados" na história colonial?', a: 'Criminosos e dissidentes políticos enviados de Portugal para Angola para cumprir penas, contribuindo para o povoamento europeu marginal.' },
+                { id: 45, block: 2, q: 'O que foi a Liga Nacional Africana (LNA)?', a: 'Uma organização fundada em 1929 por angolanos "assimilados" para defender os interesses da população africana, evoluindo de uma base assistencialista para política.' },
+                { id: 46, block: 3, q: 'Qual o marco oficial do início da Luta Armada de Libertação Nacional?', a: 'O ataque às prisões de Luanda (Cadeia de São Paulo) a 4 de Fevereiro de 1961.' },
+                { id: 47, block: 3, q: 'O que aconteceu a 15 de Março de 1961 no Norte de Angola?', a: 'Uma insurreição em larga escala liderada pela UPA (União das Populações de Angola), que atacou fazendas e vilas, resultando numa repressão colonial brutal.' },
+                { id: 48, block: 3, q: 'Quando foi fundado o MPLA e quem foi o seu principal rosto inicial?', a: 'Fundado oficialmente em Dezembro de 1956 (embora a data seja debatida), tendo em Agostinho Neto o seu líder histórico mais proeminente a partir de 1962.' },
+                { id: 49, block: 3, q: 'Qual a origem da FNLA?', a: 'Surgiu da evolução da UPONA/UPA, liderada por Holden Roberto, com forte base no norte e apoio de países como o Zaire.' },
+                { id: 50, block: 3, q: 'Quando e onde foi fundada a UNITA?', a: 'A 13 de Março de 1966, em Muangai (Moxico), por Jonas Savimbi, após a sua rutura com a FNLA.' },
+                { id: 51, block: 3, q: 'Qual era a ideologia base do MPLA durante a luta de libertação?', a: 'Nacionalismo pan-africanista com influências marxistas-leninistas, defendendo uma Angola multirracial.' },
+                { id: 52, block: 3, q: 'O que caracterizava a estratégia militar da UNITA na Leste?', a: 'A "Longa Marcha" e a implantação de bases no interior do país, focando-se na mobilização camponesa e na autossuficiência.' },
+                { id: 53, block: 3, q: 'Qual o papel do GRAE (Governo de Resistência de Angola no Exílio)?', a: 'Foi um governo formado pela FNLA em Kinshasa, reconhecido inicialmente pela OUA como o legítimo representante da resistência angolana.' },
+                { id: 54, block: 3, q: 'O que foi a "Revolta Ativa" dentro do MPLA?', a: 'Uma fação interna liderada por intelectuais como Mário Pinto de Andrade que contestava a liderança de Agostinho Neto nos anos 70.' },
+                { id: 55, block: 3, q: 'Qual a importância da "Primeira Região Militar" para o MPLA?', a: 'Situada nos Dembos e Nambuangongo, foi a zona de resistência guerrilheira mais próxima de Luanda durante toda a guerra.' },
+                { id: 56, block: 3, q: 'Quem foi Deolinda Rodrigues?', a: 'Heroína e militante do MPLA, capturada e assassinada pela FNLA (UPA) em 1967, tornando-se símbolo do sacrifício feminino na luta.' },
+                { id: 57, block: 3, q: 'O que foi a "Operação Saviamba" desencadeada por Portugal?', a: 'Uma operação militar de grande envergadura para tentar eliminar Jonas Savimbi e as bases da UNITA no Moxico.' },
+                { id: 58, block: 3, q: 'Como a Revolução dos Cravos (25 de Abril de 1974) em Portugal impactou Angola?', a: 'Derrubou a ditadura salazarista, pondo fim imediato à política colonial e abrindo caminho para as negociações de independência.' },
+                { id: 59, block: 3, q: 'Qual a importância estratégica da Frente Leste?', a: 'Permitiu aos movimentos (especialmente MPLA e UNITA) penetrar profundamente no território a partir de bases na Zâmbia, fugindo ao cerco no Norte e Cabinda.' },
+                { id: 60, block: 3, q: 'O que defendia a FNLA em termos ideológicos e sociais?', a: 'Um nacionalismo conservador, inicialmente focado na restauração do orgulho do povo Kongo e com forte orientação anticomunista.' },
+                { id: 61, block: 3, q: 'Quem foi Hoji-ya-Henda?', a: 'Comandante do MPLA, considerado "Filho Querido do Povo Angolano", morto em combate em 1968 no Moxico.' },
+                { id: 62, block: 3, q: 'O que era a PIDE/DGS no contexto angolano?', a: 'A polícia política portuguesa responsável pela espionagem, tortura e repressão de nacionalistas e civis suspeitos de apoiar a guerrilha.' },
+                { id: 63, block: 3, q: 'Como a Guerra Fria influenciou a luta de libertação?', a: 'O MPLA recebeu apoio do Bloco de Leste (URSS, Cuba); a FNLA e UNITA receberam apoio do Ocidente e de regimes vizinhos anticomunistas.' },
+                { id: 64, block: 3, q: 'O que foi a Conferência de Mombaça (1975)?', a: 'Um encontro entre Neto, Holden e Savimbi para tentar encontrar uma plataforma comum antes do Acordo do Alvor.' },
+                { id: 65, block: 3, q: 'Qual a relevância do Manifesto de 1956?', a: 'Documento fundador do MPLA que apelava à unidade de todas as forças anticoloniais para a independência total.' },
+                { id: 66, block: 4, q: 'O que foi o Acordo do Alvor (Janeiro de 1975)?', a: 'Acordo entre Portugal e os três movimentos (MPLA, FNLA, UNITA) que previa um governo de transição tripartido e eleições antes da independência.' },
+                { id: 67, block: 4, q: 'Por que o Acordo do Alvor fracassou?', a: 'Devido à profunda desconfiança entre os movimentos, falta de controlo das milícias e a interferência externa que levou a confrontos armados imediatos.' },
+                { id: 68, block: 4, q: 'Quem proclamou a Independência de Angola a 11 de Novembro de 1975?', a: 'António Agostinho Neto, em Luanda, pelo MPLA.' },
+                { id: 69, block: 4, q: 'O que aconteceu simultaneamente no Ambriz e no Huambo a 11 de Novembro?', a: 'A FNLA e a UNITA proclamaram a República Democrática de Angola, criando um governo paralelo que não obteve reconhecimento internacional vasto.' },
+                { id: 70, block: 4, q: 'Qual foi o papel de Cuba na independência (Operação Carlota)?', a: 'Cuba enviou milhares de tropas para apoiar o MPLA contra a invasão sul-africana e o avanço da FNLA sobre Luanda nas vésperas da independência.' },
+                { id: 71, block: 4, q: 'O que foi a Batalha de Quifangondo?', a: 'Uma batalha decisiva a poucos quilómetros de Luanda (10 de Nov de 1975), onde as forças do MPLA e cubanos travaram o avanço da FNLA e mercenários portugueses/zairianos.' },
+                { id: 72, block: 4, q: 'Qual o significado da frase de Neto: "De Cabinda ao Cunene, um só povo, uma só nação"?', a: 'Simbolizava a vontade de manter a integridade territorial e a unidade nacional acima das divisões étnicas e regionais.' },
+                { id: 73, block: 4, q: 'Como era a primeira bandeira e hino nacional?', a: 'A bandeira (preta e vermelha com roda dentada e catana) e o hino "Angola Avante" refletiam a ideologia de luta e o trabalho.' },
+                { id: 74, block: 4, q: 'Quais foram as primeiras medidas económicas após a independência?', a: 'Nacionalizações de empresas abandonadas, criação de cooperativas agrícolas e a tentativa de implementar uma economia planificada.' },
+                { id: 75, block: 4, q: 'O que foi o "27 de Maio" de 1977?', a: 'Uma tentativa de golpe de Estado ou revolta interna liderada por Nito Alves (fracionismo) contra Agostinho Neto, seguida de uma repressão severa.' },
+                { id: 76, block: 4, q: 'Quem sucedeu a Agostinho Neto após a sua morte em 1979?', a: 'José Eduardo dos Santos, que governou o país até 2017.' },
+                { id: 77, block: 4, q: 'Qual a estrutura política da "República Popular de Angola"?', a: 'Um regime de partido único (MPLA-PT), onde o Estado era subordinado às diretrizes do partido.' },
+                { id: 78, block: 4, q: 'O que foi o Congresso de 1977 do MPLA?', a: 'O momento em que o movimento se transformou formalmente em "Partido do Trabalho" (MPLA-PT), adotando oficialmente o Marxismo-Leninismo.' },
+                { id: 79, block: 4, q: 'Qual a importância de Cabinda para o novo Estado?', a: 'Devido à sua enorme riqueza petrolífera, Cabinda tornou-se o pulmão financeiro de Angola, apesar do separatismo da FLEC.' },
+                { id: 80, block: 4, q: 'Como o regime do Apartheid na África do Sul reagiu à independência de Angola?', a: 'Viu Angola como uma ameaça comunista e uma base para o SWAPO (Namíbia) e ANC, iniciando décadas de invasões e apoio à UNITA.' },
+                { id: 81, block: 5, q: 'O que desencadeou a Guerra Civil Angolana?', a: 'A luta pelo controlo total do Estado entre o governo do MPLA e a rebelião armada da UNITA, alimentada pela lógica da Guerra Fria.' },
+                { id: 82, block: 5, q: 'Qual a importância histórica da Batalha do Cuito Cuanavale (1987-1988)?', a: 'Considerada a maior batalha terrestre em África desde a II Guerra Mundial; o seu impasse forçou a saída da África do Sul de Angola e acelerou a independência da Namíbia.' },
+                { id: 83, block: 5, q: 'O que foram os Acordos de Bicesse (1991)?', a: 'Acordo de paz que previu o fim do regime de partido único, a criação das Forças Armadas Angolanas (FAA) e a realização das primeiras eleições multipartidárias.' },
+                { id: 84, block: 5, q: 'Qual o resultado das eleições de Setembro de 1992?', a: 'O MPLA venceu as legislativas e José Eduardo dos Santos venceu a primeira volta das presidenciais, mas a UNITA não aceitou os resultados, reiniciando a guerra.' },
+                { id: 85, block: 5, q: 'O que foi a "Guerra dos 55 Dias" em 1993?', a: 'Um cerco brutal à cidade do Huambo pela UNITA, resultando em destruição massiva e milhares de mortos.' },
+                { id: 86, block: 5, q: 'O que estabelecia o Protocolo de Lusaka (1994)?', a: 'Uma nova tentativa de paz prevendo a integração da UNITA no governo e na administração pública (Governo de Unidade e Reconciliação Nacional - GURN).' },
+                { id: 87, block: 5, q: 'O que levou ao fracasso do Protocolo de Lusaka?', a: 'O rearmamento contínuo da UNITA, a recusa de Savimbi em entregar zonas estratégicas e a retoma das sanções da ONU.' },
+                { id: 88, block: 5, q: 'O que foi a "Operação Restauro"?', a: 'Uma ofensiva militar das FAA no final dos anos 90 que destruiu as bases convencionais da UNITA, forçando-a a regressar à guerra de guerrilha.' },
+                { id: 89, block: 5, q: 'Qual a data do fim definitivo da guerra civil em Angola?', a: '4 de Abril de 2002.' },
+                { id: 90, block: 5, q: 'O que foi o Memorando de Entendimento de Luena?', a: 'O documento assinado entre o governo angolano e o comando militar da UNITA após a morte de Jonas Savimbi (22 de Fevereiro de 2002), selando a paz.' },
+                { id: 91, block: 5, q: 'Como é celebrado o dia 4 de Abril em Angola?', a: 'Como o Dia da Paz e da Reconciliação Nacional.' },
+                { id: 92, block: 5, q: 'Quais são os principais pilares da Constituição de 2010?', a: 'Substituiu a Constituição de 1992, introduziu o regime presidencialista parlamentar (onde o cabeça de lista do partido mais votado é o Presidente) e eliminou a eleição presidencial direta.' },
+                { id: 93, block: 5, q: 'O que caracterizou o período de "Reconstrução Nacional"?', a: 'Investimento massivo em infraestruturas (estradas, pontes, hospitais, escolas) financiados principalmente por linhas de crédito da China e receitas do petróleo.' },
+                { id: 94, block: 5, q: 'O que foi o processo de "Desgovernação" ou transição em 2017?', a: 'A saída voluntária de José Eduardo dos Santos e a eleição de João Lourenço como seu sucessor.' },
+                { id: 95, block: 5, q: 'Qual a composição da Assembleia Nacional?', a: 'É composta por 220 deputados, eleitos por sufrágio universal através de um sistema de representação proporcional (círculos provinciais e círculo nacional).' },
+                { id: 96, block: 5, q: 'O que é o Conselho da República?', a: 'Um órgão político consultivo do Presidente da República, integrando líderes de partidos, entidades religiosas e figuras da sociedade civil.' },
+                { id: 97, block: 5, q: 'Qual o papel atual da SADC na política externa de Angola?', a: 'Angola é um membro influente da Comunidade de Desenvolvimento da África Austral, atuando como mediador em conflitos regionais (como na RDC).' },
+                { id: 98, block: 5, q: 'O que mudou com a Revisão Constitucional de 2021?', a: 'Introduziu clarificações sobre a relação entre o Presidente e o Parlamento e ajustes na estrutura do poder judicial.' },
+                { id: 99, block: 5, q: 'Qual é o maior desafio atual da economia angolana segundo os planos de desenvolvimento?', a: 'A diversificação económica para reduzir a dependência extrema das exportações de petróleo bruto.' },
+                { id: 100, block: 5, q: 'O que representam as figuras de Agostinho Neto e Jonas Savimbi no imaginário político atual?', a: 'Neto é o "Fundador da Nação"; Savimbi é reconhecido legalmente como uma figura histórica relevante da oposição, no quadro de uma democracia que busca a reconciliação total.' }
+            ],
+            blocks: [
+                { id: 1, title: 'Período Pré-Colonial (Reinos e Estruturas)', icon: 'fa-crown', color: 'bg-blue-500', range: '1-20' },
+                { id: 2, title: 'Período Colonial (1575-1975)', icon: 'fa-ship', color: 'bg-red-500', range: '21-45' },
+                { id: 3, title: 'Luta de Libertação Nacional (1961-1974)', icon: 'fa-fist-raised', color: 'bg-green-500', range: '46-65' },
+                { id: 4, title: 'Independência Nacional e Transição', icon: 'fa-flag', color: 'bg-yellow-500', range: '66-80' },
+                { id: 5, title: 'Pós-Independência e Consolidação da Paz', icon: 'fa-dove', color: 'bg-purple-500', range: '81-100' }
+            ],
+            badges: [
+                { id: 'first_question', name: 'Primeira Questão', icon: 'fa-star', desc: 'Completou a primeira questão', color: 'bg-blue-500' },
+                { id: 'block_master', name: 'Mestre de Bloco', icon: 'fa-trophy', desc: 'Completou um bloco inteiro', color: 'bg-yellow-500' },
+                { id: 'perfect_score', name: 'Pontuação Perfeita', icon: 'fa-crown', desc: '10 questões seguidas corretas', color: 'bg-purple-500' },
+                { id: 'streak_7', name: 'Consistente', icon: 'fa-calendar-week', desc: '7 dias seguidos de estudo', color: 'bg-green-500' },
+                { id: 'all_blocks', name: 'Concluinte', icon: 'fa-graduation-cap', desc: 'Completou todos os blocos', color: 'bg-red-500' },
+                { id: 'speed_learner', name: 'Rápido', icon: 'fa-bolt', desc: '20 questões em 10 minutos', color: 'bg-orange-500' }
+            ],
+            user: {
+                name: 'Candidato',
+                level: 1,
+                xp: 0,
+                streak: 0,
+                lastStudy: null,
+                badges: [],
+                questionsAnswered: {},
+                sessionHistory: [],
+                createdAt: new Date().toISOString(),
+                nameUpdatedAt: new Date().toISOString()
+            }
+        };
+
+        const app = {
+            currentSection: 'dashboard',
+            currentBlock: null,
+            currentQuestion: 0,
+            quizQuestions: [],
+            studyMode: 'flashcard',
+            timer: null,
+            timeLeft: 600,
+            flashcardIndex: 0,
+            flashcardQuestions: [],
+            showAnswer: true,
+            consecutiveCorrect: 0,
+            quizScore: 0,
+            countdownInterval: null,
+            answerExpanded: false,
+            correctAnswerIndex: -1,
+
+            init() {
+                this.loadData();
+                this.checkDailyStreak();
+                this.renderDashboard();
+                this.renderLearningTopics();
+                this.renderQuestionBlocks();
+                this.renderBadges();
+                this.updateDailyGoals();
+                this.showToast('Bem-vindo ao Prep História de Angola! ', 'success');
+            },
+
+            loadData() {
+                const saved = localStorage.getItem('hist_angola_app_data');
+                if (saved) {
+                    const data = JSON.parse(saved);
+                    appData.user = { ...appData.user, ...data.user };
+                }
+            },
+
+            saveData() {
+                localStorage.setItem('hist_angola_app_data', JSON.stringify({ user: appData.user }));
+            },
+
+            checkDailyStreak() {
+                const today = new Date().toDateString();
+                const last = appData.user.lastStudy;
+                if (last) {
+                    const lastDate = new Date(last);
+                    const diff = (new Date(today) - new Date(lastDate.toDateString())) / (1000 * 60 * 60 * 24);
+                    if (diff === 1) appData.user.streak++;
+                    else if (diff > 1) appData.user.streak = 1;
+                } else {
+                    appData.user.streak = 1;
+                }
+                appData.user.lastStudy = new Date().toISOString();
+                this.saveData();
+            },
+
+            navigateTo(section) {
+                document.querySelectorAll('section').forEach(s => {
+                    s.classList.remove('active-section');
+                    s.classList.add('hidden-section');
+                });
+                document.getElementById(section).classList.remove('hidden-section');
+                document.getElementById(section).classList.add('active-section');
+                document.querySelectorAll('.nav-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.dataset.target === section) btn.classList.add('active');
+                });
+                this.currentSection = section;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                this.updateUI();
+            },
+
+            renderDashboard() {
+                document.getElementById('totalStreak').textContent = appData.user.streak;
+                document.getElementById('totalPoints').textContent = appData.user.xp;
+                document.getElementById('totalBadges').textContent = appData.user.badges.length;
+                const answered = Object.keys(appData.user.questionsAnswered).length;
+                document.getElementById('questionsProgress').textContent = `${answered}/100`;
+                this.renderRecentActivity();
+            },
+
+            renderLearningTopics() {
+                const container = document.getElementById('learningTopics');
+                container.innerHTML = appData.learning.topics.map(topic => `
+                    <div class="bg-white rounded-2xl p-4 shadow-lg card-hover cursor-pointer" onclick="app.openLearningTopic('${topic.id}')">
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 ${topic.color} rounded-xl flex items-center justify-center text-white text-2xl">
+                                <i class="fas ${topic.icon}"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-bold text-gray-800">${topic.title}</h3>
+                                <p class="text-xs text-gray-500">Conteúdo teórico</p>
+                            </div>
+                            <i class="fas fa-chevron-right text-gray-400"></i>
+                        </div>
+                    </div>
+                `).join('');
+            },
+
+            openLearningTopic(topicId) {
+                const topic = appData.learning.topics.find(t => t.id === topicId);
+                document.getElementById('learningTitle').textContent = topic.title;
+                document.getElementById('learningText').innerHTML = topic.content;
+                this.navigateTo('learningContent');
+            },
+
+            renderQuestionBlocks() {
+                const container = document.getElementById('questionBlocks');
+                container.innerHTML = appData.blocks.map(block => {
+                    const blockQuestions = appData.questions.filter(q => q.block === block.id);
+                    const answered = blockQuestions.filter(q => appData.user.questionsAnswered[q.id]).length;
+                    const percentage = (answered / blockQuestions.length) * 100;
+                    return `
+                        <div class="bg-white rounded-2xl p-4 shadow-lg card-hover cursor-pointer" onclick="app.openBlock(${block.id})">
+                            <div class="flex items-center gap-4">
+                                <div class="w-14 h-14 ${block.color} rounded-xl flex items-center justify-center text-white text-2xl">
+                                    <i class="fas ${block.icon}"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="font-bold text-gray-800">${block.title}</h3>
+                                    <p class="text-xs text-gray-500 mb-2">Questões ${block.range}</p>
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="${block.color.replace('bg-', 'bg-')} h-2 rounded-full transition-all" style="width: ${percentage}%"></div>
+                                    </div>
+                                    <p class="text-xs text-gray-500 mt-1">${answered}/${blockQuestions.length} completas</p>
+                                </div>
+                                <i class="fas fa-chevron-right text-gray-400"></i>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                const totalAnswered = Object.keys(appData.user.questionsAnswered).length;
+                document.getElementById('totalProgress').textContent = `${totalAnswered}/100`;
+                document.getElementById('totalProgressBar').style.width = `${(totalAnswered / 100) * 100}%`;
+            },
+
+            openBlock(blockId) {
+                this.currentBlock = blockId;
+                const blockQuestions = appData.questions.filter(q => q.block === blockId);
+                const shuffledQuestions = [...blockQuestions].sort(() => Math.random() - 0.5);
+                
+                if (this.studyMode === 'flashcard') {
+                    this.flashcardQuestions = shuffledQuestions;
+                    this.flashcardIndex = 0;
+                    this.showFlashcard();
+                    this.navigateTo('flashcardInterface');
+                } else if (this.studyMode === 'quiz' || this.studyMode === 'timer') {
+                    this.quizQuestions = shuffledQuestions;
+                    this.currentQuestion = 0;
+                    this.quizScore = 0;
+                    this.consecutiveCorrect = 0;
+                    this.showAnswer = true;
+                    document.getElementById('answerToggle').classList.add('active');
+                    this.startQuiz();
+                } else if (this.studyMode === 'multiple') {
+                    this.quizQuestions = shuffledQuestions;
+                    this.currentQuestion = 0;
+                    this.quizScore = 0;
+                    this.consecutiveCorrect = 0;
+                    this.startMultipleChoice();
+                }
+            },
+
+            setStudyMode(mode) {
+                this.studyMode = mode;
+                document.querySelectorAll('.study-mode-btn').forEach(btn => {
+                    btn.classList.remove('active', 'bg-gradient-to-r', 'from-orange-400', 'to-orange-600', 'text-white');
+                    btn.classList.add('bg-gray-100', 'text-gray-600');
+                });
+                event.target.closest('button').classList.remove('bg-gray-100', 'text-gray-600');
+                event.target.closest('button').classList.add('active', 'bg-gradient-to-r', 'from-orange-400', 'to-orange-600', 'text-white');
+                const modeNames = { flashcard: 'Flashcards', quiz: 'Quiz', multiple: 'Múltipla Escolha', timer: 'Cronómetro' };
+                this.showToast(`Modo ${modeNames[mode]} ativado!`, 'info');
+            },
+
+            showFlashcard() {
+                if (this.flashcardIndex >= this.flashcardQuestions.length) {
+                    this.completeFlashcardSession();
+                    return;
+                }
+                const q = this.flashcardQuestions[this.flashcardIndex];
+                document.getElementById('flashcardCounter').textContent = `${this.flashcardIndex + 1}/${this.flashcardQuestions.length}`;
+                document.getElementById('flashcardQuestion').textContent = q.q;
+                document.getElementById('flashcardAnswer').textContent = q.a;
+                document.querySelector('.flashcard').classList.remove('flipped');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            },
+
+            markFlashcard(difficulty) {
+                const q = this.flashcardQuestions[this.flashcardIndex];
+                appData.user.questionsAnswered[q.id] = { difficulty: difficulty, date: new Date().toISOString() };
+                this.addXP(5);
+                this.checkBadge('first_question');
+            },
+
+            nextFlashcard() {
+                this.flashcardIndex++;
+                this.showFlashcard();
+            },
+
+            completeFlashcardSession() {
+                appData.user.sessionHistory.push({ date: new Date().toISOString(), mode: 'flashcard', block: this.currentBlock, questions: this.flashcardQuestions.length });
+                this.saveData();
+                confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+                this.showToast('Sessão de flashcards completa! +XP', 'success');
+                this.navigateTo('questions');
+                this.renderQuestionBlocks();
+            },
+
+            startQuiz() {
+                if (this.studyMode === 'timer') {
+                    this.timeLeft = 600;
+                    this.startTimer();
+                }
+                this.showQuizQuestion();
+                this.navigateTo('quizInterface');
+            },
+
+            startTimer() {
+                if (this.timer) clearInterval(this.timer);
+                this.timer = setInterval(() => {
+                    this.timeLeft--;
+                    const pct = (this.timeLeft / 600) * 100;
+                    document.getElementById('quizTimerBar').style.width = `${pct}%`;
+                    if (this.timeLeft <= 0) this.endQuizSession();
+                }, 1000);
+            },
+
+            showQuizQuestion() {
+                if (this.currentQuestion >= this.quizQuestions.length) {
+                    this.endQuizSession();
+                    return;
+                }
+                const q = this.quizQuestions[this.currentQuestion];
+                document.getElementById('quizCounter').textContent = `${this.currentQuestion + 1}/${this.quizQuestions.length}`;
+                document.getElementById('quizScore').textContent = `${this.quizScore} pts`;
+                document.getElementById('quizCategory').textContent = `Bloco ${q.block}`;
+                document.getElementById('quizQuestion').textContent = q.q;
+                document.getElementById('quizAnswer').textContent = q.a;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            },
+
+            toggleAnswerVisibility() {
+                this.showAnswer = !this.showAnswer;
+                const toggle = document.getElementById('answerToggle');
+                const container = document.getElementById('answerContainer');
+                if (this.showAnswer) {
+                    toggle.classList.add('active');
+                    container.style.opacity = '1';
+                    container.style.maxHeight = '500px';
+                } else {
+                    toggle.classList.remove('active');
+                    container.style.opacity = '0.3';
+                    container.style.maxHeight = '0';
+                }
+            },
+
+            markQuizAnswer(result) {
+                const q = this.quizQuestions[this.currentQuestion];
+                appData.user.questionsAnswered[q.id] = { result: result, date: new Date().toISOString() };
+                
+                if (result === 'correct') {
+                    this.quizScore += 10;
+                    this.consecutiveCorrect++;
+                    confetti({ particleCount: 40, spread: 60, origin: { y: 0.7 } });
+                    this.showToast('Correto! +10 XP', 'success');
+                } else {
+                    this.consecutiveCorrect = 0;
+                    const wrongBtn = event.target.closest('button');
+                    wrongBtn.classList.add('wrong-reaction');
+                    document.body.classList.add('wrong-flash');
+                    setTimeout(() => {
+                        wrongBtn.classList.remove('wrong-reaction');
+                        document.body.classList.remove('wrong-flash');
+                    }, 600);
+                    this.showToast('Errado! Continue a estudar', 'error');
+                }
+                this.checkBadge('first_question');
+                if (this.consecutiveCorrect >= 10) this.checkBadge('perfect_score');
+                
+                setTimeout(() => {
+                    this.currentQuestion++;
+                    this.showQuizQuestion();
+                }, 800);
+            },
+
+            startMultipleChoice() {
+                if (this.studyMode === 'timer') {
+                    this.timeLeft = 600;
+                    this.startTimer();
+                }
+                this.showMultipleQuestion();
+                this.navigateTo('multipleInterface');
+            },
+
+            showMultipleQuestion() {
+                if (this.currentQuestion >= this.quizQuestions.length) {
+                    this.endQuizSession();
+                    return;
+                }
+                const q = this.quizQuestions[this.currentQuestion];
+                document.getElementById('multipleCounter').textContent = `${this.currentQuestion + 1}/${this.quizQuestions.length}`;
+                document.getElementById('multipleScore').textContent = `${this.quizScore} pts`;
+                document.getElementById('multipleCategory').textContent = `Bloco ${q.block}`;
+                document.getElementById('multipleQuestion').textContent = q.q;
+                document.getElementById('multipleFeedback').classList.add('hidden');
+                this.answerExpanded = false;
+                
+                const options = this.generateMultipleOptions(q);
+                this.correctAnswerIndex = options.findIndex(opt => opt.correct);
+                
+                const optionsHtml = options.map((opt, idx) => `
+                    <button onclick="app.checkMultipleAnswer(${idx})" 
+                            class="quiz-option w-full p-4 bg-gray-50 border-2 border-gray-200 rounded-xl text-left font-semibold text-sm text-gray-700 leading-relaxed" 
+                            data-index="${idx}">
+                        <span class="option-letter inline-flex items-center justify-center w-9 h-9 rounded-full mr-3 text-sm font-bold flex-shrink-0">${String.fromCharCode(65 + idx)}</span>
+                        <span class="align-middle">${opt.text}</span>
+                    </button>
+                `).join('');
+                
+                document.getElementById('multipleOptions').innerHTML = optionsHtml;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            },
+
+            generateMultipleOptions(correctQuestion) {
+                const sameBlockQuestions = appData.questions.filter(q => q.block === correctQuestion.block && q.id !== correctQuestion.id);
+                const shuffled = [...sameBlockQuestions].sort(() => Math.random() - 0.5);
+                const distractors = shuffled.slice(0, 3).map(q => ({ text: q.a, correct: false }));
+                const correctOption = { text: correctQuestion.a, correct: true };
+                return [...distractors, correctOption].sort(() => Math.random() - 0.5);
+            },
+
+            checkMultipleAnswer(selectedIndex) {
+                const q = this.quizQuestions[this.currentQuestion];
+                const buttons = document.querySelectorAll('#multipleOptions .quiz-option');
+                const isCorrect = selectedIndex === this.correctAnswerIndex;
+                
+                buttons.forEach(btn => btn.disabled = true);
+                
+                if (isCorrect) {
+                    buttons[selectedIndex].classList.add('correct');
+                    this.quizScore += 10;
+                    this.consecutiveCorrect++;
+                    confetti({ particleCount: 40, spread: 60, origin: { y: 0.7 } });
+                    this.showToast('Correto! +10 XP', 'success');
+                    
+                    document.getElementById('feedbackText').textContent = '✅ Correto!';
+                    document.getElementById('feedbackText').className = 'font-semibold mb-2 text-green-600';
+                    document.getElementById('feedbackExplanation').textContent = q.a;
+                    document.getElementById('correctAnswerBox').classList.remove('expanded');
+                    document.getElementById('wrongActionButtons').classList.add('hidden');
+                    document.getElementById('multipleFeedback').classList.remove('hidden');
+                    
+                    appData.user.questionsAnswered[q.id] = { result: 'correct', date: new Date().toISOString() };
+                    
+                    setTimeout(() => {
+                        this.currentQuestion++;
+                        this.showMultipleQuestion();
+                    }, 1500);
+                } else {
+                    buttons[selectedIndex].classList.add('wrong');
+                    buttons[this.correctAnswerIndex].classList.add('correct');
+                    
+                    this.consecutiveCorrect = 0;
+                    this.showToast('Errado! Estude a resposta correta', 'error');
+                    
+                    document.getElementById('feedbackText').textContent = '❌ Errado';
+                    document.getElementById('feedbackText').className = 'font-semibold mb-2 text-red-600';
+                    document.getElementById('feedbackExplanation').textContent = q.a;
+                    document.getElementById('correctAnswerBox').classList.add('expanded');
+                    document.getElementById('wrongActionButtons').classList.remove('hidden');
+                    document.getElementById('multipleFeedback').classList.remove('hidden');
+                    
+                    appData.user.questionsAnswered[q.id] = { result: 'wrong', date: new Date().toISOString() };
+                    
+                    this.startWrongAnswerCountdown();
+                }
+                
+                this.checkBadge('first_question');
+                if (this.consecutiveCorrect >= 10) this.checkBadge('perfect_score');
+            },
+
+            startWrongAnswerCountdown() {
+                let seconds = 60;
+                document.getElementById('countdownTimer').textContent = seconds;
+                if (this.countdownInterval) clearInterval(this.countdownInterval);
+                this.countdownInterval = setInterval(() => {
+                    seconds--;
+                    document.getElementById('countdownTimer').textContent = seconds;
+                    if (seconds <= 0) this.nextMultipleQuestion();
+                }, 1000);
+            },
+
+            nextMultipleQuestion() {
+                if (this.countdownInterval) {
+                    clearInterval(this.countdownInterval);
+                    this.countdownInterval = null;
+                }
+                this.currentQuestion++;
+                this.showMultipleQuestion();
+            },
+
+            toggleAnswerExpand() {
+                this.answerExpanded = !this.answerExpanded;
+                const box = document.getElementById('correctAnswerBox');
+                const btn = document.querySelector('.expand-btn');
+                if (this.answerExpanded) {
+                    box.classList.add('expanded');
+                    btn.classList.add('expanded');
+                } else {
+                    box.classList.remove('expanded');
+                    btn.classList.remove('expanded');
+                }
+            },
+
+            endQuizSession() {
+                if (this.timer) clearInterval(this.timer);
+                if (this.countdownInterval) clearInterval(this.countdownInterval);
+                appData.user.sessionHistory.push({ date: new Date().toISOString(), mode: this.studyMode, block: this.currentBlock, questions: this.quizQuestions.length, score: this.quizScore });
+                this.saveData();
+                confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+                this.showToast(`Sessão completa! ${this.quizScore} pts`, 'success');
+                this.navigateTo('questions');
+                this.renderQuestionBlocks();
+            },
+
+            addXP(amount) {
+                appData.user.xp += amount;
+                const newLevel = Math.floor(appData.user.xp / 500) + 1;
+                if (newLevel > appData.user.level) {
+                    appData.user.level = newLevel;
+                    this.showToast(`Subiu para o nível ${newLevel}!`, 'success');
+                    confetti({ particleCount: 150, spread: 100 });
+                }
+                this.saveData();
+                this.updateUI();
+            },
+
+            checkBadge(badgeId) {
+                if (!appData.user.badges.includes(badgeId)) {
+                    appData.user.badges.push(badgeId);
+                    this.saveData();
+                    this.renderBadges();
+                    this.showToast(`Nova medalha desbloqueada!`, 'success');
+                    confetti({ particleCount: 100, spread: 70 });
+                }
+            },
+
+            renderBadges() {
+                const container = document.getElementById('badgesGrid');
+                container.innerHTML = appData.badges.map(badge => {
+                    const earned = appData.user.badges.includes(badge.id);
+                    return `
+                        <div class="badge ${earned ? '' : 'locked'} flex flex-col items-center cursor-pointer" onclick="app.showBadgeInfo('${badge.id}')">
+                            <div class="w-12 h-12 ${badge.color} rounded-full flex items-center justify-center text-white text-xl mb-1 shadow-lg">
+                                <i class="fas ${badge.icon}"></i>
+                            </div>
+                            <span class="text-[10px] text-center font-semibold ${earned ? 'text-gray-800' : 'text-gray-400'}">${badge.name}</span>
+                        </div>
+                    `;
+                }).join('');
+            },
+
+            showBadgeInfo(badgeId) {
+                const badge = appData.badges.find(b => b.id === badgeId);
+                const earned = appData.user.badges.includes(badgeId);
+                this.showToast(`${badge.name}: ${badge.desc}`, earned ? 'success' : 'info');
+            },
+
+            editName() {
+                const nameDisplay = document.getElementById('profileName');
+                const nameInput = document.getElementById('nameInput');
+                nameDisplay.classList.add('hidden');
+                nameInput.classList.remove('hidden');
+                nameInput.value = appData.user.name;
+                nameInput.focus();
+                nameInput.select();
+                nameDisplay.classList.add('editing');
+            },
+
+            saveName() {
+                const nameDisplay = document.getElementById('profileName');
+                const nameInput = document.getElementById('nameInput');
+                const newName = nameInput.value.trim();
+                if (newName && newName !== appData.user.name) {
+                    appData.user.name = newName;
+                    appData.user.nameUpdatedAt = new Date().toISOString();
+                    this.saveData();
+                    this.updateUI();
+                    this.showToast('Nome atualizado com sucesso!', 'success');
+                }
+                nameDisplay.classList.remove('hidden');
+                nameInput.classList.add('hidden');
+                nameDisplay.classList.remove('editing');
+            },
+
+            updateUI() {
+                document.getElementById('userName').textContent = appData.user.name;
+                document.getElementById('userLevel').textContent = `Nível ${appData.user.level}`;
+                document.getElementById('profileInitial').textContent = appData.user.name.charAt(0).toUpperCase();
+                document.getElementById('profileName').innerHTML = `${appData.user.name}<i class="fas fa-pen text-xs text-gray-400 ml-2"></i>`;
+                const memberSince = new Date(appData.user.nameUpdatedAt || appData.user.createdAt);
+                document.getElementById('memberSince').textContent = memberSince.toLocaleDateString('pt-PT');
+                const correct = Object.values(appData.user.questionsAnswered).filter(a => a.result === 'correct').length;
+                const wrong = Object.values(appData.user.questionsAnswered).filter(a => a.result === 'wrong').length;
+                const total = correct + wrong;
+                const percentage = total > 0 ? Math.round((correct / total) * 100) : 0;
+                document.getElementById('profileCorrect').textContent = correct;
+                document.getElementById('profileWrong').textContent = wrong;
+                document.getElementById('profileTotal').textContent = `${percentage}%`;
+                this.renderBadges();
+                this.renderSessionHistory();
+            },
+
+            renderSessionHistory() {
+                const container = document.getElementById('sessionHistory');
+                if (appData.user.sessionHistory.length === 0) {
+                    container.innerHTML = '<p class="text-center text-gray-400 py-4">Sem sessões realizadas</p>';
+                    return;
+                }
+                container.innerHTML = appData.user.sessionHistory.slice(-10).reverse().map(session => {
+                    const block = appData.blocks.find(b => b.id === session.block);
+                    return `
+                        <div class="p-3 bg-gray-50 rounded-xl flex justify-between items-center">
+                            <div>
+                                <div class="font-semibold text-sm">${block ? block.title : 'Bloco ' + session.block}</div>
+                                <div class="text-xs text-gray-500">${new Date(session.date).toLocaleDateString('pt-PT')} • ${session.questions} questões</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-xs text-gray-500 capitalize">${session.mode}</div>
+                                ${session.score ? `<div class="text-xs font-bold text-blue-600">${session.score} pts</div>` : ''}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            },
+
+            renderRecentActivity() {
+                const container = document.getElementById('recentActivity');
+                const activities = appData.user.sessionHistory.slice(-5).reverse();
+                if (activities.length === 0) {
+                    container.innerHTML = '<p class="text-center py-4 text-gray-400">Sem atividade recente</p>';
+                    return;
+                }
+                container.innerHTML = activities.map(a => {
+                    const block = appData.blocks.find(b => b.id === a.block);
+                    return `
+                        <div class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50">
+                            <i class="fas fa-question-circle text-blue-500"></i>
+                            <div class="flex-1">
+                                <div class="text-sm font-medium text-gray-800">${block ? block.title : 'Bloco ' + a.block}</div>
+                                <div class="text-xs text-gray-500">${new Date(a.date).toLocaleDateString('pt-PT')} • ${a.questions} questões</div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            },
+
+            updateDailyGoals() {
+                const goals = [
+                    { text: 'Estudar 10 questões', done: Object.keys(appData.user.questionsAnswered).length >= 10, icon: 'fa-question-circle' },
+                    { text: 'Completar um bloco', done: appData.blocks.some(b => { const blockQuestions = appData.questions.filter(q => q.block === b.id); const answered = blockQuestions.filter(q => appData.user.questionsAnswered[q.id]).length; return answered === blockQuestions.length; }), icon: 'fa-check-circle' },
+                    { text: 'Ganhar 50 XP', done: appData.user.xp >= 50, icon: 'fa-star' }
+                ];
+                const container = document.getElementById('dailyGoals');
+                container.innerHTML = goals.map(g => `
+                    <div class="flex items-center gap-3 p-3 rounded-xl ${g.done ? 'bg-green-50' : 'bg-gray-50'}">
+                        <i class="fas ${g.icon} ${g.done ? 'text-green-600' : 'text-gray-400'}"></i>
+                        <span class="flex-1 text-sm ${g.done ? 'text-green-800 line-through' : 'text-gray-700'}">${g.text}</span>
+                        ${g.done ? '<i class="fas fa-check text-green-600"></i>' : '<div class="w-5 h-5 rounded-full border-2 border-gray-300"></div>'}
+                    </div>
+                `).join('');
+            },
+
+            exportData() {
+                const dataStr = JSON.stringify({ user: appData.user, exportDate: new Date().toISOString() }, null, 2);
+                const blob = new Blob([dataStr], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `hist_angola_progress_${new Date().toISOString().split('T')[0]}.json`;
+                a.click();
+                this.showToast('Dados exportados com sucesso!', 'success');
+            },
+
+            importData(input) {
+                const file = input.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    try {
+                        const data = JSON.parse(e.target.result);
+                        if (confirm('Isto vai substituir o seu progresso atual. Continuar?')) {
+                            appData.user = { ...appData.user, ...data.user };
+                            this.saveData();
+                            this.init();
+                            this.showToast('Dados importados com sucesso!', 'success');
+                        }
+                    } catch (err) {
+                        this.showToast('Erro ao importar ficheiro!', 'error');
+                    }
+                };
+                reader.readAsText(file);
+            },
+
+            resetProgress() {
+                if (confirm('Tem a certeza? Todo o progresso será perdido!')) {
+                    localStorage.removeItem('hist_angola_app_data');
+                    location.reload();
+                }
+            },
+
+            showToast(message, type = 'info') {
+                const colors = { success: 'bg-green-500', error: 'bg-red-500', info: 'bg-blue-500', warning: 'bg-yellow-500' };
+                const icons = { success: 'fa-check-circle', error: 'fa-exclamation-circle', info: 'fa-info-circle', warning: 'fa-exclamation-triangle' };
+                const toast = document.createElement('div');
+                toast.className = `toast ${colors[type]} text-white px-6 py-3 rounded-xl shadow-lg flex items-center gap-3 mb-2 pointer-events-auto`;
+                toast.innerHTML = `<i class="fas ${icons[type]}"></i><span class="font-semibold">${message}</span>`;
+                document.getElementById('toastContainer').appendChild(toast);
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    toast.style.transform = 'translateY(100px)';
+                    setTimeout(() => toast.remove(), 300);
+                }, 3000);
+            },
+
+            showProfile() {
+                this.navigateTo('profile');
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => { app.init(); });
+    </script>
+</body>
+</html>
