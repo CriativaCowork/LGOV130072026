@@ -1,1 +1,1552 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#FF9100">
+    <title>Prep Organização Política e Administrativa - 100 Questões</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            background: linear-gradient(180deg, #FFDC61 0%, #FF9100 50%, #BFC5CB 100%);
+            background-attachment: fixed;
+            overflow-x: hidden;
+            touch-action: manipulation;
+            min-height: 100vh;
+        }
 
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px) saturate(180%);
+            -webkit-backdrop-filter: blur(12px) saturate(180%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px) saturate(180%);
+            -webkit-backdrop-filter: blur(12px) saturate(180%);
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .card-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .btn-press {
+            transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.15s;
+        }
+        .btn-press:active {
+            transform: scale(0.92);
+            box-shadow: 0 0 0 0 rgba(0,0,0,0.2);
+        }
+        .btn-press:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .card-hover {
+            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s;
+        }
+        .card-hover:hover {
+            transform: translateY(-4px) scale(1.01);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.2);
+        }
+        .card-hover:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        .slide-in {
+            animation: slideIn 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .pulse-ring {
+            animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 145, 0, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 20px rgba(255, 145, 0, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 145, 0, 0); }
+        }
+
+        .toast {
+            animation: toastSlide 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes toastSlide {
+            from { transform: translateY(100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .badge {
+            transition: all 0.3s ease;
+        }
+
+        .badge:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .badge.locked {
+            filter: grayscale(100%);
+            opacity: 0.5;
+        }
+
+        .hidden-section {
+            display: none;
+        }
+
+        .active-section {
+            display: block;
+            animation: fadeIn 0.35s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .quiz-option {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .quiz-option:active {
+            transform: scale(0.96);
+        }
+
+        .quiz-option.correct {
+            background: linear-gradient(135deg, #10b981, #059669) !important;
+            color: white !important;
+            animation: correctPulse 0.6s ease;
+            border-color: #059669 !important;
+        }
+
+        .quiz-option.wrong {
+            background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+            color: white !important;
+            animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+            border-color: #dc2626 !important;
+        }
+
+        @keyframes correctPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(16, 185, 129, 0.3); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); }
+            20%, 40%, 60%, 80% { transform: translateX(8px); }
+        }
+
+        .timer-bar {
+            transition: width 1s linear;
+        }
+
+        .flashcard {
+            perspective: 1000px;
+            height: 320px;
+        }
+
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .flashcard.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .flashcard-back {
+            transform: rotateY(180deg);
+        }
+
+        .streak-fire {
+            animation: flicker 1s infinite;
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.85; transform: scale(1.05); }
+        }
+
+        .ripple {
+            position: relative;
+            overflow: hidden;
+        }
+        .ripple::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        .ripple:active::after {
+            width: 300px;
+            height: 300px;
+        }
+
+        .wrong-reaction {
+            animation: wrongShake 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+        }
+
+        @keyframes wrongShake {
+            0%, 100% { transform: translateX(0) rotate(0); }
+            20% { transform: translateX(-10px) rotate(-3deg); }
+            40% { transform: translateX(10px) rotate(3deg); }
+            60% { transform: translateX(-8px) rotate(-2deg); }
+            80% { transform: translateX(8px) rotate(2deg); }
+        }
+
+        .wrong-flash {
+            animation: wrongFlash 0.5s ease;
+        }
+
+        @keyframes wrongFlash {
+            0%, 100% { background-color: inherit; }
+            50% { background-color: #fee2e2; }
+        }
+
+        .nav-btn {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .nav-btn:active {
+            transform: scale(0.9);
+        }
+        .nav-btn.active {
+            background: linear-gradient(135deg, #FFDC61, #FF9100);
+            color: white !important;
+            transform: scale(1.05);
+        }
+        .nav-btn.active .menu-icon {
+            color: white !important;
+        }
+
+        .menu-icon {
+            color: #FF9100;
+            transition: all 0.3s ease;
+        }
+        .nav-btn:hover .menu-icon {
+            color: white;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 26px;
+            background: #d1d5db;
+            border-radius: 20px;
+            transition: background 0.3s;
+        }
+        .toggle-switch.active {
+            background: #10b981;
+        }
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .toggle-switch.active::after {
+            transform: translateX(24px);
+        }
+
+        .editable-name {
+            cursor: pointer;
+            border-bottom: 2px dashed transparent;
+            transition: border-color 0.3s;
+        }
+        .editable-name:hover {
+            border-bottom-color: #FF9100;
+        }
+        .editable-name.editing {
+            border-bottom-color: #FF9100;
+        }
+
+        .expand-btn {
+            transition: transform 0.3s;
+        }
+        .expand-btn.expanded {
+            transform: rotate(180deg);
+        }
+
+        .answer-scroll {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+        .answer-scroll.expanded {
+            max-height: 500px;
+        }
+
+        .countdown {
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .option-letter {
+            background: linear-gradient(135deg, #FFDC61 0%, #FF9100 100%);
+            color: white;
+            box-shadow: 0 4px 8px rgba(255, 145, 0, 0.35);
+            transition: all 0.25s ease;
+        }
+
+        .external-menu-btn {
+            background: linear-gradient(135deg, #FFDC61 0%, #FF9100 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(255, 145, 0, 0.4);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .external-menu-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 16px rgba(255, 145, 0, 0.5);
+        }
+        .external-menu-btn:active {
+            transform: scale(0.95);
+        }
+
+        .nav-arrow-gradient {
+            background: linear-gradient(135deg, #FFDC61 0%, #FF9100 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .elite-badge {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #1e293b;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-20">
+
+    <header class="fixed top-0 w-full z-50 glass-effect shadow-lg">
+        <div class="flex justify-between items-center p-4">
+            <div class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold pulse-ring">
+                    <i class="fas fa-landmark"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold text-gray-800">Prep Organização Política</h1>
+                    <p class="text-xs text-gray-600">100 Questões • <span class="elite-badge">Elite & Académico</span></p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <a href="https://criativacowork.github.io/LGOV130072026/assets/ladjumgov_exames.html" class="external-menu-btn w-10 h-10 rounded-full flex items-center justify-center btn-press" title="Outros Temas">
+                    <i class="fas fa-th-large text-sm"></i>
+                </a>
+                <div class="text-right hidden sm:block">
+                    <div class="text-sm font-bold text-gray-800" id="userName">Candidato</div>
+                    <div class="text-xs text-gray-600" id="userLevel">Nível 1</div>
+                </div>
+                <button onclick="app.showProfile()" class="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full text-white flex items-center justify-center shadow-lg btn-press">
+                    <i class="fas fa-user"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="pt-20 px-4 max-w-md mx-auto">
+        
+        <section id="dashboard" class="active-section space-y-4">
+            <div class="card-gradient rounded-2xl p-6 text-white shadow-xl card-hover">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <h2 class="text-2xl font-bold mb-1">Bem-vindo! 👋</h2>
+                        <p class="text-white/90 text-sm">Concursos Públicos de Elite e Estudos Académicos</p>
+                    </div>
+                    <div class="bg-white/20 rounded-full p-2 streak-fire">
+                        <i class="fas fa-fire text-yellow-300 text-xl"></i>
+                    </div>
+                </div>
+                <div class="flex gap-4 mt-4">
+                    <div class="bg-white/20 rounded-xl p-3 flex-1 text-center btn-press">
+                        <div class="text-2xl font-bold" id="totalStreak">0</div>
+                        <div class="text-xs">Dias seguidos</div>
+                    </div>
+                    <div class="bg-white/20 rounded-xl p-3 flex-1 text-center btn-press">
+                        <div class="text-2xl font-bold" id="totalPoints">0</div>
+                        <div class="text-xs">Pontos XP</div>
+                    </div>
+                    <div class="bg-white/20 rounded-xl p-3 flex-1 text-center btn-press">
+                        <div class="text-2xl font-bold" id="totalBadges">0</div>
+                        <div class="text-xs">Medalhas</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div class="bg-white rounded-2xl p-4 shadow-lg card-hover cursor-pointer" onclick="app.navigateTo('learning')">
+                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-2">
+                        <i class="fas fa-book menu-icon text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-800">Aprender</h3>
+                    <p class="text-xs text-gray-500">Conteúdo teórico</p>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-4 shadow-lg card-hover cursor-pointer" onclick="app.navigateTo('questions')">
+                    <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mb-2">
+                        <i class="fas fa-question-circle menu-icon text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-800">Questões</h3>
+                    <p class="text-xs text-gray-500" id="questionsProgress">0/100</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 shadow-lg">
+                <h3 class="font-bold text-gray-800 mb-3">Modo de Estudo</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <button onclick="app.setStudyMode('flashcard')" class="study-mode-btn active bg-gradient-to-r from-orange-400 to-orange-600 text-white py-3 rounded-xl text-sm font-semibold btn-press ripple">
+                        <i class="fas fa-clone block mb-1"></i>
+                        Flashcards
+                    </button>
+                    <button onclick="app.setStudyMode('quiz')" class="study-mode-btn bg-gray-100 text-gray-600 py-3 rounded-xl text-sm font-semibold btn-press ripple">
+                        <i class="fas fa-check-circle block mb-1"></i>
+                        Quiz
+                    </button>
+                    <button onclick="app.setStudyMode('multiple')" class="study-mode-btn bg-gray-100 text-gray-600 py-3 rounded-xl text-sm font-semibold btn-press ripple">
+                        <i class="fas fa-list-ul block mb-1"></i>
+                        Múltipla Escolha
+                    </button>
+                    <button onclick="app.setStudyMode('timer')" class="study-mode-btn bg-gray-100 text-gray-600 py-3 rounded-xl text-sm font-semibold btn-press ripple">
+                        <i class="fas fa-stopwatch block mb-1"></i>
+                        Cronómetro
+                    </button>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 shadow-lg">
+                <h3 class="font-bold text-gray-800 mb-3 flex items-center gap-2">
+                    <i class="fas fa-tasks text-purple-600"></i>
+                    Objetivos de Hoje
+                </h3>
+                <div id="dailyGoals" class="space-y-2"></div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 shadow-lg">
+                <h3 class="font-bold text-gray-800 mb-3">Atividade Recente</h3>
+                <div id="recentActivity" class="space-y-2 text-sm text-gray-600">
+                    <p class="text-center py-4">Sem atividade recente</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="learning" class="hidden-section space-y-4">
+            <div class="flex items-center gap-3 mb-4">
+                <button onclick="app.navigateTo('dashboard')" class="w-10 h-10 bg-white rounded-full shadow flex items-center justify-center btn-press">
+                    <i class="fas fa-arrow-left nav-arrow-gradient text-xl"></i>
+                </button>
+                <h2 class="text-2xl font-bold text-white">Conteúdo Teórico</h2>
+            </div>
+            <div class="space-y-3" id="learningTopics"></div>
+        </section>
+
+        <section id="learningContent" class="hidden-section">
+            <div class="bg-white rounded-2xl shadow-xl p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <button onclick="app.navigateTo('learning')" class="w-10 h-10 bg-white rounded-full shadow flex items-center justify-center btn-press">
+                        <i class="fas fa-arrow-left nav-arrow-gradient text-xl"></i>
+                    </button>
+                    <h3 class="text-lg font-bold text-gray-800" id="learningTitle">Título</h3>
+                </div>
+                <div id="learningText" class="prose prose-sm max-w-none text-gray-700 space-y-4"></div>
+            </div>
+        </section>
+
+        <section id="questions" class="hidden-section space-y-4">
+            <div class="flex items-center gap-3 mb-4">
+                <button onclick="app.navigateTo('dashboard')" class="w-10 h-10 bg-white rounded-full shadow flex items-center justify-center btn-press">
+                    <i class="fas fa-arrow-left nav-arrow-gradient text-xl"></i>
+                </button>
+                <h2 class="text-2xl font-bold text-white">Questões</h2>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 shadow-lg">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-sm font-semibold text-gray-700">Progresso Geral</span>
+                    <span class="text-sm font-bold text-blue-600" id="totalProgress">0/100</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-3">
+                    <div class="bg-gradient-to-r from-blue-500 to-purple-500 h-3 rounded-full transition-all" id="totalProgressBar" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <div class="space-y-3" id="questionBlocks"></div>
+        </section>
+
+        <section id="flashcardInterface" class="hidden-section">
+            <div class="bg-white rounded-2xl shadow-xl p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <button onclick="app.navigateTo('questions')" class="w-10 h-10 bg-white rounded-full shadow flex items-center justify-center btn-press">
+                        <i class="fas fa-arrow-left nav-arrow-gradient text-xl"></i>
+                    </button>
+                    <span class="text-sm font-bold text-gray-600" id="flashcardCounter">1/20</span>
+                </div>
+
+                <div class="flashcard mb-6 cursor-pointer" onclick="this.classList.toggle('flipped')">
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front bg-gradient-to-br from-blue-500 to-purple-600 text-white shadow-lg">
+                            <div>
+                                <div class="text-xs uppercase tracking-wide mb-2 opacity-75">Pergunta</div>
+                                <div class="text-lg font-semibold" id="flashcardQuestion">Pergunta aqui...</div>
+                            </div>
+                        </div>
+                        <div class="flashcard-back bg-gradient-to-br from-green-500 to-teal-600 text-white shadow-lg">
+                            <div>
+                                <div class="text-xs uppercase tracking-wide mb-2 opacity-75">Resposta</div>
+                                <div class="text-sm" id="flashcardAnswer">Resposta aqui...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex gap-3">
+                    <button onclick="app.markFlashcard('difficult')" class="flex-1 bg-red-500 text-white py-3 rounded-xl font-bold btn-press ripple">
+                        <i class="fas fa-times mr-2"></i>Difícil
+                    </button>
+                    <button onclick="app.markFlashcard('easy')" class="flex-1 bg-green-500 text-white py-3 rounded-xl font-bold btn-press ripple">
+                        <i class="fas fa-check mr-2"></i>Fácil
+                    </button>
+                </div>
+
+                <button onclick="app.nextFlashcard()" class="w-full mt-3 bg-gradient-to-r from-orange-400 to-orange-600 text-white py-3 rounded-xl font-bold btn-press ripple">
+                    Próxima <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </section>
+
+        <section id="quizInterface" class="hidden-section">
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                <div class="w-full bg-gray-200 h-2">
+                    <div id="quizTimerBar" class="bg-red-500 h-2 timer-bar" style="width: 100%"></div>
+                </div>
+                
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-sm text-gray-500" id="quizCounter">1/10</span>
+                        <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm font-bold" id="quizScore">0 pts</span>
+                    </div>
+
+                    <div class="mb-4">
+                        <span class="text-xs font-bold text-purple-600 uppercase tracking-wide" id="quizCategory">Categoria</span>
+                        <h3 class="text-lg font-bold text-gray-800 mt-2" id="quizQuestion">Pergunta aqui...</h3>
+                    </div>
+
+                    <div class="flex items-center justify-between bg-gray-50 p-3 rounded-xl mb-4">
+                        <span class="text-sm font-semibold text-gray-700"><i class="fas fa-eye mr-2"></i>Mostrar resposta</span>
+                        <div id="answerToggle" class="toggle-switch active" onclick="app.toggleAnswerVisibility()"></div>
+                    </div>
+
+                    <div id="answerContainer" class="bg-gray-50 p-4 rounded-xl mb-4 transition-all">
+                        <p class="text-sm text-gray-700" id="quizAnswer">Resposta aqui...</p>
+                    </div>
+
+                    <div class="flex gap-3">
+                        <button onclick="app.markQuizAnswer('correct')" class="flex-1 bg-green-500 text-white py-3 rounded-xl font-bold btn-press ripple">
+                            <i class="fas fa-check mr-2"></i>Correto
+                        </button>
+                        <button onclick="app.markQuizAnswer('wrong')" class="flex-1 bg-red-500 text-white py-3 rounded-xl font-bold btn-press ripple">
+                            <i class="fas fa-times mr-2"></i>Errado
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="multipleInterface" class="hidden-section">
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                <div class="w-full bg-gray-200 h-2">
+                    <div id="multipleTimerBar" class="bg-red-500 h-2 timer-bar" style="width: 100%"></div>
+                </div>
+                
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <button onclick="app.navigateTo('questions')" class="w-10 h-10 bg-white rounded-full shadow flex items-center justify-center btn-press">
+                            <i class="fas fa-arrow-left nav-arrow-gradient text-xl"></i>
+                        </button>
+                        <div class="flex items-center gap-2">
+                            <span class="text-sm text-gray-500 font-semibold" id="multipleCounter">1/10</span>
+                            <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm font-bold" id="multipleScore">0 pts</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <span class="text-xs font-bold text-purple-600 uppercase tracking-wide" id="multipleCategory">Categoria</span>
+                        <h3 class="text-lg font-bold text-gray-800 mt-2" id="multipleQuestion">Pergunta aqui...</h3>
+                    </div>
+
+                    <div id="multipleOptions" class="space-y-3"></div>
+
+                    <div id="multipleFeedback" class="hidden mt-4">
+                        <div class="p-4 rounded-xl mb-3" id="feedbackBox">
+                            <p class="font-semibold mb-2" id="feedbackText"></p>
+                            <div class="flex items-start gap-2 mb-2">
+                                <button onclick="app.toggleAnswerExpand()" class="expand-btn text-blue-600 mt-1">
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                                <div class="flex-1">
+                                    <p class="text-xs font-bold text-gray-700 mb-1">Resposta Correta:</p>
+                                    <div id="correctAnswerBox" class="answer-scroll">
+                                        <p class="text-sm text-gray-700 bg-white p-3 rounded-lg" id="feedbackExplanation"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="wrongActionButtons" class="hidden">
+                            <div class="flex items-center justify-between bg-orange-50 p-3 rounded-xl mb-3">
+                                <div class="flex items-center gap-2">
+                                    <i class="fas fa-clock text-orange-600 countdown" id="countdownIcon"></i>
+                                    <span class="text-sm font-semibold text-orange-800">Próxima em: <span id="countdownTimer" class="font-bold">60</span>s</span>
+                                </div>
+                            </div>
+                            <button onclick="app.nextMultipleQuestion()" class="w-full bg-gradient-to-r from-orange-400 to-orange-600 text-white py-3 rounded-xl font-bold btn-press ripple">
+                                <i class="fas fa-arrow-right mr-2"></i>Próxima Pergunta
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="profile" class="hidden-section space-y-4">
+            <div class="flex items-center gap-3 mb-4">
+                <button onclick="app.navigateTo('dashboard')" class="w-10 h-10 bg-white rounded-full shadow flex items-center justify-center btn-press">
+                    <i class="fas fa-arrow-left nav-arrow-gradient text-xl"></i>
+                </button>
+                <h2 class="text-2xl font-bold text-white">Perfil & Progresso</h2>
+            </div>
+
+            <div class="bg-white rounded-2xl p-6 shadow-lg text-center">
+                <div class="w-24 h-24 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-3xl font-bold">
+                    <span id="profileInitial">U</span>
+                </div>
+                
+                <div class="mb-2">
+                    <h3 class="text-xl font-bold text-gray-800 editable-name" id="profileName" onclick="app.editName()">
+                        Utilizador
+                        <i class="fas fa-pen text-xs text-gray-400 ml-2"></i>
+                    </h3>
+                    <input type="text" id="nameInput" class="hidden text-center text-xl font-bold border-b-2 border-orange-500 focus:outline-none bg-transparent" onblur="app.saveName()" onkeypress="if(event.key==='Enter')app.saveName()">
+                </div>
+                
+                <p class="text-gray-500 text-sm">Membro desde <span id="memberSince">--</span></p>
+                
+                <div class="flex justify-center gap-4 mt-4">
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-blue-600" id="profileCorrect">0</div>
+                        <div class="text-xs text-gray-500">Corretas</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-red-600" id="profileWrong">0</div>
+                        <div class="text-xs text-gray-500">Erradas</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-purple-600" id="profileTotal">0%</div>
+                        <div class="text-xs text-gray-500">Taxa Acerto</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 shadow-lg">
+                <h3 class="font-bold text-gray-800 mb-3">Medalhas Conquistadas</h3>
+                <div id="badgesGrid" class="grid grid-cols-4 gap-3"></div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 shadow-lg space-y-3">
+                <h3 class="font-bold text-gray-800">Dados & Backup</h3>
+                <button onclick="app.exportData()" class="w-full bg-gradient-to-r from-orange-400 to-orange-600 text-white py-3 rounded-xl font-semibold btn-press ripple">
+                    <i class="fas fa-download mr-2"></i>Exportar Progresso (JSON)
+                </button>
+                <label class="w-full bg-gray-600 text-white py-3 rounded-xl font-semibold text-center cursor-pointer block btn-press">
+                    <i class="fas fa-upload mr-2"></i>Importar Progresso
+                    <input type="file" accept=".json" onchange="app.importData(this)" class="hidden">
+                </label>
+                <button onclick="app.resetProgress()" class="w-full bg-red-500 text-white py-3 rounded-xl font-semibold btn-press ripple">
+                    <i class="fas fa-trash mr-2"></i>Reiniciar Progresso
+                </button>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 shadow-lg">
+                <h3 class="font-bold text-gray-800 mb-3">Histórico de Sessões</h3>
+                <div id="sessionHistory" class="space-y-2 max-h-64 overflow-y-auto">
+                    <p class="text-center text-gray-400 py-4">Sem sessões realizadas</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <nav class="fixed bottom-0 w-full glass-nav shadow-lg z-50">
+        <div class="flex justify-around items-center p-2 max-w-md mx-auto">
+            <button onclick="app.navigateTo('dashboard')" class="nav-btn active flex-1 py-3 px-2 rounded-xl text-center" data-target="dashboard">
+                <i class="fas fa-home menu-icon text-xl mb-1 block"></i>
+                <span class="text-xs">Início</span>
+            </button>
+            <button onclick="app.navigateTo('learning')" class="nav-btn flex-1 py-3 px-2 rounded-xl text-center" data-target="learning">
+                <i class="fas fa-book menu-icon text-xl mb-1 block"></i>
+                <span class="text-xs">Aprender</span>
+            </button>
+            <button onclick="app.navigateTo('questions')" class="nav-btn flex-1 py-3 px-2 rounded-xl text-center" data-target="questions">
+                <i class="fas fa-question-circle menu-icon text-xl mb-1 block"></i>
+                <span class="text-xs">Questões</span>
+            </button>
+            <button onclick="app.navigateTo('profile')" class="nav-btn flex-1 py-3 px-2 rounded-xl text-center" data-target="profile">
+                <i class="fas fa-user menu-icon text-xl mb-1 block"></i>
+                <span class="text-xs">Perfil</span>
+            </button>
+        </div>
+    </nav>
+
+    <div id="toastContainer" class="fixed bottom-20 left-0 right-0 z-50 pointer-events-none px-4"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script>
+        const appData = {
+            learning: {
+                topics: [
+                    {
+                        id: 'orgaos_soberania',
+                        title: 'Organização do Estado e Órgãos de Soberania',
+                        icon: 'fa-landmark',
+                        color: 'bg-blue-500',
+                        content: `<h4 class="font-bold text-lg mb-2">Forma de Estado</h4><p class="mb-3">Angola é um <strong>Estado unitário</strong> (Art. 8.º CRA) que respeita os princípios da autonomia dos órgãos do poder local e da desconcentração e descentralização administrativas.</p><h4 class="font-bold text-lg mb-2">Órgãos de Soberania (Art. 105.º CRA)</h4><div class="bg-blue-50 p-3 rounded-xl mb-3"><ol class="list-decimal pl-5 space-y-1"><li><strong>Presidente da República</strong> - Chefe de Estado e Chefe do Executivo</li><li><strong>Assembleia Nacional</strong> - Parlamento unicameral (220 Deputados)</li><li><strong>Tribunais</strong> - Órgãos de soberania com competência para administrar a justiça</li></ol></div><p class="mb-3 text-sm text-gray-700"><strong>Nota importante:</strong> O Governo NÃO é órgão de soberania autónomo. O poder executivo é unipessoal e concentrado no Presidente da República.</p><h4 class="font-bold text-lg mb-2">Eleição do Presidente (Art. 109.º CRA)</h4><p class="mb-3">Sistema atípico/presidencial-parlamentar: é eleito Presidente o <strong>cabeça de lista</strong> pelo círculo nacional do partido político ou coligação mais votado nas eleições gerais.</p><h4 class="font-bold text-lg mb-2">Mandato</h4><ul class="list-disc pl-5 mb-3 space-y-1"><li>Duração: <strong>5 anos</strong> (Art. 113.º CRA)</li><li>Limite: reeleição apenas uma vez</li></ul><h4 class="font-bold text-lg mb-2">Assembleia Nacional</h4><ul class="list-disc pl-5 mb-3 space-y-1"><li><strong>220 Deputados</strong> eleitos por sufrágio universal, direto, secreto e periódico</li><li>Círculo Nacional: 130 deputados (representação proporcional)</li><li>Círculos Provinciais: 5 deputados por cada uma das 21 províncias</li></ul><h4 class="font-bold text-lg mb-2">Tribunais Superiores</h4><ol class="list-decimal pl-5 space-y-1"><li>Tribunal Constitucional</li><li>Tribunal Supremo</li><li>Tribunal de Contas</li><li>Tribunal Supremo Militar</li></ol>`
+                    },
+                    {
+                        id: 'dpa_2025',
+                        title: 'Divisão Político-Administrativa (Reforma 2025)',
+                        icon: 'fa-map-marked-alt',
+                        color: 'bg-green-500',
+                        content: `<h4 class="font-bold text-lg mb-2">Lei n.º 14/24, de 5 de Setembro</h4><p class="mb-3">Lei da Divisão Político-Administrativa que reestruturou o mapa de Angola, entrando em vigor a <strong>1 de Janeiro de 2025</strong>.</p><h4 class="font-bold text-lg mb-2">Nova Estrutura Territorial</h4><div class="bg-green-50 p-3 rounded-xl mb-3"><ul class="list-disc pl-5 space-y-1"><li><strong>21 Províncias</strong> (anteriormente 18)</li><li><strong>326 Municípios</strong> (anteriormente 164)</li><li><strong>378 Comunas</strong></li></ul></div><h4 class="font-bold text-lg mb-2">Três Novas Províncias</h4><div class="bg-blue-50 p-3 rounded-xl mb-3"><ul class="list-disc pl-5 space-y-1"><li><strong>Ícolo e Bengo</strong> - Capital: Catete (desmembrada de Luanda)</li><li><strong>Moxico Leste</strong> - Capital: Cazombo (desmembrada do Moxico)</li><li><strong>Cuando</strong> - Capital: Mavinga (desmembrada do Cuando Cubango)</li></ul></div><h4 class="font-bold text-lg mb-2">Quando Cubango → Duas Províncias</h4><p class="mb-3">O leste tornou-se a província do <strong>Cuando</strong> (capital Mavinga) e a porção restante passou a chamar-se apenas <strong>Cubango</strong> (capital Menongue).</p><h4 class="font-bold text-lg mb-2">Objetivos da Reforma</h4><ul class="list-disc pl-5 space-y-1"><li>Diminuir assimetrias de desenvolvimento regional</li><li>Aproximar órgãos de decisão dos cidadãos</li><li>Otimizar distribuição de recursos via OGE</li><li>Promover povoamento e segurança de regiões fronteiriças</li></ul><h4 class="font-bold text-lg mb-2">Capitais das Províncias</h4><div class="bg-orange-50 p-3 rounded-xl"><ul class="list-disc pl-5 text-sm space-y-1"><li>Bengo: Caxito</li><li>Zaire: Mbanza Kongo (Património UNESCO)</li><li>Cuanza-Norte: Cazengo</li><li>Cuanza-Sul: Sumbe</li><li>Namibe: Moçâmedes</li><li>Cunene: Ondjiva</li><li>Huíla: Lubango</li><li>Bié: Cuito</li></ul></div>`
+                    },
+                    {
+                        id: 'admin_local',
+                        title: 'Administração Local do Estado',
+                        icon: 'fa-building',
+                        color: 'bg-purple-500',
+                        content: `<h4 class="font-bold text-lg mb-2">Lei n.º 15/16, de 12 de Setembro</h4><p class="mb-3">Lei da Administração Local do Estado, que rege a organização e funcionamento dos órgãos desconcentrados.</p><h4 class="font-bold text-lg mb-2">Desconcentração vs Descentralização</h4><div class="bg-purple-50 p-3 rounded-xl mb-3"><p class="font-semibold mb-2">Desconcentração</p><p class="text-sm">Transferência de competências dentro da mesma pessoa coletiva pública (Estado) - ex: do Ministério para o Governador Provincial.</p></div><div class="bg-green-50 p-3 rounded-xl mb-3"><p class="font-semibold mb-2">Descentralização</p><p class="text-sm">Transferência de competências para outras pessoas coletivas públicas autónomas (ex: Autarquias Locais).</p></div><h4 class="font-bold text-lg mb-2">Hierarquia da Administração Local</h4><ol class="list-decimal pl-5 mb-3 space-y-1"><li><strong>Governador Provincial</strong> - Órgão máximo a nível provincial, nomeado pelo Presidente da República</li><li><strong>Administrador Municipal</strong> - Titular do órgão executivo do Município</li><li><strong>Administrador Comunal</strong> - Dirige a Comuna, contacto direto com populações rurais</li></ol><h4 class="font-bold text-lg mb-2">Conselhos de Auscultação</h4><ul class="list-disc pl-5 mb-3 space-y-1"><li><strong>CPAC</strong> - Conselho Provincial de Auscultação da Comunidade</li><li><strong>CMAC</strong> - Conselho Municipal de Auscultação da Comunidade</li></ul><h4 class="font-bold text-lg mb-2">PIIM</h4><p class="mb-3"><strong>Programa Integrado de Intervenção nos Municípios</strong> - Plano estratégico de investimento que atribui autonomia financeira aos municípios para licitarem e fiscalizarem projetos de infraestruturas básicas.</p><h4 class="font-bold text-lg mb-2">Regra Fiscal Importante</h4><p class="mb-3">Os órgãos locais <strong>NÃO podem criar impostos autónomos</strong>. Apenas arrecadam taxas, licenças e emolumentos. A criação de impostos é reserva legislativa absoluta da Assembleia Nacional.</p>`
+                    },
+                    {
+                        id: 'poder_local',
+                        title: 'Poder Local e Autarquias',
+                        icon: 'fa-users',
+                        color: 'bg-red-500',
+                        content: `<h4 class="font-bold text-lg mb-2">Título VIII da CRA - Poder Local</h4><p class="mb-3">Poder público autónomo exercido pelas comunidades locais através de órgãos representativos próprios.</p><h4 class="font-bold text-lg mb-2">Três Categorias de Poder Local</h4><ol class="list-decimal pl-5 mb-3 space-y-1"><li><strong>Autarquias Locais</strong> - Órgãos descentralizados democraticamente</li><li><strong>Instituições do Poder Tradicional</strong> - Autoridades tradicionais (reis, sobas)</li><li><strong>Outras formas de participação</strong> - Associações de moradores, etc.</li></ol><h4 class="font-bold text-lg mb-2">Autarquias Locais</h4><div class="bg-red-50 p-3 rounded-xl mb-3"><p class="font-semibold mb-2">Dois órgãos principais:</p><ul class="list-disc pl-5 text-sm space-y-1"><li><strong>Assembleia Autárquica</strong> - Órgão deliberativo eleito</li><li><strong>Câmara Municipal</strong> - Órgão executivo liderado pelo Presidente da Câmara</li></ul></div><h4 class="font-bold text-lg mb-2">Princípio do Gradualismo (Art. 242.º CRA)</h4><p class="mb-3">Debate político sobre implementação:</p><ul class="list-disc pl-5 mb-3 space-y-1"><li><strong>Gradualismo geográfico:</strong> Criar autarquias primeiro em alguns municípios</li><li><strong>Gradualismo funcional:</strong> Criar em todos simultaneamente, transferindo competências gradualmente</li></ul><h4 class="font-bold text-lg mb-2">Lei n.º 15/17</h4><p class="mb-3">Lei Orgânica sobre a Organização e Funcionamento das Autarquias Locais - define regras de constituição, estatuto dos titulares e regimes de tutela administrativa.</p><h4 class="font-bold text-lg mb-2">Tutela Administrativa</h4><p class="mb-3">Controlo legal que o Estado Central exerce sobre as decisões das autarquias, verificando a legalidade dos atos sem invadir a autonomia de gestão.</p><h4 class="font-bold text-lg mb-2">Autoridades Tradicionais (Art. 223.º CRA)</h4><ul class="list-disc pl-5 mb-3 space-y-1"><li>Reis, rainhas, sobas, séculos</li><li>Legitimidade assenta no costume e hereditariedade</li><li>Recebem subsídio do Estado</li><li>Não podem aplicar penas cruéis ou violar a Constituição</li></ul><h4 class="font-bold text-lg mb-2">Autonomia Financeira das Autarquias</h4><p class="mb-3">As autarquias terão autonomia para arrecadar receitas próprias (impostos locais como o Imposto Predial, taxas), gerir património e elaborar orçamento autárquico independente do OGE.</p>`
+                    }
+                ]
+            },
+            questions: [
+                { id: 1, block: 1, q: 'Qual o enquadramento constitucional da forma de Estado em Angola?', a: 'Nos termos do Artigo 8.º da Constituição da República de Angola (CRA), Angola é um Estado unitário que respeita, na sua organização, os princípios da autonomia dos órgãos do poder local e da desconcentração e descentralização administrativas.' },
+                { id: 2, block: 1, q: 'O que caracteriza a "República Unitária" consagrada na CRA?', a: 'Caracteriza-se pela indivisibilidade da soberania do Estado e pela existência de um único centro de poder político soberano (em Luanda), rejeitando a estrutura federalista, embora admita a delegação e partilha de competências administrativas com órgãos subnacionais.' },
+                { id: 3, block: 1, q: 'Quais são os órgãos de soberania definidos na Constituição de 2010?', a: 'De acordo com o Artigo 105.º da CRA, os órgãos de soberania são exclusivamente três: o Presidente da República, a Assembleia Nacional e os Tribunais.' },
+                { id: 4, block: 1, q: 'O Governo ou o Conselho de Ministros é considerado um órgão de soberania autónomo em Angola?', a: 'Não. Diferente do sistema constitucional anterior a 2010, o Governo não é um órgão de soberania. O poder executivo é unipessoal e está concentrado na figura do Presidente da República, que lidera o Executivo, sendo coadjuvado pelo Vice-Presidente, Ministros de Estado, Ministros e Secretários de Estado.' },
+                { id: 5, block: 1, q: 'Como se define a relação entre os órgãos de soberania à luz da Constituição?', a: 'Baseia-se no princípio da separação e interdependência de funções (Artigo 105.º, n.º 3 da CRA). Embora as funções legislativa, executiva e judicial sejam distintas e autónomas, os órgãos devem cooperar harmonicamente para a realização das tarefas do Estado.' },
+                { id: 6, block: 1, q: 'Como é eleito o Presidente da República de Angola?', a: 'Segundo o Artigo 109.º da CRA (sistema atípico ou presidencial-parlamentar), é eleito Presidente da República o cabeça de lista pelo círculo nacional do partido político ou coligação de partidos políticos mais votado no quadro das eleições gerais.' },
+                { id: 7, block: 1, q: 'Quem é o Vice-Presidente da República e como é eleito?', a: 'O Vice-Presidente é o candidato número dois da lista do partido político ou coligação mais votado nas eleições gerais. Ele substitui o Presidente nas suas ausências, impedimentos e em caso de vacatura do cargo.' },
+                { id: 8, block: 1, q: 'Qual é a duração do mandato do Presidente da República e qual o limite de mandatos?', a: 'O mandato do Presidente da República é de 5 anos (Artigo 113.º da CRA). O limite constitucional de reeleição é de apenas uma vez, para um segundo mandato consecutivo ou interpolado.' },
+                { id: 9, block: 1, q: 'Quais são as duas grandes qualidades políticas acumuladas pelo Presidente da República?', a: 'O Presidente da República acumula a qualidade de Chefe de Estado (representando a República internamente e no estrangeiro, e garante da unidade nacional) e Chefe do Executivo (dirigindo a política geral do país e a Administração Pública).' },
+                { id: 10, block: 1, q: 'O que é o Conselho da República e qual a sua natureza jurídica?', a: 'É um órgão colegial consultivo do Presidente da República (Artigo 135.º da CRA). As suas opiniões não são vinculativas, servindo para aconselhar o Chefe de Estado sobre questões de relevância nacional.' },
+                { id: 11, block: 1, q: 'Quem compõe o Conselho da República?', a: 'É integrado pelo Vice-Presidente, Presidente da Assembleia Nacional, Presidente do Tribunal Constitucional, Procurador-Geral da República, antigos Presidentes da República, líderes de partidos com representação parlamentar e cidadãos de destaque nomeados pelo Presidente.' },
+                { id: 12, block: 1, q: 'Como se constitui a Assembleia Nacional e quantos deputados a compõem?', a: 'A Assembleia Nacional é o parlamento unicameral de Angola, composto por 220 Deputados (Artigo 143.º da CRA), eleitos por sufrágio universal, direto, secreto e periódico para um mandato de 5 anos.' },
+                { id: 13, block: 1, q: 'Como funciona a distribuição dos 220 deputados no sistema eleitoral angolano?', a: 'São eleitos através de dois círculos: o Círculo Nacional (que elege 130 deputados pelo método de representação proporcional) e os Círculos Provinciais (onde cada uma das províncias elege obrigatoriamente 5 deputados, totalizando agora 105 deputados nas 21 províncias).' },
+                { id: 14, block: 1, q: 'Quais são as principais funções da Assembleia Nacional?', a: 'A Assembleia Nacional detém a função legislativa primária (fazer e aprovar as leis do país), a função de fiscalização política dos atos do Executivo (dentro dos limites constitucionais) e a função de aprovação de tratados e do Orçamento Geral do Estado (OGE).' },
+                { id: 15, block: 1, q: 'Qual é o papel dos Tribunais na organização do Estado?', a: 'Os Tribunais são os órgãos de soberania com competência para administrar a justiça em nome do povo, aplicar a lei a casos concretos e dirimir conflitos de interesses públicos ou privados (Artigo 174.º da CRA).' },
+                { id: 16, block: 1, q: 'O que significa o princípio da independência dos juízes em Angola?', a: 'Significa que, no exercício das suas funções, os magistrados judiciais são independentes e apenas devem obediência à Constituição e à lei, não estando sujeitos a ordens, diretrizes ou pressões de outros poderes políticos.' },
+                { id: 17, block: 1, q: 'Quais são as quatro jurisdições superiores (Tribunais Superiores) de Angola?', a: 'Tribunal Constitucional (garante da constitucionalidade); Tribunal Supremo (instância de cúpula da jurisdição comum); Tribunal de Contas (fiscalizador das finanças públicas); Tribunal Supremo Militar (justiça militar).' },
+                { id: 18, block: 1, q: 'Qual é a competência exclusiva do Tribunal Constitucional?', a: 'Compete-lhe administrar a justiça em matérias de natureza jurídico-constitucional, fiscalizar a constitucionalidade de leis, tratados e omissões, e decidir em última instância sobre processos eleitorais e legalização de partidos políticos.' },
+                { id: 19, block: 1, q: 'Quem nomeia os Juízes Conselheiros dos Tribunais Superiores?', a: 'São nomeados pelo Presidente da República, sob proposta ou após concurso gerido pelo Conselho Superior da Magistratura Judicial (ou do Ministério Público, consoante o caso), à exceção do Tribunal Constitucional que segue um modelo misto de designação parlamentar, presidencial e judicial.' },
+                { id: 20, block: 1, q: 'O que é a Procuradoria-Geral da República (PGR)?', a: 'É um órgão com funções de representação do Estado, de defesa da legalidade democrática, de promoção da ação penal e de patrocínio dos direitos dos menores e incapazes, gozando de autonomia nos termos da lei.' },
+                { id: 21, block: 1, q: 'Quem chefia a Procuradoria-Geral da República e como é nomeado?', a: 'A PGR é chefiada pelo Procurador-Geral da República, coadjuvado por Vice-Procuradores Gerais. É nomeado pelo Presidente da República para um mandato de 5 anos, sob proposta do Conselho Superior da Magistratura do Ministério Público.' },
+                { id: 22, block: 1, q: 'O que representou a Revisão Constitucional de 2021 (Lei n.º 18/21) na relação Executivo-Parlamento?', a: 'Clarificou e reforçou os mecanismos de fiscalização política da Assembleia Nacional sobre o Executivo, permitindo perguntas escritas e debates de controlo sem pôr em causa a estabilidade governativa de cariz presidencialista.' },
+                { id: 23, block: 1, q: 'O que é o Provedor de Justiça?', a: 'É um órgão público independente que tem por objeto a defesa dos direitos, liberdades e garantias dos cidadãos, assegurando a justiça e a legalidade da Administração Pública através de recomendações (Artigo 192.º da CRA).' },
+                { id: 24, block: 1, q: 'Como é designado o Provedor de Justiça?', a: 'É eleito pela Assembleia Nacional por maioria absoluta dos deputados em efetividade de funções, tomando posse perante o Presidente da Assembleia Nacional.' },
+                { id: 25, block: 1, q: 'Quais são os símbolos nacionais consagrados na Constituição?', a: 'A Bandeira Nacional, a Insígnia Nacional e o Hino Nacional ("Angola Avante").' },
+                { id: 26, block: 1, q: 'Qual é a língua oficial e o estatuto das línguas nacionais na CRA?', a: 'A língua oficial é o Português (Artigo 19.º). O Estado valoriza e promove o estudo, o ensino e a utilização das línguas nacionais como património cultural do povo.' },
+                { id: 27, block: 1, q: 'O que é o Orçamento Geral do Estado (OGE)?', a: 'É o instrumento jurídico e financeiro anual unificado que estima as receitas a arrecadar e fixa os limites de despesas a realizar pelo Estado num exercício económico.' },
+                { id: 28, block: 1, q: 'Quem elabora e quem aprova o OGE em Angola?', a: 'O OGE é elaborado pelo Poder Executivo (sob direção do Presidente da República) e submetido para apreciação e aprovação soberana da Assembleia Nacional.' },
+                { id: 29, block: 1, q: 'O que é a Defesa Nacional e quem é o Comandante-em-Chefe das FAA?', a: 'A Defesa Nacional é a atividade do Estado para garantir a soberania, independência e integridade territorial. O Comandante-em-Chefe das Forças Armadas Angolanas (FAA) é, constitucionalmente, o Presidente da República.' },
+                { id: 30, block: 1, q: 'Como se caracteriza o regime político angolano?', a: 'É uma democracia constitucional baseada no Estado de Direito, pluralismo político, separação de poderes, respeito pelos direitos humanos e alternância democrática por via eleitoral.' },
+                { id: 31, block: 1, q: 'Quais são as funções e competências do Vice-Presidente da República?', a: 'Auxiliar o Presidente no exercício do poder executivo e exercer as competências que lhe forem delegadas pelo Presidente da República, além de assumir a substituição legal deste.' },
+                { id: 32, block: 1, q: 'Qual a relevância do Tribunal de Contas nos concursos públicos e finanças do Estado?', a: 'É o órgão encarregue de fiscalizar a legalidade das finanças públicas, realizando auditorias e emitindo o "visto" prévio ou sucessivo a contratos de despesa do Estado para validar a sua execução financeira.' },
+                { id: 33, block: 1, q: 'O que é o princípio da legalidade administrativa?', a: 'Princípio pelo qual os órgãos e agentes da Administração Pública devem atuar em estrita conformidade com a Constituição e as leis em vigor, sob pena de nulidade dos seus atos.' },
+                { id: 34, block: 1, q: 'Qual a diferença entre a função política e a função administrativa do Estado?', a: 'A função política define as metas, diretrizes globais e opções estratégicas do país (liderada pelo Presidente e Assembleia); a função administrativa executa essas diretrizes no dia a dia, prestando serviços públicos aos cidadãos.' },
+                { id: 35, block: 1, q: 'É permitida a acumulação de cargos de Deputado e Ministro em Angola?', a: 'Não. O exercício de funções executivas (Ministro, Secretário de Estado, etc.) suspende automaticamente o mandato de Deputado à Assembleia Nacional, por incompatibilidade constitucional.' },
+                { id: 36, block: 2, q: 'Qual é a lei que rege a atual Divisão Político-Administrativa de Angola?', a: 'É a Lei n.º 14/24, de 5 de Setembro (Lei da Divisão Político-Administrativa), que revogou a legislação anterior e reestruturou o mapa do país.' },
+                { id: 37, block: 2, q: 'Quando entrou formalmente em vigor a nova Divisão Político-Administrativa em Angola?', a: 'A nova DPA entrou plenamente em vigor a 1 de Janeiro de 2025, de acordo com o cronograma de transição administrativa e financeira do Estado.' },
+                { id: 38, block: 2, q: 'Quantas Províncias, Municípios e Comunas tem Angola atualmente?', a: 'Angola conta oficialmente com: 21 Províncias (anteriormente 18); 326 Municípios (anteriormente 164); 378 Comunas.' },
+                { id: 39, block: 2, q: 'Quais foram as três novas províncias criadas pela Reforma de 2025?', a: 'Ícolo e Bengo (desmembrada de Luanda); Moxico Leste (desmembrada do antigo Moxico); Cuando (resultante do desmembramento do antigo Cuando Cubango).' },
+                { id: 40, block: 2, q: 'Qual a capital de cada uma das três novas províncias angolanas?', a: 'Ícolo e Bengo: capital na histórica vila de Catete; Moxico Leste: capital na vila de Cazombo; Cuando: capital na localidade de Mavinga.' },
+                { id: 41, block: 2, q: 'O que aconteceu à província do "Cuando Cubango" após a reforma de 2025?', a: 'Foi desmembrada em duas províncias: o leste tornou-se a província do Cuando (capital Mavinga) e a porção restante passou a chamar-se apenas província do Cubango (mantendo a capital na cidade de Menongue).' },
+                { id: 42, block: 2, q: 'O que motivou a divisão da província do Moxico em duas?', a: 'Sendo a maior província em extensão territorial do país, a imensidão geográfica isolava as populações do extremo leste (como a zona do Alto Zambeze). A criação do Moxico Leste (capital Cazombo) aproximou o poder administrativo de regiões fronteiriças de difícil acesso.' },
+                { id: 43, block: 2, q: 'Qual é a sede e a nova organização da província de Luanda?', a: 'A Província de Luanda mantém a sua sede na cidade de Luanda (com o município-sede a ter base administrativa na Ingombota). Com o desmembramento do Icolo e Bengo, Luanda viu o seu território reajustado para focar-se na gestão urbana densamente povoada.' },
+                { id: 44, block: 2, q: 'Quais são os principais objetivos geopolíticos e socioeconómicos da nova DPA?', a: 'Diminuir as assimetrias e desigualdades de desenvolvimento regional; Aproximar os órgãos de decisão política e administrativa dos cidadãos; Otimizar a distribuição de recursos via OGE diretamente para as novas sedes municipais; Promover o povoamento e a segurança de regiões fronteiriças vastas.' },
+                { id: 45, block: 2, q: 'Como a nova DPA influenciou o número de deputados nos círculos provinciais?', a: 'Com o aumento de 18 para 21 províncias, criaram-se três novos círculos eleitorais provinciais. Como cada província elege obrigatoriamente 5 deputados, a representação de base territorial direta cresceu na composição futura do Parlamento.' },
+                { id: 46, block: 2, q: 'Como se estruturam os novos 326 municípios introduzidos pela reforma?', a: 'Antigas comunas, distritos urbanos e comunas de grande expressão demográfica e económica foram elevados à categoria de Municípios autónomos, recebendo administração própria e orçamento próprio.' },
+                { id: 47, block: 2, q: 'Qual é a província com a maior extensão territorial em Angola atualmente?', a: 'Mesmo após a sua divisão, a província do Moxico (com capital no Luena) continua a figurar entre as maiores e mais ricas do país em recursos florestais e hídricos, disputando área física com a nova província do Cubango.' },
+                { id: 48, block: 2, q: 'Qual é a província mais populosa do país?', a: 'A Província de Luanda continua a ser o maior polo demográfico e económico de Angola, concentrando mais de um terço da população nacional.' },
+                { id: 49, block: 2, q: 'Indique a capital da Província do Bengo.', a: 'A capital da Província do Bengo é a cidade de Caxito (localizada no município do Dande).' },
+                { id: 50, block: 2, q: 'Indique a capital e a importância histórica da Província do Zaire.', a: 'A capital é a cidade de Mbanza Kongo, classificada como Património Mundial da Humanidade pela UNESCO devido ao seu legado histórico como centro do antigo Reino do Kongo.' },
+                { id: 51, block: 2, q: 'Qual é a capital da Província do Cuanza-Norte?', a: 'A capital é a cidade de Cazengo (anteriormente conhecida amplamente pela designação de Ndalatando).' },
+                { id: 52, block: 2, q: 'Qual é a capital da Província do Cuanza-Sul?', a: 'A capital é a cidade costeira do Sumbe.' },
+                { id: 53, block: 2, q: 'Qual é a capital da Província do Namibe?', a: 'A capital é a cidade de Moçâmedes (cidade portuária e ferroviária no sul de Angola).' },
+                { id: 54, block: 2, q: 'Indique a capital e a localização geográfica da Província do Cunene.', a: 'A capital é a cidade de Ondjiva (município do Cuanhama), fazendo fronteira terrestre direta com a Namíbia no sul do país.' },
+                { id: 55, block: 2, q: 'Qual é a capital da Província da Huíla?', a: 'A capital é a cidade do Lubango, situada no planalto da Huíla.' },
+                { id: 56, block: 2, q: 'Qual é a capital da Província do Bié?', a: 'A capital é a cidade do Cuito, geograficamente situada no centro de Angola.' },
+                { id: 57, block: 2, q: 'Quais são as províncias que compõem a vasta região leste de Angola hoje?', a: 'Lunda-Norte, Lunda-Sul, Moxico e Moxico Leste.' },
+                { id: 58, block: 2, q: 'O que é um "Município-Sede"?', a: 'É a circunscrição municipal onde se localiza o centro administrativo e político-governativo (capital) de uma determinada Província.' },
+                { id: 59, block: 2, q: 'Qual a relevância da Lei n.º 8/25 (Codificação do País) para a nova DPA?', a: 'Aprovou o novo sistema de codificação numérica sequencial do país, províncias, municípios e comunas para uniformizar e modernizar as bases de dados de identificação geográfica, estatística e registo civil de Angola.' },
+                { id: 60, block: 2, q: 'Como o Orçamento Geral do Estado (OGE) lida com as novas províncias?', a: 'As novas províncias (Ícolo e Bengo, Moxico Leste e Cuando) e os novos municípios passaram a dispor de unidades orçamentais autónomas para a gestão direta das suas dotações de funcionamento e investimento público (PIP).' },
+                { id: 61, block: 2, q: 'A província de Cabinda faz fronteira terrestre contínua com o resto de Angola?', a: 'Não. É um enclave geográfico delimitado pela República do Congo (Brazzaville), pela República Democrática do Congo (Kinshasa) e pelo Oceano Atlântico.' },
+                { id: 62, block: 2, q: 'Qual é o papel dos Distritos Urbanos na organização territorial?', a: 'São divisões administrativas criadas em grandes aglomerados urbanos (como Luanda) para facilitar a descentralização de serviços e a gestão de infraestruturas de proximidade, sem estatuto de município autónomo.' },
+                { id: 63, block: 2, q: 'O que são as Comunas na hierarquia da DPA?', a: 'São as subdivisões territoriais de cariz essencialmente administrativo que integram um Município, focadas na articulação direta com as populações rurais e comunidades periféricas.' },
+                { id: 64, block: 2, q: 'Quem define os limites geográficos exatos das províncias angolanas?', a: 'A Assembleia Nacional, por via legislativa sob proposta do Executivo, baseando-se em mapeamento técnico e marcos geográficos (rios, relevo e coordenadas).' },
+                { id: 65, block: 2, q: 'O que é o "Plano de Ação para a Implementação da Nova DPA"?', a: 'Conjunto de medidas do Executivo destinadas a construir infraestruturas (edifícios de governo, residências para quadros), alocar recursos humanos, realizar recrutamentos por concurso público e transferir competências administrativas para que as novas sedes funcionem de forma efetiva.' },
+                { id: 66, block: 3, q: 'O que é a Administração Local do Estado?', a: 'É o conjunto de órgãos e serviços desconcentrados da Administração Pública Central que, a nível provincial, municipal e comunal, asseguram a realização das tarefas do Estado no respetivo território.' },
+                { id: 67, block: 3, q: 'O que rege a organização e funcionamento da Administração Local do Estado?', a: 'É regida pela Lei n.º 15/16, de 12 de Setembro (Lei da Administração Local do Estado), combinada com regulamentos específicos de cada nível de governação.' },
+                { id: 68, block: 3, q: 'Qual a diferença fundamental entre "Desconcentração" e "Descentralização"?', a: 'Desconcentração: Transferência de competências dentro da mesma pessoa coletiva pública (o Estado) de um órgão superior para órgãos subordinados geograficamente (ex: do Ministério para o Governador). Descentralização: Transferência de competências para outras pessoas coletivas públicas autónomas e distintas do Estado (ex: para as Autarquias Locais).' },
+                { id: 69, block: 3, q: 'Qual é o órgão administrativo máximo a nível de cada Província?', a: 'O Governador Provincial, que dirige a equipa de governo e representa o Presidente da República e a Administração Central na respetiva província.' },
+                { id: 70, block: 3, q: 'Como o Governador Provincial assume o cargo e qual o seu regime de demissão?', a: 'É de livre nomeação e exoneração pelo Presidente da República, exercendo funções por confiança política administrativa pública civil.' },
+                { id: 71, block: 3, q: 'O que são as Delegações Provinciais na estrutura local?', a: 'São serviços desconcentrados de ministérios específicos na província (ex: Delegação de Finanças, Educação, Saúde), que respondem tecnicamente ao respetivo Ministério e coordenam-se com o Governo Provincial.' },
+                { id: 72, block: 3, q: 'Quem é o Administrador Municipal e a quem está subordinado?', a: 'É o titular do órgão executivo do Município. É nomeado por despacho e responde diretamente perante o Governador Provincial, executando as políticas públicas no âmbito municipal.' },
+                { id: 73, block: 3, q: 'Qual é a principal competência do Administrador Comunal?', a: 'Dirigir a Comuna e garantir o contacto direto com as populações rurais, mantendo o controlo do registo civil, a segurança, o fomento agrícola de subsistência e reportando ao Administrador Municipal.' },
+                { id: 74, block: 3, q: 'O que é o Conselho Provincial de Auscultação da Comunidade (CPAC)?', a: 'Órgão consultivo do Governador Provincial que reúne representantes locais de partidos, igrejas, autoridades tradicionais, sindicatos e empresários para recolha de contributos sobre o desenvolvimento da província.' },
+                { id: 75, block: 3, q: 'O que é o Conselho Municipal de Auscultação da Comunidade (CMAC)?', a: 'Equivalente municipal do CPAC, presidido pelo Administrador Municipal, para promover a audição e participação ativa dos cidadãos na definição das prioridades de investimento do município.' },
+                { id: 76, block: 3, q: 'Como os órgãos locais da Administração gerem o seu orçamento de investimento?', a: 'Através do Programa de Investimento Público (PIP) integrado e do Programa Integrado de Intervenção nos Municípios (PIIM), que descentraliza verbas para obras locais de saneamento, escolas e postos de saúde.' },
+                { id: 77, block: 3, q: 'O que é o PIIM e qual o seu impacto na Administração Municipal?', a: 'O Programa Integrado de Intervenção nos Municípios (PIIM) é um plano estratégico de investimento que atribuiu autonomia financeira aos municípios para licitarem, contratarem e fiscalizarem projetos de infraestruturas básicas diretamente, agilizando o desenvolvimento local.' },
+                { id: 78, block: 3, q: 'Quais são os Secretários Provinciais?', a: 'São os responsáveis pela direção técnica das Secretarias Provinciais (Educação, Saúde, Infraestruturas, etc.), funcionando como braços executivos diretos do Governador Provincial.' },
+                { id: 79, block: 3, q: 'Os órgãos da Administração Local podem criar impostos locais autónomos?', a: 'Não. A nível local, os órgãos apenas arrecadam taxas, licenças e emolumentos por serviços prestados. A criação de impostos é de reserva legislativa absoluta da Assembleia Nacional.' },
+                { id: 80, block: 3, q: 'Quem fiscaliza a nível local a legalidade das obras públicas?', a: 'Os gabinetes de infraestruturas locais, as delegações de inspeção do Estado e o próprio Tribunal de Contas, através de auditorias de conformidade financeira e legal.' },
+                { id: 81, block: 4, q: 'O que é o Poder Local na ordem jurídica angolana?', a: 'O Poder Local (Título VIII da CRA) é o poder público autónomo exercido pelas comunidades locais para a prossecução dos seus interesses próprios através de órgãos representativos próprios, não se confundindo com a administração direta do Estado.' },
+                { id: 82, block: 4, q: 'Quais são as três categorias de Poder Local reconhecidas pela CRA?', a: 'Autarquias Locais (órgãos descentralizados democraticamente); Instituições do Poder Tradicional (autoridades tradicionais/reis/sobas); Outras formas específicas de participação dos cidadãos.' },
+                { id: 83, block: 4, q: 'O que são as Autarquias Locais à luz da Constituição?', a: 'São pessoas coletivas públicas territoriais correspondentes a agregados de residentes em diversas circunscrições, que visam a prossecução de interesses próprios das populações com órgãos eleitos e autonomia financeira.' },
+                { id: 84, block: 4, q: 'Quais são os dois órgãos principais de uma Autarquia Local?', a: 'Assembleia Autárquica: órgão deliberativo eleito (o parlamento local); Câmara Municipal: órgão executivo colegial liderado pelo Presidente da Câmara.' },
+                { id: 85, block: 4, q: 'Qual é o princípio político debatido sobre a implementação das Autarquias em Angola?', a: 'O princípio do Gradualismo (consagrado no Artigo 242.º da CRA). Há debate político se deve ser geográfico (criar autarquias primeiro em alguns municípios e depois noutros) ou funcional (criar em todos simultaneamente, mas transferir competências de forma gradual).' },
+                { id: 86, block: 4, q: 'O que estabelece a Lei Orgânica sobre a Organização e Funcionamento das Autarquias Locais (Lei n.º 15/17)?', a: 'Define as regras de constituição das autarquias, o estatuto dos seus titulares, os regimes de tutela administrativa e os limites das competências municipais autónomas em articulação com o Estado.' },
+                { id: 87, block: 4, q: 'O que é a Tutela Administrativa sobre as Autarquias Locais?', a: 'É o controlo legal que o Estado Central exerce sobre as decisões das autarquias locais, consistindo na verificação da legalidade dos atos administrativos e financeiros das autoridades locais, sem invadir a sua autonomia de gestão.' },
+                { id: 88, block: 4, q: 'As Autarquias Locais terão independência financeira?', a: 'Sim. Terão autonomia financeira, o que lhes permite arrecadar receitas próprias (impostos locais como o Imposto Predial, taxas, etc.), gerir património próprio e elaborar um orçamento autárquico independente do OGE.' },
+                { id: 89, block: 4, q: 'Quem são as Autoridades Tradicionais na orgânica do poder local?', a: 'São as entidades que encarnam a autoridade tradicional histórica das comunidades e linhagens locais (reis, rainhas, sobas, séculos), cuja legitimidade assenta no costume e na hereditariedade.' },
+                { id: 90, block: 4, q: 'Como a CRA define o papel das Autoridades Tradicionais?', a: 'O Estado reconhece o seu estatuto e papel social na resolução de pequenos litígios comunitários, na preservação da identidade cultural, na gestão de terras comunitárias e na ponte de ligação com as administrações públicas locais (Artigo 223.º da CRA).' },
+                { id: 91, block: 4, q: 'As autoridades tradicionais recebem remuneração do Estado?', a: 'Sim. O Estado atribui um subsídio e apoios institucionais aos sobas e regedores devidamente homologados e registados no Ministério de tutela, integrando-os na lógica de apoio social comunitário.' },
+                { id: 92, block: 4, q: 'É permitida a justiça privada ou aplicação de penas cruéis pelas autoridades tradicionais?', a: 'Não. Embora resolvam conflitos locais com base no costume, as suas decisões não podem violar a Constituição, os direitos humanos, as leis criminais gerais e a dignidade humana.' },
+                { id: 93, block: 4, q: 'Como se articulam as Autarquias Locais e as Autoridades Tradicionais?', a: 'A lei prevê que as autarquias locais devem garantir a participação e consulta regular das autoridades tradicionais locais sobre assuntos de interesse das suas populações tradicionais e rurais.' },
+                { id: 94, block: 4, q: 'Qual é o limite material do poder regulamentar das Autarquias?', a: 'As autarquias apenas podem emitir posturas e regulamentos locais em matérias da sua estrita atribuição (limpeza, mercados, trânsito local) e estes regulamentos não podem contrariar as leis gerais da Assembleia Nacional.' },
+                { id: 95, block: 4, q: 'O que são as Associações de Moradores na dinâmica do Poder Local?', a: 'São formas específicas de participação dos cidadãos a nível de bairros e aldeias, constituídas para colaborar com as administrações na identificação e resolução de problemas básicos locais.' },
+                { id: 96, block: 4, q: 'O que prevê a Lei da Tutela Administrativa sobre as Autarquias?', a: 'Estipula que os atos das autarquias que violem a lei podem ser impugnados pelos representantes do Estado (Governadores/Ministro de tutela) perante os Tribunais competentes para anulação judicial.' },
+                { id: 97, block: 4, q: 'Como funcionará o processo de recenseamento eleitoral para as eleições autárquicas?', a: 'Baseia-se no registo eleitoral oficial do país, delimitando os eleitores de acordo com a sua residência efetiva na circunscrição do município autárquico.' },
+                { id: 98, block: 4, q: 'As empresas privadas locais podem ser parceiras das Administrações e Autarquias?', a: 'Sim, através de parcerias público-privadas locais, contratos de concessão de serviços públicos (ex: recolha de resíduos sólidos) ou parcerias para obras de impacto comunitário.' },
+                { id: 99, block: 4, q: 'O que é o "Gradualismo Territorial"?', a: 'Conceito que defende que as eleições autárquicas devem ocorrer por etapas geográficas, abrangendo primeiro os municípios com melhores condições financeiras e estruturais antes de alargar a todo o país.' },
+                { id: 100, block: 4, q: 'Como a nova DPA (21 províncias) facilita a futura institucionalização das Autarquias?', a: 'Ao dividir províncias vastas e aumentar os municípios de 164 para 326 com orçamentos mais localizados, a reforma DPA descentralizou serviços e infraestruturas essenciais, criando a sustentabilidade física e de pessoal necessária para que os futuros municípios autárquicos operem de forma eficaz.' }
+            ],
+            blocks: [
+                { id: 1, title: 'Organização do Estado e Órgãos de Soberania (CRA)', icon: 'fa-landmark', color: 'bg-blue-500', range: '1-35' },
+                { id: 2, title: 'Divisão Político-Administrativa (Reforma 2025)', icon: 'fa-map-marked-alt', color: 'bg-green-500', range: '36-65' },
+                { id: 3, title: 'Administração Local do Estado', icon: 'fa-building', color: 'bg-purple-500', range: '66-80' },
+                { id: 4, title: 'Poder Local, Autarquias e Autoridades Tradicionais', icon: 'fa-users', color: 'bg-red-500', range: '81-100' }
+            ],
+            badges: [
+                { id: 'first_question', name: 'Primeira Questão', icon: 'fa-star', desc: 'Completou a primeira questão', color: 'bg-blue-500' },
+                { id: 'block_master', name: 'Mestre de Bloco', icon: 'fa-trophy', desc: 'Completou um bloco inteiro', color: 'bg-yellow-500' },
+                { id: 'perfect_score', name: 'Pontuação Perfeita', icon: 'fa-crown', desc: '10 questões seguidas corretas', color: 'bg-purple-500' },
+                { id: 'streak_7', name: 'Consistente', icon: 'fa-calendar-week', desc: '7 dias seguidos de estudo', color: 'bg-green-500' },
+                { id: 'all_blocks', name: 'Concluinte', icon: 'fa-graduation-cap', desc: 'Completou todos os blocos', color: 'bg-red-500' },
+                { id: 'speed_learner', name: 'Rápido', icon: 'fa-bolt', desc: '20 questões em 10 minutos', color: 'bg-orange-500' }
+            ],
+            user: {
+                name: 'Candidato',
+                level: 1,
+                xp: 0,
+                streak: 0,
+                lastStudy: null,
+                badges: [],
+                questionsAnswered: {},
+                sessionHistory: [],
+                createdAt: new Date().toISOString(),
+                nameUpdatedAt: new Date().toISOString()
+            }
+        };
+
+        const app = {
+            currentSection: 'dashboard',
+            currentBlock: null,
+            currentQuestion: 0,
+            quizQuestions: [],
+            studyMode: 'flashcard',
+            timer: null,
+            timeLeft: 600,
+            flashcardIndex: 0,
+            flashcardQuestions: [],
+            showAnswer: true,
+            consecutiveCorrect: 0,
+            quizScore: 0,
+            countdownInterval: null,
+            answerExpanded: false,
+            correctAnswerIndex: -1,
+
+            init() {
+                this.loadData();
+                this.checkDailyStreak();
+                this.renderDashboard();
+                this.renderLearningTopics();
+                this.renderQuestionBlocks();
+                this.renderBadges();
+                this.updateDailyGoals();
+                this.showToast('Bem-vindo ao Prep Organização Política! ', 'success');
+            },
+
+            loadData() {
+                const saved = localStorage.getItem('org_politica_admin_app_data');
+                if (saved) {
+                    const data = JSON.parse(saved);
+                    appData.user = { ...appData.user, ...data.user };
+                }
+            },
+
+            saveData() {
+                localStorage.setItem('org_politica_admin_app_data', JSON.stringify({ user: appData.user }));
+            },
+
+            checkDailyStreak() {
+                const today = new Date().toDateString();
+                const last = appData.user.lastStudy;
+                if (last) {
+                    const lastDate = new Date(last);
+                    const diff = (new Date(today) - new Date(lastDate.toDateString())) / (1000 * 60 * 60 * 24);
+                    if (diff === 1) appData.user.streak++;
+                    else if (diff > 1) appData.user.streak = 1;
+                } else {
+                    appData.user.streak = 1;
+                }
+                appData.user.lastStudy = new Date().toISOString();
+                this.saveData();
+            },
+
+            navigateTo(section) {
+                document.querySelectorAll('section').forEach(s => {
+                    s.classList.remove('active-section');
+                    s.classList.add('hidden-section');
+                });
+                document.getElementById(section).classList.remove('hidden-section');
+                document.getElementById(section).classList.add('active-section');
+                document.querySelectorAll('.nav-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.dataset.target === section) btn.classList.add('active');
+                });
+                this.currentSection = section;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                this.updateUI();
+            },
+
+            renderDashboard() {
+                document.getElementById('totalStreak').textContent = appData.user.streak;
+                document.getElementById('totalPoints').textContent = appData.user.xp;
+                document.getElementById('totalBadges').textContent = appData.user.badges.length;
+                const answered = Object.keys(appData.user.questionsAnswered).length;
+                document.getElementById('questionsProgress').textContent = `${answered}/100`;
+                this.renderRecentActivity();
+            },
+
+            renderLearningTopics() {
+                const container = document.getElementById('learningTopics');
+                container.innerHTML = appData.learning.topics.map(topic => `
+                    <div class="bg-white rounded-2xl p-4 shadow-lg card-hover cursor-pointer" onclick="app.openLearningTopic('${topic.id}')">
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 ${topic.color} rounded-xl flex items-center justify-center text-white text-2xl">
+                                <i class="fas ${topic.icon}"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-bold text-gray-800">${topic.title}</h3>
+                                <p class="text-xs text-gray-500">Conteúdo teórico</p>
+                            </div>
+                            <i class="fas fa-chevron-right text-gray-400"></i>
+                        </div>
+                    </div>
+                `).join('');
+            },
+
+            openLearningTopic(topicId) {
+                const topic = appData.learning.topics.find(t => t.id === topicId);
+                document.getElementById('learningTitle').textContent = topic.title;
+                document.getElementById('learningText').innerHTML = topic.content;
+                this.navigateTo('learningContent');
+            },
+
+            renderQuestionBlocks() {
+                const container = document.getElementById('questionBlocks');
+                container.innerHTML = appData.blocks.map(block => {
+                    const blockQuestions = appData.questions.filter(q => q.block === block.id);
+                    const answered = blockQuestions.filter(q => appData.user.questionsAnswered[q.id]).length;
+                    const percentage = (answered / blockQuestions.length) * 100;
+                    return `
+                        <div class="bg-white rounded-2xl p-4 shadow-lg card-hover cursor-pointer" onclick="app.openBlock(${block.id})">
+                            <div class="flex items-center gap-4">
+                                <div class="w-14 h-14 ${block.color} rounded-xl flex items-center justify-center text-white text-2xl">
+                                    <i class="fas ${block.icon}"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="font-bold text-gray-800">${block.title}</h3>
+                                    <p class="text-xs text-gray-500 mb-2">Questões ${block.range}</p>
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="${block.color.replace('bg-', 'bg-')} h-2 rounded-full transition-all" style="width: ${percentage}%"></div>
+                                    </div>
+                                    <p class="text-xs text-gray-500 mt-1">${answered}/${blockQuestions.length} completas</p>
+                                </div>
+                                <i class="fas fa-chevron-right text-gray-400"></i>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                const totalAnswered = Object.keys(appData.user.questionsAnswered).length;
+                document.getElementById('totalProgress').textContent = `${totalAnswered}/100`;
+                document.getElementById('totalProgressBar').style.width = `${(totalAnswered / 100) * 100}%`;
+            },
+
+            openBlock(blockId) {
+                this.currentBlock = blockId;
+                const blockQuestions = appData.questions.filter(q => q.block === blockId);
+                const shuffledQuestions = [...blockQuestions].sort(() => Math.random() - 0.5);
+                
+                if (this.studyMode === 'flashcard') {
+                    this.flashcardQuestions = shuffledQuestions;
+                    this.flashcardIndex = 0;
+                    this.showFlashcard();
+                    this.navigateTo('flashcardInterface');
+                } else if (this.studyMode === 'quiz' || this.studyMode === 'timer') {
+                    this.quizQuestions = shuffledQuestions;
+                    this.currentQuestion = 0;
+                    this.quizScore = 0;
+                    this.consecutiveCorrect = 0;
+                    this.showAnswer = true;
+                    document.getElementById('answerToggle').classList.add('active');
+                    this.startQuiz();
+                } else if (this.studyMode === 'multiple') {
+                    this.quizQuestions = shuffledQuestions;
+                    this.currentQuestion = 0;
+                    this.quizScore = 0;
+                    this.consecutiveCorrect = 0;
+                    this.startMultipleChoice();
+                }
+            },
+
+            setStudyMode(mode) {
+                this.studyMode = mode;
+                document.querySelectorAll('.study-mode-btn').forEach(btn => {
+                    btn.classList.remove('active', 'bg-gradient-to-r', 'from-orange-400', 'to-orange-600', 'text-white');
+                    btn.classList.add('bg-gray-100', 'text-gray-600');
+                });
+                event.target.closest('button').classList.remove('bg-gray-100', 'text-gray-600');
+                event.target.closest('button').classList.add('active', 'bg-gradient-to-r', 'from-orange-400', 'to-orange-600', 'text-white');
+                const modeNames = { flashcard: 'Flashcards', quiz: 'Quiz', multiple: 'Múltipla Escolha', timer: 'Cronómetro' };
+                this.showToast(`Modo ${modeNames[mode]} ativado!`, 'info');
+            },
+
+            showFlashcard() {
+                if (this.flashcardIndex >= this.flashcardQuestions.length) {
+                    this.completeFlashcardSession();
+                    return;
+                }
+                const q = this.flashcardQuestions[this.flashcardIndex];
+                document.getElementById('flashcardCounter').textContent = `${this.flashcardIndex + 1}/${this.flashcardQuestions.length}`;
+                document.getElementById('flashcardQuestion').textContent = q.q;
+                document.getElementById('flashcardAnswer').textContent = q.a;
+                document.querySelector('.flashcard').classList.remove('flipped');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            },
+
+            markFlashcard(difficulty) {
+                const q = this.flashcardQuestions[this.flashcardIndex];
+                appData.user.questionsAnswered[q.id] = { difficulty: difficulty, date: new Date().toISOString() };
+                this.addXP(5);
+                this.checkBadge('first_question');
+            },
+
+            nextFlashcard() {
+                this.flashcardIndex++;
+                this.showFlashcard();
+            },
+
+            completeFlashcardSession() {
+                appData.user.sessionHistory.push({ date: new Date().toISOString(), mode: 'flashcard', block: this.currentBlock, questions: this.flashcardQuestions.length });
+                this.saveData();
+                confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+                this.showToast('Sessão de flashcards completa! +XP', 'success');
+                this.navigateTo('questions');
+                this.renderQuestionBlocks();
+            },
+
+            startQuiz() {
+                if (this.studyMode === 'timer') {
+                    this.timeLeft = 600;
+                    this.startTimer();
+                }
+                this.showQuizQuestion();
+                this.navigateTo('quizInterface');
+            },
+
+            startTimer() {
+                if (this.timer) clearInterval(this.timer);
+                this.timer = setInterval(() => {
+                    this.timeLeft--;
+                    const pct = (this.timeLeft / 600) * 100;
+                    document.getElementById('quizTimerBar').style.width = `${pct}%`;
+                    if (this.timeLeft <= 0) this.endQuizSession();
+                }, 1000);
+            },
+
+            showQuizQuestion() {
+                if (this.currentQuestion >= this.quizQuestions.length) {
+                    this.endQuizSession();
+                    return;
+                }
+                const q = this.quizQuestions[this.currentQuestion];
+                document.getElementById('quizCounter').textContent = `${this.currentQuestion + 1}/${this.quizQuestions.length}`;
+                document.getElementById('quizScore').textContent = `${this.quizScore} pts`;
+                document.getElementById('quizCategory').textContent = `Bloco ${q.block}`;
+                document.getElementById('quizQuestion').textContent = q.q;
+                document.getElementById('quizAnswer').textContent = q.a;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            },
+
+            toggleAnswerVisibility() {
+                this.showAnswer = !this.showAnswer;
+                const toggle = document.getElementById('answerToggle');
+                const container = document.getElementById('answerContainer');
+                if (this.showAnswer) {
+                    toggle.classList.add('active');
+                    container.style.opacity = '1';
+                    container.style.maxHeight = '500px';
+                } else {
+                    toggle.classList.remove('active');
+                    container.style.opacity = '0.3';
+                    container.style.maxHeight = '0';
+                }
+            },
+
+            markQuizAnswer(result) {
+                const q = this.quizQuestions[this.currentQuestion];
+                appData.user.questionsAnswered[q.id] = { result: result, date: new Date().toISOString() };
+                
+                if (result === 'correct') {
+                    this.quizScore += 10;
+                    this.consecutiveCorrect++;
+                    confetti({ particleCount: 40, spread: 60, origin: { y: 0.7 } });
+                    this.showToast('Correto! +10 XP', 'success');
+                } else {
+                    this.consecutiveCorrect = 0;
+                    const wrongBtn = event.target.closest('button');
+                    wrongBtn.classList.add('wrong-reaction');
+                    document.body.classList.add('wrong-flash');
+                    setTimeout(() => {
+                        wrongBtn.classList.remove('wrong-reaction');
+                        document.body.classList.remove('wrong-flash');
+                    }, 600);
+                    this.showToast('Errado! Continue a estudar', 'error');
+                }
+                this.checkBadge('first_question');
+                if (this.consecutiveCorrect >= 10) this.checkBadge('perfect_score');
+                
+                setTimeout(() => {
+                    this.currentQuestion++;
+                    this.showQuizQuestion();
+                }, 800);
+            },
+
+            startMultipleChoice() {
+                if (this.studyMode === 'timer') {
+                    this.timeLeft = 600;
+                    this.startTimer();
+                }
+                this.showMultipleQuestion();
+                this.navigateTo('multipleInterface');
+            },
+
+            showMultipleQuestion() {
+                if (this.currentQuestion >= this.quizQuestions.length) {
+                    this.endQuizSession();
+                    return;
+                }
+                const q = this.quizQuestions[this.currentQuestion];
+                document.getElementById('multipleCounter').textContent = `${this.currentQuestion + 1}/${this.quizQuestions.length}`;
+                document.getElementById('multipleScore').textContent = `${this.quizScore} pts`;
+                document.getElementById('multipleCategory').textContent = `Bloco ${q.block}`;
+                document.getElementById('multipleQuestion').textContent = q.q;
+                document.getElementById('multipleFeedback').classList.add('hidden');
+                this.answerExpanded = false;
+                
+                const options = this.generateMultipleOptions(q);
+                this.correctAnswerIndex = options.findIndex(opt => opt.correct);
+                
+                const optionsHtml = options.map((opt, idx) => `
+                    <button onclick="app.checkMultipleAnswer(${idx})" 
+                            class="quiz-option w-full p-4 bg-gray-50 border-2 border-gray-200 rounded-xl text-left font-semibold text-sm text-gray-700 leading-relaxed" 
+                            data-index="${idx}">
+                        <span class="option-letter inline-flex items-center justify-center w-9 h-9 rounded-full mr-3 text-sm font-bold flex-shrink-0">${String.fromCharCode(65 + idx)}</span>
+                        <span class="align-middle">${opt.text}</span>
+                    </button>
+                `).join('');
+                
+                document.getElementById('multipleOptions').innerHTML = optionsHtml;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            },
+
+            generateMultipleOptions(correctQuestion) {
+                const sameBlockQuestions = appData.questions.filter(q => q.block === correctQuestion.block && q.id !== correctQuestion.id);
+                const shuffled = [...sameBlockQuestions].sort(() => Math.random() - 0.5);
+                const distractors = shuffled.slice(0, 3).map(q => ({ text: q.a, correct: false }));
+                const correctOption = { text: correctQuestion.a, correct: true };
+                return [...distractors, correctOption].sort(() => Math.random() - 0.5);
+            },
+
+            checkMultipleAnswer(selectedIndex) {
+                const q = this.quizQuestions[this.currentQuestion];
+                const buttons = document.querySelectorAll('#multipleOptions .quiz-option');
+                const isCorrect = selectedIndex === this.correctAnswerIndex;
+                
+                buttons.forEach(btn => btn.disabled = true);
+                
+                if (isCorrect) {
+                    buttons[selectedIndex].classList.add('correct');
+                    this.quizScore += 10;
+                    this.consecutiveCorrect++;
+                    confetti({ particleCount: 40, spread: 60, origin: { y: 0.7 } });
+                    this.showToast('Correto! +10 XP', 'success');
+                    
+                    document.getElementById('feedbackText').textContent = '✅ Correto!';
+                    document.getElementById('feedbackText').className = 'font-semibold mb-2 text-green-600';
+                    document.getElementById('feedbackExplanation').textContent = q.a;
+                    document.getElementById('correctAnswerBox').classList.remove('expanded');
+                    document.getElementById('wrongActionButtons').classList.add('hidden');
+                    document.getElementById('multipleFeedback').classList.remove('hidden');
+                    
+                    appData.user.questionsAnswered[q.id] = { result: 'correct', date: new Date().toISOString() };
+                    
+                    setTimeout(() => {
+                        this.currentQuestion++;
+                        this.showMultipleQuestion();
+                    }, 1500);
+                } else {
+                    buttons[selectedIndex].classList.add('wrong');
+                    buttons[this.correctAnswerIndex].classList.add('correct');
+                    
+                    this.consecutiveCorrect = 0;
+                    this.showToast('Errado! Estude a resposta correta', 'error');
+                    
+                    document.getElementById('feedbackText').textContent = '❌ Errado';
+                    document.getElementById('feedbackText').className = 'font-semibold mb-2 text-red-600';
+                    document.getElementById('feedbackExplanation').textContent = q.a;
+                    document.getElementById('correctAnswerBox').classList.add('expanded');
+                    document.getElementById('wrongActionButtons').classList.remove('hidden');
+                    document.getElementById('multipleFeedback').classList.remove('hidden');
+                    
+                    appData.user.questionsAnswered[q.id] = { result: 'wrong', date: new Date().toISOString() };
+                    
+                    this.startWrongAnswerCountdown();
+                }
+                
+                this.checkBadge('first_question');
+                if (this.consecutiveCorrect >= 10) this.checkBadge('perfect_score');
+            },
+
+            startWrongAnswerCountdown() {
+                let seconds = 60;
+                document.getElementById('countdownTimer').textContent = seconds;
+                if (this.countdownInterval) clearInterval(this.countdownInterval);
+                this.countdownInterval = setInterval(() => {
+                    seconds--;
+                    document.getElementById('countdownTimer').textContent = seconds;
+                    if (seconds <= 0) this.nextMultipleQuestion();
+                }, 1000);
+            },
+
+            nextMultipleQuestion() {
+                if (this.countdownInterval) {
+                    clearInterval(this.countdownInterval);
+                    this.countdownInterval = null;
+                }
+                this.currentQuestion++;
+                this.showMultipleQuestion();
+            },
+
+            toggleAnswerExpand() {
+                this.answerExpanded = !this.answerExpanded;
+                const box = document.getElementById('correctAnswerBox');
+                const btn = document.querySelector('.expand-btn');
+                if (this.answerExpanded) {
+                    box.classList.add('expanded');
+                    btn.classList.add('expanded');
+                } else {
+                    box.classList.remove('expanded');
+                    btn.classList.remove('expanded');
+                }
+            },
+
+            endQuizSession() {
+                if (this.timer) clearInterval(this.timer);
+                if (this.countdownInterval) clearInterval(this.countdownInterval);
+                appData.user.sessionHistory.push({ date: new Date().toISOString(), mode: this.studyMode, block: this.currentBlock, questions: this.quizQuestions.length, score: this.quizScore });
+                this.saveData();
+                confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+                this.showToast(`Sessão completa! ${this.quizScore} pts`, 'success');
+                this.navigateTo('questions');
+                this.renderQuestionBlocks();
+            },
+
+            addXP(amount) {
+                appData.user.xp += amount;
+                const newLevel = Math.floor(appData.user.xp / 500) + 1;
+                if (newLevel > appData.user.level) {
+                    appData.user.level = newLevel;
+                    this.showToast(`Subiu para o nível ${newLevel}!`, 'success');
+                    confetti({ particleCount: 150, spread: 100 });
+                }
+                this.saveData();
+                this.updateUI();
+            },
+
+            checkBadge(badgeId) {
+                if (!appData.user.badges.includes(badgeId)) {
+                    appData.user.badges.push(badgeId);
+                    this.saveData();
+                    this.renderBadges();
+                    this.showToast(`Nova medalha desbloqueada!`, 'success');
+                    confetti({ particleCount: 100, spread: 70 });
+                }
+            },
+
+            renderBadges() {
+                const container = document.getElementById('badgesGrid');
+                container.innerHTML = appData.badges.map(badge => {
+                    const earned = appData.user.badges.includes(badge.id);
+                    return `
+                        <div class="badge ${earned ? '' : 'locked'} flex flex-col items-center cursor-pointer" onclick="app.showBadgeInfo('${badge.id}')">
+                            <div class="w-12 h-12 ${badge.color} rounded-full flex items-center justify-center text-white text-xl mb-1 shadow-lg">
+                                <i class="fas ${badge.icon}"></i>
+                            </div>
+                            <span class="text-[10px] text-center font-semibold ${earned ? 'text-gray-800' : 'text-gray-400'}">${badge.name}</span>
+                        </div>
+                    `;
+                }).join('');
+            },
+
+            showBadgeInfo(badgeId) {
+                const badge = appData.badges.find(b => b.id === badgeId);
+                const earned = appData.user.badges.includes(badgeId);
+                this.showToast(`${badge.name}: ${badge.desc}`, earned ? 'success' : 'info');
+            },
+
+            editName() {
+                const nameDisplay = document.getElementById('profileName');
+                const nameInput = document.getElementById('nameInput');
+                nameDisplay.classList.add('hidden');
+                nameInput.classList.remove('hidden');
+                nameInput.value = appData.user.name;
+                nameInput.focus();
+                nameInput.select();
+                nameDisplay.classList.add('editing');
+            },
+
+            saveName() {
+                const nameDisplay = document.getElementById('profileName');
+                const nameInput = document.getElementById('nameInput');
+                const newName = nameInput.value.trim();
+                if (newName && newName !== appData.user.name) {
+                    appData.user.name = newName;
+                    appData.user.nameUpdatedAt = new Date().toISOString();
+                    this.saveData();
+                    this.updateUI();
+                    this.showToast('Nome atualizado com sucesso!', 'success');
+                }
+                nameDisplay.classList.remove('hidden');
+                nameInput.classList.add('hidden');
+                nameDisplay.classList.remove('editing');
+            },
+
+            updateUI() {
+                document.getElementById('userName').textContent = appData.user.name;
+                document.getElementById('userLevel').textContent = `Nível ${appData.user.level}`;
+                document.getElementById('profileInitial').textContent = appData.user.name.charAt(0).toUpperCase();
+                document.getElementById('profileName').innerHTML = `${appData.user.name}<i class="fas fa-pen text-xs text-gray-400 ml-2"></i>`;
+                const memberSince = new Date(appData.user.nameUpdatedAt || appData.user.createdAt);
+                document.getElementById('memberSince').textContent = memberSince.toLocaleDateString('pt-PT');
+                const correct = Object.values(appData.user.questionsAnswered).filter(a => a.result === 'correct').length;
+                const wrong = Object.values(appData.user.questionsAnswered).filter(a => a.result === 'wrong').length;
+                const total = correct + wrong;
+                const percentage = total > 0 ? Math.round((correct / total) * 100) : 0;
+                document.getElementById('profileCorrect').textContent = correct;
+                document.getElementById('profileWrong').textContent = wrong;
+                document.getElementById('profileTotal').textContent = `${percentage}%`;
+                this.renderBadges();
+                this.renderSessionHistory();
+            },
+
+            renderSessionHistory() {
+                const container = document.getElementById('sessionHistory');
+                if (appData.user.sessionHistory.length === 0) {
+                    container.innerHTML = '<p class="text-center text-gray-400 py-4">Sem sessões realizadas</p>';
+                    return;
+                }
+                container.innerHTML = appData.user.sessionHistory.slice(-10).reverse().map(session => {
+                    const block = appData.blocks.find(b => b.id === session.block);
+                    return `
+                        <div class="p-3 bg-gray-50 rounded-xl flex justify-between items-center">
+                            <div>
+                                <div class="font-semibold text-sm">${block ? block.title : 'Bloco ' + session.block}</div>
+                                <div class="text-xs text-gray-500">${new Date(session.date).toLocaleDateString('pt-PT')} • ${session.questions} questões</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-xs text-gray-500 capitalize">${session.mode}</div>
+                                ${session.score ? `<div class="text-xs font-bold text-blue-600">${session.score} pts</div>` : ''}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            },
+
+            renderRecentActivity() {
+                const container = document.getElementById('recentActivity');
+                const activities = appData.user.sessionHistory.slice(-5).reverse();
+                if (activities.length === 0) {
+                    container.innerHTML = '<p class="text-center py-4 text-gray-400">Sem atividade recente</p>';
+                    return;
+                }
+                container.innerHTML = activities.map(a => {
+                    const block = appData.blocks.find(b => b.id === a.block);
+                    return `
+                        <div class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50">
+                            <i class="fas fa-question-circle text-blue-500"></i>
+                            <div class="flex-1">
+                                <div class="text-sm font-medium text-gray-800">${block ? block.title : 'Bloco ' + a.block}</div>
+                                <div class="text-xs text-gray-500">${new Date(a.date).toLocaleDateString('pt-PT')} • ${a.questions} questões</div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            },
+
+            updateDailyGoals() {
+                const goals = [
+                    { text: 'Estudar 10 questões', done: Object.keys(appData.user.questionsAnswered).length >= 10, icon: 'fa-question-circle' },
+                    { text: 'Completar um bloco', done: appData.blocks.some(b => { const blockQuestions = appData.questions.filter(q => q.block === b.id); const answered = blockQuestions.filter(q => appData.user.questionsAnswered[q.id]).length; return answered === blockQuestions.length; }), icon: 'fa-check-circle' },
+                    { text: 'Ganhar 50 XP', done: appData.user.xp >= 50, icon: 'fa-star' }
+                ];
+                const container = document.getElementById('dailyGoals');
+                container.innerHTML = goals.map(g => `
+                    <div class="flex items-center gap-3 p-3 rounded-xl ${g.done ? 'bg-green-50' : 'bg-gray-50'}">
+                        <i class="fas ${g.icon} ${g.done ? 'text-green-600' : 'text-gray-400'}"></i>
+                        <span class="flex-1 text-sm ${g.done ? 'text-green-800 line-through' : 'text-gray-700'}">${g.text}</span>
+                        ${g.done ? '<i class="fas fa-check text-green-600"></i>' : '<div class="w-5 h-5 rounded-full border-2 border-gray-300"></div>'}
+                    </div>
+                `).join('');
+            },
+
+            exportData() {
+                const dataStr = JSON.stringify({ user: appData.user, exportDate: new Date().toISOString() }, null, 2);
+                const blob = new Blob([dataStr], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `org_politica_admin_progress_${new Date().toISOString().split('T')[0]}.json`;
+                a.click();
+                this.showToast('Dados exportados com sucesso!', 'success');
+            },
+
+            importData(input) {
+                const file = input.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    try {
+                        const data = JSON.parse(e.target.result);
+                        if (confirm('Isto vai substituir o seu progresso atual. Continuar?')) {
+                            appData.user = { ...appData.user, ...data.user };
+                            this.saveData();
+                            this.init();
+                            this.showToast('Dados importados com sucesso!', 'success');
+                        }
+                    } catch (err) {
+                        this.showToast('Erro ao importar ficheiro!', 'error');
+                    }
+                };
+                reader.readAsText(file);
+            },
+
+            resetProgress() {
+                if (confirm('Tem a certeza? Todo o progresso será perdido!')) {
+                    localStorage.removeItem('org_politica_admin_app_data');
+                    location.reload();
+                }
+            },
+
+            showToast(message, type = 'info') {
+                const colors = { success: 'bg-green-500', error: 'bg-red-500', info: 'bg-blue-500', warning: 'bg-yellow-500' };
+                const icons = { success: 'fa-check-circle', error: 'fa-exclamation-circle', info: 'fa-info-circle', warning: 'fa-exclamation-triangle' };
+                const toast = document.createElement('div');
+                toast.className = `toast ${colors[type]} text-white px-6 py-3 rounded-xl shadow-lg flex items-center gap-3 mb-2 pointer-events-auto`;
+                toast.innerHTML = `<i class="fas ${icons[type]}"></i><span class="font-semibold">${message}</span>`;
+                document.getElementById('toastContainer').appendChild(toast);
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    toast.style.transform = 'translateY(100px)';
+                    setTimeout(() => toast.remove(), 300);
+                }, 3000);
+            },
+
+            showProfile() {
+                this.navigateTo('profile');
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => { app.init(); });
+    </script>
+</body>
+</html>
